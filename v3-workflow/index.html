@@ -262,6 +262,53 @@
       font-size: 18px;
     }
     
+    /* Visual Demo */
+    .visual-demo {
+      margin-bottom: 80px;
+    }
+    
+    .demo-container {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+    }
+    
+    .demo-header {
+      padding: 16px 20px;
+      background: var(--surface-2);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .demo-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    
+    .demo-dot.red { background: #ff5f56; }
+    .demo-dot.yellow { background: #ffbd2e; }
+    .demo-dot.green { background: #28c840; }
+    
+    .demo-body {
+      padding: 40px;
+      min-height: 320px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #fafafa 0%, #f0f0f5 100%);
+    }
+    
+    .demo-svg {
+      width: 100%;
+      max-width: 640px;
+      height: auto;
+    }
+    
     /* Terminal Section */
     .terminal-section {
       margin-bottom: 80px;
@@ -487,43 +534,6 @@
       line-height: 1.7;
     }
     
-    /* Image Gallery */
-    .gallery-section {
-      margin-bottom: 80px;
-    }
-    
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-    }
-    
-    .gallery-item {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      overflow: hidden;
-      transition: all 0.3s;
-    }
-    
-    .gallery-item:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-    }
-    
-    .gallery-item img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      display: block;
-    }
-    
-    .gallery-caption {
-      padding: 16px;
-      font-size: 12px;
-      color: var(--text-secondary);
-    }
-    
     /* Footer */
     .footer {
       margin-top: 80px;
@@ -585,10 +595,6 @@
       
       .sandbox-cell:last-child {
         border-bottom: none;
-      }
-      
-      .gallery-grid {
-        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -657,6 +663,66 @@
           <div class="flow-step-key">Esc</div>
           <div class="flow-step-action">Dismiss</div>
           <div class="flow-step-detail">Blur → hide</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Visual Demo - Command Pipeline -->
+    <section class="visual-demo">
+      <div class="section-label">Command Pipeline Visualization</div>
+      <div class="demo-container">
+        <div class="demo-header">
+          <div class="demo-dot red"></div>
+          <div class="demo-dot yellow"></div>
+          <div class="demo-dot green"></div>
+          <span style="margin-left: 12px; font-size: 12px; color: var(--text-secondary);">workflow-diagram.svg</span>
+        </div>
+        <div class="demo-body">
+          <svg class="demo-svg" viewBox="0 0 640 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Background grid -->
+            <defs>
+              <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#e8e8ed" stroke-width="0.5"/>
+              </pattern>
+            </defs>
+            <rect width="640" height="280" fill="url(#grid)" opacity="0.5"/>
+            
+            <!-- Flow lines -->
+            <path d="M 80 140 L 140 140" stroke="#0071e3" stroke-width="2" stroke-dasharray="4 4"/>
+            <path d="M 200 140 L 260 140" stroke="#0071e3" stroke-width="2" stroke-dasharray="4 4"/>
+            <path d="M 320 140 L 380 140" stroke="#0071e3" stroke-width="2" stroke-dasharray="4 4"/>
+            <path d="M 440 140 L 500 140" stroke="#0071e3" stroke-width="2" stroke-dasharray="4 4"/>
+            
+            <!-- Nodes -->
+            <circle cx="80" cy="140" r="28" fill="white" stroke="#0071e3" stroke-width="2"/>
+            <text x="80" y="145" text-anchor="middle" font-family="JetBrains Mono" font-size="12" fill="#0071e3" font-weight="600">⌨</text>
+            
+            <circle cx="200" cy="140" r="28" fill="white" stroke="#0071e3" stroke-width="2"/>
+            <text x="200" y="145" text-anchor="middle" font-family="JetBrains Mono" font-size="12" fill="#0071e3" font-weight="600">🔍</text>
+            
+            <circle cx="320" cy="140" r="28" fill="white" stroke="#0071e3" stroke-width="2"/>
+            <text x="320" y="145" text-anchor="middle" font-family="JetBrains Mono" font-size="12" fill="#0071e3" font-weight="600">↕</text>
+            
+            <circle cx="440" cy="140" r="28" fill="white" stroke="#0071e3" stroke-width="2"/>
+            <text x="440" y="145" text-anchor="middle" font-family="JetBrains Mono" font-size="12" fill="#0071e3" font-weight="600">⏎</text>
+            
+            <circle cx="560" cy="140" r="28" fill="white" stroke="#0071e3" stroke-width="2"/>
+            <text x="560" y="145" text-anchor="middle" font-family="JetBrains Mono" font-size="12" fill="#0071e3" font-weight="600">✕</text>
+            
+            <!-- Labels -->
+            <text x="80" y="185" text-anchor="middle" font-family="Inter" font-size="11" fill="#6e6e73">Input</text>
+            <text x="200" y="185" text-anchor="middle" font-family="Inter" font-size="11" fill="#6e6e73">Match</text>
+            <text x="320" y="185" text-anchor="middle" font-family="Inter" font-size="11" fill="#6e6e73">Select</text>
+            <text x="440" y="185" text-anchor="middle" font-family="Inter" font-size="11" fill="#6e6e73">Execute</text>
+            <text x="560" y="185" text-anchor="middle" font-family="Inter" font-size="11" fill="#6e6e73">Dismiss</text>
+            
+            <!-- Time annotations -->
+            <text x="80" y="100" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#aeaeb2">0ms</text>
+            <text x="200" y="100" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#aeaeb2">~0.3ms</text>
+            <text x="320" y="100" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#aeaeb2">~0ms</text>
+            <text x="440" y="100" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#aeaeb2">~2ms</text>
+            <text x="560" y="100" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#aeaeb2">~0ms</text>
+          </svg>
         </div>
       </div>
     </section>
@@ -779,17 +845,6 @@
   </main>
 
   <script>
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          e.preventDefault();
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      });
-    });
-
     // Intersection Observer for fade-in animations
     const observerOptions = {
       threshold: 0.1,
