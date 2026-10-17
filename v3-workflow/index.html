@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rasso · 工作流 | 全键盘生产力</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #fafafa;
+      --surface: #ffffff;
+      --border: #e5e5e5;
+      --text: #171717;
+      --text-dim: #737373;
+      --code-bg: #f5f5f5;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    
+    /* 导航 */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 44px;
+      background: rgba(250,250,250,0.9);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 32px;
+      z-index: 100;
+    }
+    .nav-logo { font-weight: 600; font-size: 13px; }
+    .nav-links { display: flex; gap: 24px; margin-left: 48px; }
+    .nav-links a { color: var(--text-dim); font-size: 12px; transition: color 0.15s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      margin-left: auto;
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+    .nav-cta:hover { color: var(--text); }
+    
+    main { padding-top: 44px; max-width: 880px; margin: 0 auto; padding-left: 32px; padding-right: 32px; padding-bottom: 80px; }
+    
+    /* Hero */
+    .hero { padding: 72px 0 56px; }
+    .hero-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-dim);
+      margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-size: 40px;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .hero p {
+      font-size: 15px;
+      color: var(--text-dim);
+      max-width: 480px;
+      line-height: 1.6;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-dim);
+      font-size: 12px;
+      margin-bottom: 24px;
+      transition: color 0.15s;
+    }
+    .back-link:hover { color: var(--text); }
+    
+    /* 工作流链条 */
+    .flow-section { margin: 40px 0; }
+    .section-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-dim);
+      margin-bottom: 20px;
+    }
+    .flow-chain {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      overflow-x: auto;
+      padding: 20px 0;
+    }
+    .flow-step {
+      flex-shrink: 0;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 14px 18px;
+      min-width: 120px;
+    }
+    .flow-step-key {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--text-dim);
+      margin-bottom: 4px;
+    }
+    .flow-step-action { font-size: 12px; font-weight: 500; }
+    .flow-step-detail { font-size: 9px; color: var(--text-dim); margin-top: 3px; }
+    .flow-arrow { color: var(--text-dim); font-size: 14px; flex-shrink: 0; }
+    
+    /* 终端 */
+    .terminal {
+      background: #171717;
+      border-radius: 8px;
+      overflow: hidden;
+      margin: 28px 0;
+    }
+    .terminal-header {
+      height: 28px;
+      background: #262626;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      gap: 5px;
+    }
+    .terminal-dot { width: 8px; height: 8px; border-radius: 50%; background: #404040; }
+    .terminal-body {
+      padding: 14px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      line-height: 1.8;
+      color: #e5e5e5;
+    }
+    .terminal-line { display: flex; gap: 6px; }
+    .terminal-prompt { color: #00ff41; }
+    .terminal-cmd { color: #e5e5e5; }
+    .terminal-result { color: #737373; margin-left: 12px; }
+    .terminal-cursor {
+      display: inline-block;
+      width: 5px; height: 12px;
+      background: #00ff41;
+      animation: blink 1s infinite;
+      vertical-align: middle;
+    }
+    @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
+    
+    /* 快捷键表格 */
+    .shortcut-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+    }
+    .shortcut-table th, .shortcut-table td {
+      padding: 10px 14px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    .shortcut-table th {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-dim);
+      font-weight: 500;
+    }
+    .shortcut-table td:first-child {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      background: var(--code-bg);
+      border-radius: 3px;
+      padding: 5px 8px;
+      width: 140px;
+    }
+    .shortcut-table td:last-child { color: var(--text-dim); font-size: 11px; }
+    
+    /* 沙箱架构 */
+    .sandbox-arch {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      margin: 28px 0;
+    }
+    .sandbox-title { font-size: 12px; font-weight: 600; margin-bottom: 14px; }
+    .sandbox-diagram { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .sandbox-cell {
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      text-align: center;
+    }
+    .sandbox-cell.highlight { background: rgba(0,120,212,0.05); border-color: rgba(0,120,212,0.2); }
+    .sandbox-cell-title {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+    }
+    .sandbox-cell-code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: var(--text-dim);
+      line-height: 1.7;
+    }
+    
+    /* 底部 */
+    .footer { margin-top: 60px; padding-top: 28px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; font-size: 11px; color: var(--text-dim); }
+    
+    @media (max-width: 768px) {
+      .sandbox-diagram { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <span class="nav-logo">Rasso</span>
+    <div class="nav-links">
+      <a href="../index.html">Overview</a>
+      <a href="https://github.com/hanhanpig3/rasso">GitHub</a>
+    </div>
+    <a href="https://github.com/hanhanpig3/rasso/releases" class="nav-cta" target="_blank">下载 →</a>
+  </nav>
+
+  <main>
+    <a href="../index.html" class="back-link">← 返回概览</a>
+    
+    <section class="hero">
+      <div class="hero-label">Keyboard-First Workflow</div>
+      <h1>Zero mouse.<br>Pure intent.</h1>
+      <p>Every action in Rasso is designed to be executed without leaving the home row. The entire product lifecycle — from invocation to result — happens within a single keystroke chain.</p>
+    </section>
+
+    <section class="flow-section">
+      <div class="section-label">Typical Command Flow</div>
+      <div class="flow-chain">
+        <div class="flow-step">
+          <div class="flow-step-key">Alt+Space</div>
+          <div class="flow-step-action">Launch</div>
+          <div class="flow-step-detail">42ms cold start</div>
+        </div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">
+          <div class="flow-step-key">Type</div>
+          <div class="flow-step-action">Query</div>
+          <div class="flow-step-detail">Pinyin + fuzzy</div>
+        </div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">
+          <div class="flow-step-key">↑↓</div>
+          <div class="flow-step-action">Select</div>
+          <div class="flow-step-detail">Keyboard nav</div>
+        </div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">
+          <div class="flow-step-key">Enter</div>
+          <div class="flow-step-action">Execute</div>
+          <div class="flow-step-detail">Result + copy</div>
+        </div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">
+          <div class="flow-step-key">Esc</div>
+          <div class="flow-step-action">Dismiss</div>
+          <div class="flow-step-detail">Blur → hide</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="flow-section">
+      <div class="section-label">Live Command Terminal</div>
+      <div class="terminal">
+        <div class="terminal-header">
+          <div class="terminal-dot"></div>
+          <div class="terminal-dot"></div>
+          <div class="terminal-dot"></div>
+        </div>
+        <div class="terminal-body">
+          <div class="terminal-line">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-cmd">1024 * 768</span>
+          </div>
+          <div class="terminal-line"><span class="terminal-result">→ 786432 [copied]</span></div>
+          <div class="terminal-line" style="margin-top:6px;">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-cmd">当前时间</span>
+          </div>
+          <div class="terminal-line"><span class="terminal-result">→ 1700000000000 [copied]</span></div>
+          <div class="terminal-line" style="margin-top:6px;">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-cmd">小驼峰 用户名</span>
+          </div>
+          <div class="terminal-line"><span class="terminal-result">→ userName / UserName / user_name / user-name</span></div>
+          <div class="terminal-line" style="margin-top:6px;">
+            <span class="terminal-prompt">$</span>
+            <span class="terminal-cursor"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="flow-section">
+      <div class="section-label">Shortcut Reference</div>
+      <table class="shortcut-table">
+        <thead><tr><th>Key Combo</th><th>Function</th><th>Context</th></tr></thead>
+        <tbody>
+          <tr><td>Alt + Space</td><td>Toggle launcher</td><td>Global</td></tr>
+          <tr><td>Ctrl + Shift + A</td><td>Full screenshot</td><td>Global</td></tr>
+          <tr><td>Ctrl + Shift + P</td><td>Pin to desktop</td><td>Global</td></tr>
+          <tr><td>Ctrl + Shift + M</td><td>Plugin market</td><td>When active</td></tr>
+          <tr><td>Ctrl + T</td><td>Theme cycle</td><td>When active</td></tr>
+          <tr><td>Esc</td><td>Layered exit</td><td>When active</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="flow-section">
+      <div class="section-label">Plugin Sandbox Architecture</div>
+      <div class="sandbox-arch">
+        <div class="sandbox-diagram">
+          <div class="sandbox-cell highlight">
+            <div class="sandbox-cell-title">Main Process</div>
+            <div class="sandbox-cell-code">plugin-manager.ts<br>plugin-view-manager.ts<br>command-registry.ts</div>
+          </div>
+          <div class="sandbox-cell">
+            <div class="sandbox-cell-title">IPC Bridge</div>
+            <div class="sandbox-cell-code">contextBridge<br>channel: 'plugin-api'<br>methods: ['exec','get']</div>
+          </div>
+          <div class="sandbox-cell">
+            <div class="sandbox-cell-title">Renderer / Plugin</div>
+            <div class="sandbox-cell-code">WebContentsView<br>window.rubick API<br>sandbox: true</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>Rasso v0.1.0</span>
+    <span>Electron 30 · React 18 · TypeScript 5</span>
+  </footer>
+</body>
+</html>
