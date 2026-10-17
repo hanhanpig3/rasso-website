@@ -21,8 +21,6 @@
       --code-bg: #f5f5f7;
       --tag-bg: rgba(0, 113, 227, 0.08);
       --tag-text: #0071e3;
-      --success: #34c759;
-      --warning: #ff9f0a;
     }
     
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -71,26 +69,16 @@
       gap: 8px;
     }
     
-    .nav-brand svg {
-      width: 20px;
-      height: 20px;
-    }
+    .nav-brand svg { width: 20px; height: 20px; }
     
-    .nav-links {
-      display: flex;
-      gap: 28px;
-    }
-    
+    .nav-links { display: flex; gap: 28px; }
     .nav-links a {
       color: var(--text-secondary);
       font-size: 12px;
       font-weight: 500;
       transition: color 0.2s;
     }
-    
-    .nav-links a:hover {
-      color: var(--text);
-    }
+    .nav-links a:hover { color: var(--text); }
     
     .nav-cta {
       margin-left: auto;
@@ -102,11 +90,7 @@
       font-weight: 500;
       transition: all 0.2s;
     }
-    
-    .nav-cta:hover {
-      background: #0077ed;
-      transform: scale(1.02);
-    }
+    .nav-cta:hover { background: #0077ed; transform: scale(1.02); }
     
     /* Main Content */
     main {
@@ -131,11 +115,7 @@
       padding: 6px 0;
       border-bottom: 1px solid transparent;
     }
-    
-    .back-link:hover {
-      color: var(--accent);
-      border-bottom-color: var(--accent);
-    }
+    .back-link:hover { color: var(--accent); border-bottom-color: var(--accent); }
     
     /* Hero Section */
     .hero {
@@ -194,9 +174,7 @@
     }
     
     /* Flow Chain */
-    .flow-section {
-      margin-bottom: 80px;
-    }
+    .flow-section { margin-bottom: 80px; }
     
     .flow-chain {
       display: flex;
@@ -216,7 +194,6 @@
       padding: 24px 20px;
       text-align: center;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
     }
     
     .flow-step:hover {
@@ -240,17 +217,8 @@
       margin-bottom: 12px;
     }
     
-    .flow-step-action {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--text);
-      margin-bottom: 4px;
-    }
-    
-    .flow-step-detail {
-      font-size: 11px;
-      color: var(--text-secondary);
-    }
+    .flow-step-action { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+    .flow-step-detail { font-size: 11px; color: var(--text-secondary); }
     
     .flow-arrow {
       display: flex;
@@ -262,8 +230,8 @@
       font-size: 18px;
     }
     
-    /* Visual Demo */
-    .visual-demo {
+    /* Animation Demo Section */
+    .demo-section {
       margin-bottom: 80px;
     }
     
@@ -284,132 +252,44 @@
       gap: 8px;
     }
     
-    .demo-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-    }
-    
+    .demo-dot { width: 10px; height: 10px; border-radius: 50%; }
     .demo-dot.red { background: #ff5f56; }
     .demo-dot.yellow { background: #ffbd2e; }
     .demo-dot.green { background: #28c840; }
     
+    .demo-title {
+      margin-left: 12px;
+      font-size: 12px;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+    
     .demo-body {
       padding: 40px;
-      min-height: 320px;
       display: flex;
       align-items: center;
       justify-content: center;
       background: linear-gradient(135deg, #fafafa 0%, #f0f0f5 100%);
+      min-height: 400px;
     }
     
-    .demo-svg {
+    .demo-embed {
       width: 100%;
-      max-width: 640px;
-      height: auto;
-    }
-    
-    /* Terminal Section */
-    .terminal-section {
-      margin-bottom: 80px;
-    }
-    
-    .terminal {
-      background: #1d1d1f;
-      border-radius: 16px;
+      max-width: 800px;
+      aspect-ratio: 16/9;
+      border-radius: 12px;
       overflow: hidden;
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
     }
     
-    .terminal-header {
-      height: 36px;
-      background: #2d2d2d;
-      display: flex;
-      align-items: center;
-      padding: 0 16px;
-      gap: 8px;
-    }
-    
-    .terminal-dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: #ff5f56;
-    }
-    
-    .terminal-dot:nth-child(2) { background: #ffbd2e; }
-    .terminal-dot:nth-child(3) { background: #28c840; }
-    
-    .terminal-title {
-      flex: 1;
-      text-align: center;
-      font-size: 11px;
-      color: var(--text-tertiary);
-      font-weight: 500;
-    }
-    
-    .terminal-body {
-      padding: 24px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 13px;
-      line-height: 1.8;
-      color: #f5f5f7;
-      min-height: 240px;
-    }
-    
-    .terminal-line {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 8px;
-      opacity: 0;
-      animation: fadeIn 0.3s forwards;
-    }
-    
-    .terminal-line:nth-child(1) { animation-delay: 0.1s; }
-    .terminal-line:nth-child(2) { animation-delay: 0.3s; }
-    .terminal-line:nth-child(3) { animation-delay: 0.5s; }
-    .terminal-line:nth-child(4) { animation-delay: 0.7s; }
-    .terminal-line:nth-child(5) { animation-delay: 0.9s; }
-    .terminal-line:nth-child(6) { animation-delay: 1.1s; }
-    .terminal-line:nth-child(7) { animation-delay: 1.3s; }
-    
-    @keyframes fadeIn {
-      to { opacity: 1; }
-    }
-    
-    .terminal-prompt {
-      color: var(--success);
-      flex-shrink: 0;
-    }
-    
-    .terminal-cmd {
-      color: #f5f5f7;
-    }
-    
-    .terminal-result {
-      color: var(--text-tertiary);
-      margin-left: 24px;
-    }
-    
-    .terminal-cursor {
-      display: inline-block;
-      width: 8px;
-      height: 16px;
-      background: var(--accent);
-      animation: blink 1s infinite;
-      vertical-align: middle;
-      margin-left: 4px;
-    }
-    
-    @keyframes blink {
-      0%, 50% { opacity: 1; }
-      51%, 100% { opacity: 0; }
+    .demo-embed iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
     }
     
     /* Shortcut Table */
-    .table-section {
-      margin-bottom: 80px;
-    }
+    .table-section { margin-bottom: 80px; }
     
     .shortcut-table {
       width: 100%;
@@ -449,23 +329,12 @@
       font-size: 13px;
     }
     
-    .shortcut-table tr:last-child td {
-      border-bottom: none;
-    }
-    
-    .shortcut-table tr:hover td {
-      background: var(--surface-2);
-    }
-    
-    .shortcut-table tr:hover td:first-child {
-      background: var(--tag-bg);
-      color: var(--accent);
-    }
+    .shortcut-table tr:last-child td { border-bottom: none; }
+    .shortcut-table tr:hover td { background: var(--surface-2); }
+    .shortcut-table tr:hover td:first-child { background: var(--tag-bg); color: var(--accent); }
     
     /* Sandbox Architecture */
-    .sandbox-section {
-      margin-bottom: 80px;
-    }
+    .sandbox-section { margin-bottom: 80px; }
     
     .sandbox-visual {
       background: var(--surface);
@@ -474,10 +343,7 @@
       overflow: hidden;
     }
     
-    .sandbox-diagram {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-    }
+    .sandbox-diagram { display: grid; grid-template-columns: repeat(3, 1fr); }
     
     .sandbox-cell {
       padding: 32px 24px;
@@ -486,13 +352,8 @@
       transition: all 0.3s;
     }
     
-    .sandbox-cell:last-child {
-      border-right: none;
-    }
-    
-    .sandbox-cell:hover {
-      background: var(--surface-2);
-    }
+    .sandbox-cell:last-child { border-right: none; }
+    .sandbox-cell:hover { background: var(--surface-2); }
     
     .sandbox-cell.highlight {
       background: linear-gradient(180deg, rgba(0, 113, 227, 0.04) 0%, rgba(0, 113, 227, 0.08) 100%);
@@ -546,56 +407,20 @@
       color: var(--text-tertiary);
     }
     
-    .footer a {
-      color: var(--text-secondary);
-      transition: color 0.2s;
-    }
-    
-    .footer a:hover {
-      color: var(--accent);
-    }
+    .footer a { color: var(--text-secondary); transition: color 0.2s; }
+    .footer a:hover { color: var(--accent); }
     
     /* Responsive */
     @media (max-width: 768px) {
-      main {
-        padding-left: 24px;
-        padding-right: 24px;
-      }
-      
-      .nav {
-        padding: 0 24px;
-      }
-      
-      .nav-links {
-        display: none;
-      }
-      
-      .hero h1 {
-        font-size: 40px;
-      }
-      
-      .flow-chain {
-        flex-direction: column;
-        gap: 12px;
-      }
-      
-      .flow-arrow {
-        transform: rotate(90deg);
-        justify-self: center;
-      }
-      
-      .sandbox-diagram {
-        grid-template-columns: 1fr;
-      }
-      
-      .sandbox-cell {
-        border-right: none;
-        border-bottom: 1px solid var(--border);
-      }
-      
-      .sandbox-cell:last-child {
-        border-bottom: none;
-      }
+      main { padding-left: 24px; padding-right: 24px; }
+      .nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      .hero h1 { font-size: 40px; }
+      .flow-chain { flex-direction: column; gap: 12px; }
+      .flow-arrow { transform: rotate(90deg); justify-self: center; }
+      .sandbox-diagram { grid-template-columns: 1fr; }
+      .sandbox-cell { border-right: none; border-bottom: 1px solid var(--border); }
+      .sandbox-cell:last-child { border-bottom: none; }
     }
   </style>
 </head>
@@ -656,7 +481,7 @@
         <div class="flow-step">
           <div class="flow-step-key">Enter</div>
           <div class="flow-step-action">Execute</div>
-          <div class="flow-step-detail">Result + copy</div>
+          <div class="flow-step-detail">Open plugin UI</div>
         </div>
         <div class="flow-arrow">→</div>
         <div class="flow-step">
@@ -667,101 +492,19 @@
       </div>
     </section>
 
-    <!-- Visual Demo - Command Pipeline -->
-    <section class="visual-demo">
-      <div class="section-label">Command Pipeline Visualization</div>
+    <!-- Animation Demo -->
+    <section class="demo-section">
+      <div class="section-label">Live Demo</div>
       <div class="demo-container">
         <div class="demo-header">
           <div class="demo-dot red"></div>
           <div class="demo-dot yellow"></div>
           <div class="demo-dot green"></div>
-          <span style="margin-left: 12px; font-size: 12px; color: var(--text-secondary);">workflow-diagram.svg</span>
+          <span class="demo-title">rasso-workflow-demo.html</span>
         </div>
         <div class="demo-body">
-          <svg class="demo-svg" viewBox="0 0 640 280" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Background grid -->
-            <defs>
-              <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
-                <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#e8e8ed" stroke-width="0.5"/>
-              </pattern>
-            </defs>
-            <rect width="640" height="280" fill="url(#grid)" opacity="0.5"/>
-            
-            <!-- Flow lines -->
-            <path d="M 80 140 L 140 140" stroke="#0071e3" stroke-width="2" stroke-dasharray="4 4"/>
-            <path d="M 200 140 L 260 140" stroke="#0071e3" stroke-width="2" stroke-dasharray="4 4"/>
-            <path d="M 320 140 L 380 140" stroke="#0071e3" stroke-width="2" stroke-dasharray="4 4"/>
-            <path d="M 440 140 L 500 140" stroke="#0071e3" stroke-width="2" stroke-dasharray="4 4"/>
-            
-            <!-- Nodes -->
-            <circle cx="80" cy="140" r="28" fill="white" stroke="#0071e3" stroke-width="2"/>
-            <text x="80" y="145" text-anchor="middle" font-family="JetBrains Mono" font-size="12" fill="#0071e3" font-weight="600">⌨</text>
-            
-            <circle cx="200" cy="140" r="28" fill="white" stroke="#0071e3" stroke-width="2"/>
-            <text x="200" y="145" text-anchor="middle" font-family="JetBrains Mono" font-size="12" fill="#0071e3" font-weight="600">🔍</text>
-            
-            <circle cx="320" cy="140" r="28" fill="white" stroke="#0071e3" stroke-width="2"/>
-            <text x="320" y="145" text-anchor="middle" font-family="JetBrains Mono" font-size="12" fill="#0071e3" font-weight="600">↕</text>
-            
-            <circle cx="440" cy="140" r="28" fill="white" stroke="#0071e3" stroke-width="2"/>
-            <text x="440" y="145" text-anchor="middle" font-family="JetBrains Mono" font-size="12" fill="#0071e3" font-weight="600">⏎</text>
-            
-            <circle cx="560" cy="140" r="28" fill="white" stroke="#0071e3" stroke-width="2"/>
-            <text x="560" y="145" text-anchor="middle" font-family="JetBrains Mono" font-size="12" fill="#0071e3" font-weight="600">✕</text>
-            
-            <!-- Labels -->
-            <text x="80" y="185" text-anchor="middle" font-family="Inter" font-size="11" fill="#6e6e73">Input</text>
-            <text x="200" y="185" text-anchor="middle" font-family="Inter" font-size="11" fill="#6e6e73">Match</text>
-            <text x="320" y="185" text-anchor="middle" font-family="Inter" font-size="11" fill="#6e6e73">Select</text>
-            <text x="440" y="185" text-anchor="middle" font-family="Inter" font-size="11" fill="#6e6e73">Execute</text>
-            <text x="560" y="185" text-anchor="middle" font-family="Inter" font-size="11" fill="#6e6e73">Dismiss</text>
-            
-            <!-- Time annotations -->
-            <text x="80" y="100" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#aeaeb2">0ms</text>
-            <text x="200" y="100" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#aeaeb2">~0.3ms</text>
-            <text x="320" y="100" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#aeaeb2">~0ms</text>
-            <text x="440" y="100" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#aeaeb2">~2ms</text>
-            <text x="560" y="100" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#aeaeb2">~0ms</text>
-          </svg>
-        </div>
-      </div>
-    </section>
-
-    <!-- Terminal Demo -->
-    <section class="terminal-section">
-      <div class="section-label">Live Command Terminal</div>
-      <div class="terminal">
-        <div class="terminal-header">
-          <div class="terminal-dot"></div>
-          <div class="terminal-dot"></div>
-          <div class="terminal-dot"></div>
-          <span class="terminal-title">rasso-terminal</span>
-        </div>
-        <div class="terminal-body">
-          <div class="terminal-line">
-            <span class="terminal-prompt">$</span>
-            <span class="terminal-cmd">1024 * 768</span>
-          </div>
-          <div class="terminal-line">
-            <span class="terminal-result">→ 786432 [copied]</span>
-          </div>
-          <div class="terminal-line">
-            <span class="terminal-prompt">$</span>
-            <span class="terminal-cmd">当前时间</span>
-          </div>
-          <div class="terminal-line">
-            <span class="terminal-result">→ 1700000000000 [copied]</span>
-          </div>
-          <div class="terminal-line">
-            <span class="terminal-prompt">$</span>
-            <span class="terminal-cmd">小驼峰 用户名</span>
-          </div>
-          <div class="terminal-line">
-            <span class="terminal-result">→ userName / UserName / user_name / user-name</span>
-          </div>
-          <div class="terminal-line">
-            <span class="terminal-prompt">$</span>
-            <span class="terminal-cursor"></span>
+          <div class="demo-embed">
+            <iframe src="animations/demo.html" title="Rasso Workflow Animation"></iframe>
           </div>
         </div>
       </div>
@@ -845,12 +588,7 @@
   </main>
 
   <script>
-    // Intersection Observer for fade-in animations
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
-
+    const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -860,7 +598,7 @@
       });
     }, observerOptions);
 
-    document.querySelectorAll('.flow-step, .terminal, .shortcut-table tr, .sandbox-cell').forEach(el => {
+    document.querySelectorAll('.flow-step, .demo-container, .shortcut-table tr, .sandbox-cell').forEach(el => {
       el.style.opacity = '0';
       el.style.transform = 'translateY(20px)';
       el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
