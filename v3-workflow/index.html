@@ -1,609 +1,601 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rasso · 工作流 | 全键盘生产力</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg: #fafafa;
-      --surface: #ffffff;
-      --surface-2: #f5f5f7;
-      --border: #e8e8ed;
-      --border-strong: #d2d2d7;
-      --text: #1d1d1f;
-      --text-secondary: #6e6e73;
-      --text-tertiary: #aeaeb2;
-      --accent: #0071e3;
-      --accent-light: #00c7be;
-      --code-bg: #f5f5f7;
-      --tag-bg: rgba(0, 113, 227, 0.08);
-      --tag-text: #0071e3;
-    }
-    
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      font-size: 14px;
-      line-height: 1.5;
-      -webkit-font-smoothing: antialiased;
-    }
-    
-    a { color: inherit; text-decoration: none; }
-    
-    /* Navigation */
-    .nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      height: 52px;
-      background: rgba(250, 250, 250, 0.72);
-      backdrop-filter: saturate(180%) blur(20px);
-      -webkit-backdrop-filter: saturate(180%) blur(20px);
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      padding: 0 48px;
-      z-index: 100;
-    }
-    
-    .nav-inner {
-      max-width: 980px;
-      width: 100%;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      gap: 32px;
-    }
-    
-    .nav-brand {
-      font-weight: 600;
-      font-size: 15px;
-      letter-spacing: -0.01em;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    
-    .nav-brand svg { width: 20px; height: 20px; }
-    
-    .nav-links { display: flex; gap: 28px; }
-    .nav-links a {
-      color: var(--text-secondary);
-      font-size: 12px;
-      font-weight: 500;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--text); }
-    
-    .nav-cta {
-      margin-left: auto;
-      padding: 6px 14px;
-      background: var(--accent);
-      color: white;
-      border-radius: 980px;
-      font-size: 12px;
-      font-weight: 500;
-      transition: all 0.2s;
-    }
-    .nav-cta:hover { background: #0077ed; transform: scale(1.02); }
-    
-    /* Main Content */
-    main {
-      padding-top: 52px;
-      max-width: 980px;
-      margin: 0 auto;
-      padding-left: 48px;
-      padding-right: 48px;
-      padding-bottom: 120px;
-    }
-    
-    /* Back Link */
-    .back-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      color: var(--text-secondary);
-      font-size: 12px;
-      font-weight: 500;
-      margin: 32px 0 48px;
-      transition: all 0.2s;
-      padding: 6px 0;
-      border-bottom: 1px solid transparent;
-    }
-    .back-link:hover { color: var(--accent); border-bottom-color: var(--accent); }
-    
-    /* Hero Section */
-    .hero {
-      padding: 48px 0 72px;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 72px;
-    }
-    
-    .hero-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 4px 10px;
-      background: var(--tag-bg);
-      color: var(--tag-text);
-      border-radius: 980px;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.02em;
-      text-transform: uppercase;
-      margin-bottom: 20px;
-    }
-    
-    .hero h1 {
-      font-size: 56px;
-      font-weight: 700;
-      letter-spacing: -0.035em;
-      line-height: 1.05;
-      margin-bottom: 20px;
-      color: var(--text);
-    }
-    
-    .hero h1 span {
-      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    
-    .hero p {
-      font-size: 19px;
-      line-height: 1.47;
-      color: var(--text-secondary);
-      max-width: 580px;
-      font-weight: 400;
-    }
-    
-    /* Section Labels */
-    .section-label {
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--text-tertiary);
-      margin-bottom: 20px;
-    }
-    
-    /* Flow Chain */
-    .flow-section { margin-bottom: 80px; }
-    
-    .flow-chain {
-      display: flex;
-      align-items: stretch;
-      gap: 0;
-      overflow-x: auto;
-      padding: 8px 0;
-      scrollbar-width: thin;
-    }
-    
-    .flow-step {
-      flex: 1;
-      min-width: 140px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 24px 20px;
-      text-align: center;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    
-    .flow-step:hover {
-      border-color: var(--border-strong);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
-    }
-    
-    .flow-step-key {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      padding: 6px 12px;
-      background: var(--code-bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--text);
-      margin-bottom: 12px;
-    }
-    
-    .flow-step-action { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
-    .flow-step-detail { font-size: 11px; color: var(--text-secondary); }
-    
-    .flow-arrow {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 40px;
-      flex-shrink: 0;
-      color: var(--text-tertiary);
-      font-size: 18px;
-    }
-    
-    /* Animation Demo Section */
-    .demo-section {
-      margin-bottom: 80px;
-    }
-    
-    .demo-container {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
-    }
-    
-    .demo-header {
-      padding: 16px 20px;
-      background: var(--surface-2);
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    
-    .demo-dot { width: 10px; height: 10px; border-radius: 50%; }
-    .demo-dot.red { background: #ff5f56; }
-    .demo-dot.yellow { background: #ffbd2e; }
-    .demo-dot.green { background: #28c840; }
-    
-    .demo-title {
-      margin-left: 12px;
-      font-size: 12px;
-      color: var(--text-secondary);
-      font-weight: 500;
-    }
-    
-    .demo-body {
-      padding: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, #fafafa 0%, #f0f0f5 100%);
-      min-height: 400px;
-    }
-    
-    .demo-embed {
-      width: 100%;
-      max-width: 800px;
-      aspect-ratio: 16/9;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-    }
-    
-    .demo-embed iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-    
-    /* Shortcut Table */
-    .table-section { margin-bottom: 80px; }
-    
-    .shortcut-table {
-      width: 100%;
-      border-collapse: collapse;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      overflow: hidden;
-    }
-    
-    .shortcut-table th,
-    .shortcut-table td {
-      padding: 16px 20px;
-      text-align: left;
-      border-bottom: 1px solid var(--border);
-    }
-    
-    .shortcut-table th {
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--text-tertiary);
-      background: var(--surface-2);
-    }
-    
-    .shortcut-table td:first-child {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
-      font-weight: 600;
-      background: var(--code-bg);
-      color: var(--accent);
-    }
-    
-    .shortcut-table td:last-child {
-      color: var(--text-secondary);
-      font-size: 13px;
-    }
-    
-    .shortcut-table tr:last-child td { border-bottom: none; }
-    .shortcut-table tr:hover td { background: var(--surface-2); }
-    .shortcut-table tr:hover td:first-child { background: var(--tag-bg); color: var(--accent); }
-    
-    /* Sandbox Architecture */
-    .sandbox-section { margin-bottom: 80px; }
-    
-    .sandbox-visual {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      overflow: hidden;
-    }
-    
-    .sandbox-diagram { display: grid; grid-template-columns: repeat(3, 1fr); }
-    
-    .sandbox-cell {
-      padding: 32px 24px;
-      border-right: 1px solid var(--border);
-      text-align: center;
-      transition: all 0.3s;
-    }
-    
-    .sandbox-cell:last-child { border-right: none; }
-    .sandbox-cell:hover { background: var(--surface-2); }
-    
-    .sandbox-cell.highlight {
-      background: linear-gradient(180deg, rgba(0, 113, 227, 0.04) 0%, rgba(0, 113, 227, 0.08) 100%);
-      border-left: 3px solid var(--accent);
-    }
-    
-    .sandbox-icon {
-      width: 48px;
-      height: 48px;
-      margin: 0 auto 16px;
-      background: var(--code-bg);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-    }
-    
-    .sandbox-cell.highlight .sandbox-icon {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: white;
-    }
-    
-    .sandbox-title {
-      font-size: 12px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--text-secondary);
-      margin-bottom: 12px;
-    }
-    
-    .sandbox-code {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      color: var(--text-tertiary);
-      line-height: 1.7;
-    }
-    
-    /* Footer */
-    .footer {
-      margin-top: 80px;
-      padding: 32px 0;
-      border-top: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 12px;
-      color: var(--text-tertiary);
-    }
-    
-    .footer a { color: var(--text-secondary); transition: color 0.2s; }
-    .footer a:hover { color: var(--accent); }
-    
-    /* Responsive */
-    @media (max-width: 768px) {
-      main { padding-left: 24px; padding-right: 24px; }
-      .nav { padding: 0 24px; }
-      .nav-links { display: none; }
-      .hero h1 { font-size: 40px; }
-      .flow-chain { flex-direction: column; gap: 12px; }
-      .flow-arrow { transform: rotate(90deg); justify-self: center; }
-      .sandbox-diagram { grid-template-columns: 1fr; }
-      .sandbox-cell { border-right: none; border-bottom: 1px solid var(--border); }
-      .sandbox-cell:last-child { border-bottom: none; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rasso 拉索 — 蓝图工程版 · Blueprint Sketch</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23000'/%3E%3Ctext x='16' y='22' font-family='monospace' font-size='16' font-weight='bold' fill='%23fff' text-anchor='middle'%3ER%3C/text%3E%3C/svg%3E">
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@3.4.27/dist/vue.global.prod.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  /* ============ 蓝图底座 ============ */
+  [v-cloak]{visibility:hidden}
+  :root{
+    --ink:#000; --paper:#fff;
+    --grid-s:rgba(0,0,0,.05); --grid-l:rgba(0,0,0,.09);
+  }
+  html{scroll-behavior:smooth}
+  body{
+    background-color:var(--paper);
+    background-image:
+      linear-gradient(var(--grid-s) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-s) 1px, transparent 1px),
+      linear-gradient(var(--grid-l) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-l) 1px, transparent 1px);
+    background-size:12px 12px,12px 12px,60px 60px,60px 60px;
+    color:var(--ink);
+    font-family:'JetBrains Mono','PingFang SC','Microsoft YaHei',monospace;
+    -webkit-font-smoothing:antialiased;
+  }
+  .display{font-family:'Archivo Black','PingFang SC','Microsoft YaHei',sans-serif}
+  ::selection{background:#000;color:#fff}
+
+  /* 硬阴影卡片 */
+  .hard{border:2.5px solid var(--ink);box-shadow:4px 4px 0 var(--ink);background:#fff}
+  .hard-thin{border:2px solid var(--ink);box-shadow:3px 3px 0 var(--ink);background:#fff}
+  .lift{transition:transform .22s cubic-bezier(.34,1.56,.64,1),box-shadow .22s}
+  .lift:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--ink)}
+  .press:active{transform:translate(2px,2px)!important;box-shadow:1px 1px 0 var(--ink)!important}
+
+  /* ============ Glitch 标题 ============ */
+  .glitch{position:relative;display:inline-block;letter-spacing:-.02em}
+  .glitch::before,.glitch::after{content:attr(data-text);position:absolute;left:0;top:0;width:100%;pointer-events:none}
+  .glitch::before{color:var(--ink);clip-path:inset(0 0 58% 0);transform:translate(-3px,0);animation:gl1 3.4s infinite steps(1)}
+  .glitch::after{color:var(--paper);-webkit-text-stroke:2.5px var(--ink);clip-path:inset(58% 0 0 0);transform:translate(3px,0);animation:gl2 2.8s infinite steps(1)}
+  @keyframes gl1{
+    0%,90%{clip-path:inset(0 0 58% 0);transform:translate(-3px,0)}
+    91%{clip-path:inset(12% 0 46% 0);transform:translate(-7px,-2px)}
+    94%{clip-path:inset(34% 0 22% 0);transform:translate(5px,2px)}
+    97%{clip-path:inset(4% 0 72% 0);transform:translate(-6px,1px)}
+    98%,100%{clip-path:inset(0 0 58% 0);transform:translate(-3px,0)}
+  }
+  @keyframes gl2{
+    0%,88%{clip-path:inset(58% 0 0 0);transform:translate(3px,0)}
+    90%{clip-path:inset(40% 0 8% 0);transform:translate(7px,2px)}
+    93%{clip-path:inset(64% 0 4% 0);transform:translate(-5px,-1px)}
+    96%{clip-path:inset(52% 0 12% 0);transform:translate(6px,0)}
+    97%,100%{clip-path:inset(58% 0 0 0);transform:translate(3px,0)}
+  }
+
+  /* ============ i18n 淡入淡出 ============ */
+  .fade-i{transition:opacity .17s ease,transform .17s ease}
+  .lang-out .fade-i{opacity:0;transform:translateY(-3px)}
+
+  /* ============ 交互画布 ============ */
+  .canvas-frame{position:relative;width:520px;height:480px;border:2.5px solid var(--ink);box-shadow:5px 5px 0 var(--ink);background:#fff;overflow:hidden}
+  .canvas-grid{position:absolute;inset:0;background-image:linear-gradient(var(--grid-s) 1px,transparent 1px),linear-gradient(90deg,var(--grid-s) 1px,transparent 1px);background-size:20px 20px}
+  .cross{position:absolute;font-weight:800;opacity:.35;font-size:14px;user-select:none}
+  .chip{
+    position:absolute;left:50%;top:50%;width:132px;transform:translate(-50%,-50%);
+    background:#fff;border:3px solid var(--ink);box-shadow:5px 5px 0 var(--ink);
+    text-align:center;padding:14px 8px 12px;cursor:pointer;user-select:none;
+    animation:corefl 4.2s ease-in-out infinite alternate;
+    transition:transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .2s;
+  }
+  .chip:hover{transform:translate(-50%,-50%) scale(1.06) rotate(-1.5deg);box-shadow:7px 7px 0 var(--ink)}
+  .chip:active{transform:translate(-50%,-50%) scale(.97);box-shadow:2px 2px 0 var(--ink)}
+  @keyframes corefl{from{margin-top:-3px}to{margin-top:3px}}
+  .pins{height:7px;background:repeating-linear-gradient(90deg,var(--ink) 0 5px,transparent 5px 11px);margin:0 -8px}
+  .pins.b{margin-top:9px}
+
+  .node{position:absolute;transform:translate(-50%,-50%);z-index:5;
+    transition:left .7s cubic-bezier(.34,1.56,.64,1),top .7s cubic-bezier(.34,1.56,.64,1);
+    animation:nfl 3.6s ease-in-out infinite alternate;animation-delay:var(--fd,0s)}
+  @keyframes nfl{from{transform:translate(-50%,-50%) translateY(-3px)}to{transform:translate(-50%,-50%) translateY(3px)}}
+  .node-in{width:92px;background:#fff;border:2px solid var(--ink);box-shadow:3px 3px 0 var(--ink);
+    padding:9px 4px 7px;text-align:center;transform:rotate(var(--r,0deg));
+    transition:transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .2s}
+  .node-in:hover{transform:rotate(var(--r,0deg)) translateY(-5px) scale(1.07);box-shadow:6px 6px 0 var(--ink)}
+  .node-code{display:inline-block;background:var(--ink);color:#fff;font-size:10px;font-weight:800;letter-spacing:.08em;padding:1px 6px}
+  .node-name{font-size:11px;font-weight:700;margin-top:5px;line-height:1.2}
+  svg.links{position:absolute;inset:0;pointer-events:none;transition:opacity .4s}
+  svg.links.released{opacity:.14}
+
+  /* 便签 */
+  .note{position:absolute;z-index:20;touch-action:none;cursor:grab;user-select:none;
+    transition:left .18s ease-out,top .18s ease-out}
+  .note.dragging{transition:none;cursor:grabbing;z-index:40}
+  .note-in{width:158px;background:#fff;border:2px solid var(--ink);box-shadow:3px 3px 0 var(--ink);
+    padding:10px 12px;font-size:12px;font-weight:700;line-height:1.35;transform:rotate(var(--r,0deg));
+    transition:transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .2s;
+    animation:note-float 4.4s ease-in-out infinite alternate;animation-delay:var(--fd,0s)}
+  @keyframes note-float{from{translate:0 -2px}to{translate:0 3px}}
+  .note-in:hover{transform:rotate(var(--r,0deg)) translateY(-4px) scale(1.04);box-shadow:6px 6px 0 var(--ink)}
+  .note.yellow{background:#FFE84D}
+  .note .pin{position:absolute;top:-7px;left:50%;margin-left:-6px;width:12px;height:12px;border-radius:50%;background:var(--ink);border:2px solid var(--ink)}
+  .note.yellow .pin{background:#000}
+  .note a{border-bottom:2px solid var(--ink)}
+
+  /* 控制台 */
+  .term{background:var(--ink);color:#fff;border:2.5px solid var(--ink);box-shadow:5px 5px 0 rgba(0,0,0,.85)}
+  .term .bar{display:flex;align-items:center;gap:6px;border-bottom:2px solid rgba(255,255,255,.25);padding:8px 12px;font-size:11px;letter-spacing:.05em}
+  .sq{width:9px;height:9px;background:#fff;display:inline-block}
+  .sq.o{background:transparent;border:2px solid #fff}
+  .cursor{display:inline-block;width:8px;height:14px;background:#fff;margin-left:2px;animation:blink 1s steps(1) infinite;vertical-align:-2px}
+  @keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
+  .scope path.wave{fill:none;stroke:var(--ink);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+
+  /* 工作流链 */
+  .wf-box{min-width:132px}
+  .key-chip{display:inline-block;background:var(--ink);color:#fff;font-size:11px;font-weight:800;padding:2px 8px;letter-spacing:.04em}
+
+  /* 快捷键表 */
+  .sheet th{background:var(--ink);color:#fff;font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+  .sheet td{border-top:2px solid var(--ink);font-size:12.5px}
+  .sheet tbody tr{transition:background .15s,color .15s}
+  .sheet tbody tr:hover{background:var(--ink);color:#fff}
+  .sheet tbody tr:hover .mono-cell{background:transparent;color:#fff}
+
+  /* 沙箱 */
+  .tilt-l{transform:rotate(-1.2deg)} .tilt-r{transform:rotate(1.2deg)}
+  .dash-arrow{flex:1;border-top:2.5px dashed var(--ink);position:relative;top:-10px;min-width:26px}
+  .dash-arrow::after{content:'';position:absolute;right:-2px;top:-6px;border:5px solid transparent;border-left-color:var(--ink)}
+
+  .fig-label{font-size:11px;font-weight:800;letter-spacing:.1em}
+  .fig-rule{flex:1;border-top:2.5px solid var(--ink);opacity:.9}
+
+  @media (max-width:640px){
+    .canvas-frame{height:400px}
+    .canvas-scale{transform:scale(.78);transform-origin:top left;width:520px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+  }
+</style>
 </head>
 <body>
-  <nav class="nav">
-    <div class="nav-inner">
-      <a href="../index.html" class="nav-brand">
-        <svg viewBox="0 0 24 24" fill="none">
-          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="1.5" fill="none"/>
-        </svg>
-        Rasso
+<div id="app" v-cloak :class="{'lang-out':switching}">
+
+  <!-- ================= NAV ================= -->
+  <nav class="sticky top-0 z-50 bg-white border-b-[2.5px] border-black">
+    <div class="max-w-6xl mx-auto px-5 h-14 flex items-center gap-6">
+      <a href="../index.html" class="display text-lg tracking-tight flex items-center gap-2">
+        RASSO<span class="inline-block w-3.5 h-3.5 bg-black"></span>
       </a>
-      <div class="nav-links">
-        <a href="../index.html">Overview</a>
-        <a href="https://github.com/hanhanpig3/rasso" target="_blank">GitHub</a>
+      <div class="hidden md:flex items-center gap-5 text-[12px] font-bold">
+        <a href="#canvas" class="fade-i hover:bg-black hover:text-white px-1.5 py-0.5">{{ t('nav_map') }}</a>
+        <a href="#flow" class="fade-i hover:bg-black hover:text-white px-1.5 py-0.5">{{ t('nav_flow') }}</a>
+        <a href="#keys" class="fade-i hover:bg-black hover:text-white px-1.5 py-0.5">{{ t('nav_keys') }}</a>
+        <a href="#sandbox" class="fade-i hover:bg-black hover:text-white px-1.5 py-0.5">{{ t('nav_sandbox') }}</a>
+        <a href="animations/demo.html" class="fade-i hover:bg-black hover:text-white px-1.5 py-0.5">{{ t('nav_demo') }} ↗</a>
       </div>
-      <a href="https://github.com/hanhanpig3/rasso/releases" class="nav-cta" target="_blank">下载</a>
+      <div class="ml-auto flex items-center gap-3">
+        <!-- ZH / EN 开关 -->
+        <div class="flex border-2 border-black shadow-[3px_3px_0_#000] overflow-hidden">
+          <button @click="setLang('zh')"
+            class="px-2.5 py-1 text-[11px] font-extrabold transition-colors"
+            :class="lang==='zh' ? 'bg-black text-white' : 'bg-white hover:bg-neutral-100'">中</button>
+          <div class="w-0.5 bg-black"></div>
+          <button @click="setLang('en')"
+            class="px-2.5 py-1 text-[11px] font-extrabold transition-colors"
+            :class="lang==='en' ? 'bg-black text-white' : 'bg-white hover:bg-neutral-100'">EN</button>
+        </div>
+        <a href="https://github.com/hanhanpig3/rasso/releases" target="_blank"
+           class="hard hard-thin lift press px-3 py-1.5 text-[12px] font-extrabold">
+          <span class="fade-i">{{ t('nav_dl') }}</span> ↓
+        </a>
+      </div>
     </div>
   </nav>
 
-  <main>
-    <a href="../index.html" class="back-link">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M19 12H5M12 19l-7-7 7-7"/>
-      </svg>
-      返回概览
-    </a>
+  <main class="max-w-6xl mx-auto px-5 pb-24">
 
-    <!-- Hero -->
-    <section class="hero">
-      <div class="hero-label">Keyboard-First Workflow</div>
-      <h1>Zero mouse.<br><span>Pure intent.</span></h1>
-      <p>Every action in Rasso is designed to be executed without leaving the home row. The entire product lifecycle — from invocation to result — happens within a single keystroke chain.</p>
-    </section>
+    <!-- ================= HERO ================= -->
+    <section class="grid lg:grid-cols-[1fr_1.08fr] gap-12 items-start pt-14 pb-16">
+      <!-- 左：Glitch 标题 -->
+      <div class="relative">
+        <span class="cross" style="left:-18px;top:-10px">+</span>
+        <span class="cross" style="right:8%;top:34%">+</span>
+        <span class="cross" style="left:40%;bottom:-26px">+</span>
 
-    <!-- Flow Chain -->
-    <section class="flow-section">
-      <div class="section-label">Command Flow</div>
-      <div class="flow-chain">
-        <div class="flow-step">
-          <div class="flow-step-key">Alt+Space</div>
-          <div class="flow-step-action">Launch</div>
-          <div class="flow-step-detail">42ms cold start</div>
+        <div class="inline-block hard-thin px-3 py-1 text-[11px] font-extrabold tracking-widest mb-6 fade-i">
+          {{ t('kicker') }}
         </div>
-        <div class="flow-arrow">→</div>
-        <div class="flow-step">
-          <div class="flow-step-key">Type</div>
-          <div class="flow-step-action">Query</div>
-          <div class="flow-step-detail">Pinyin + fuzzy</div>
+        <h1 class="display leading-[0.95]">
+          <span class="glitch text-[64px] md:text-[88px]" data-text="RASSO">RASSO</span><br>
+          <span class="inline-block bg-black text-white text-2xl md:text-3xl px-3 py-1 -rotate-2 mt-3 fade-i">{{ t('hero_cn') }}</span>
+        </h1>
+        <p class="mt-6 text-[15px] font-bold fade-i">{{ t('hero_sub') }}</p>
+        <p class="mt-3 text-[13px] leading-relaxed text-neutral-700 max-w-md fade-i">{{ t('hero_desc') }}</p>
+
+        <div class="flex flex-wrap gap-4 mt-8">
+          <a href="https://github.com/hanhanpig3/rasso/releases" target="_blank"
+             class="hard lift press px-5 py-3 text-[13px] font-extrabold bg-black text-white shadow-[4px_4px_0_rgba(0,0,0,.35)]">
+            <span class="fade-i">{{ t('cta_dl') }}</span> ↓
+          </a>
+          <a href="https://github.com/hanhanpig3/rasso" target="_blank"
+             class="hard lift press px-5 py-3 text-[13px] font-extrabold">
+            <span class="fade-i">{{ t('cta_src') }}</span> ↗
+          </a>
         </div>
-        <div class="flow-arrow">→</div>
-        <div class="flow-step">
-          <div class="flow-step-key">↑↓</div>
-          <div class="flow-step-action">Select</div>
-          <div class="flow-step-detail">Keyboard nav</div>
+        <div class="flex flex-wrap gap-2.5 mt-7 text-[11px] font-bold">
+          <span class="border-2 border-black px-2.5 py-1 fade-i">{{ t('chip_tests') }}</span>
+          <span class="border-2 border-black px-2.5 py-1 fade-i">{{ t('chip_mit') }}</span>
+          <span class="border-2 border-black px-2.5 py-1 fade-i">{{ t('chip_stack') }}</span>
         </div>
-        <div class="flow-arrow">→</div>
-        <div class="flow-step">
-          <div class="flow-step-key">Enter</div>
-          <div class="flow-step-action">Execute</div>
-          <div class="flow-step-detail">Open plugin UI</div>
+      </div>
+
+      <!-- 右：交互画布 -->
+      <div id="canvas" class="flex flex-col items-center lg:items-end">
+        <div class="w-full max-w-[520px] flex items-center gap-3 mb-3">
+          <span class="fig-label fade-i">{{ t('fig1') }}</span>
+          <span class="fig-rule"></span>
         </div>
-        <div class="flow-arrow">→</div>
-        <div class="flow-step">
-          <div class="flow-step-key">Esc</div>
-          <div class="flow-step-action">Dismiss</div>
-          <div class="flow-step-detail">Blur → hide</div>
+        <div class="canvas-scale">
+          <div class="canvas-frame">
+            <div class="canvas-grid"></div>
+            <span class="cross" style="left:8px;top:4px">+</span>
+            <span class="cross" style="right:8px;top:4px">+</span>
+            <span class="cross" style="left:8px;bottom:2px">+</span>
+            <span class="cross" style="right:8px;bottom:2px">+</span>
+
+            <!-- 连线 -->
+            <svg class="links" :class="{released:boom}" viewBox="0 0 520 480">
+              <line v-for="(p,i) in nodePos" :key="i"
+                    x1="260" y1="238" :x2="p.x" :y2="p.y"
+                    stroke="#000" stroke-width="1.6" stroke-dasharray="5 5" opacity=".45"/>
+            </svg>
+
+            <!-- 中央芯片 -->
+            <div class="chip" @click="explode" @mouseenter="hoverBoom">
+              <div class="pins"></div>
+              <div class="display text-[17px] mt-2">RASSO</div>
+              <div class="text-[10px] font-bold tracking-widest mt-1 fade-i">{{ t('core') }}</div>
+              <div class="text-[9px] mt-1.5 opacity-60">v0.1.0</div>
+              <div class="pins b"></div>
+            </div>
+
+            <!-- 插件节点 -->
+            <div v-for="(n,i) in NODES" :key="n.key" class="node"
+                 :style="{ left: nodePos[i].x+'px', top: nodePos[i].y+'px', '--r': n.rot+'deg', '--fd': (i*0.35)+'s' }">
+              <div class="node-in">
+                <span class="node-code">{{ n.code }}</span>
+                <div class="node-name fade-i">{{ t(n.key) }}</div>
+              </div>
+            </div>
+
+            <!-- 可拖拽便签 -->
+            <div v-for="n in notes" :key="n.id" class="note"
+                 :class="[{dragging: dragId===n.id, yellow: n.yellow}, n.cls]"
+                 :style="{ left: n.x+'px', top: n.y+'px', '--r': n.rot+'deg', '--fd': n.fd }"
+                 @pointerdown="noteDown(n,$event)">
+              <div class="note-in relative">
+                <span class="pin"></span>
+                <template v-if="n.href">
+                  <a :href="n.href" class="fade-i">{{ t(n.key) }}</a>
+                </template>
+                <template v-else>
+                  <span class="fade-i">{{ t(n.key) }}</span>
+                </template>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="w-full max-w-[520px] flex items-center justify-between mt-3 text-[11px] font-bold">
+          <span class="fade-i">{{ t('fig_hint') }}</span>
+          <span class="border-2 border-black px-2 py-0.5">FIG.01</span>
         </div>
       </div>
     </section>
 
-    <!-- Animation Demo -->
-    <section class="demo-section">
-      <div class="section-label">Live Demo</div>
-      <div class="demo-container">
-        <div class="demo-header">
-          <div class="demo-dot red"></div>
-          <div class="demo-dot yellow"></div>
-          <div class="demo-dot green"></div>
-          <span class="demo-title">rasso-workflow-demo.html</span>
+    <!-- ================= 工作流 ================= -->
+    <section id="flow" class="pt-6">
+      <div class="flex items-center gap-3 mb-7">
+        <span class="fig-label fade-i">{{ t('wf_label') }}</span>
+        <span class="fig-rule"></span>
+      </div>
+      <div class="flex flex-wrap items-stretch gap-y-6">
+        <template v-for="(s,i) in 5" :key="i">
+          <div class="hard wf-box lift px-4 py-4 flex-1">
+            <span class="key-chip">{{ WF[i].key }}</span>
+            <div class="text-[14px] font-extrabold mt-2.5 fade-i">{{ t(WF[i].act) }}</div>
+            <div class="text-[11px] text-neutral-600 mt-1 fade-i">{{ t(WF[i].det) }}</div>
+          </div>
+          <div v-if="i<4" class="flex items-center px-2.5 text-xl font-black">→</div>
+        </template>
+      </div>
+    </section>
+
+    <!-- ================= 极客控制台 ================= -->
+    <section class="grid lg:grid-cols-[1.35fr_1fr] gap-7 mt-20">
+      <!-- 打字机终端 -->
+      <div class="term hard">
+        <div class="bar">
+          <span class="sq"></span><span class="sq o"></span><span class="sq"></span>
+          <span class="ml-2 opacity-80">rasso://<span class="fade-i">{{ t('term_title') }}</span></span>
+          <span class="ml-auto opacity-60">bash — 80×24</span>
         </div>
-        <div class="demo-body">
-          <div class="demo-embed">
-            <iframe src="animations/demo.html" title="Rasso Workflow Animation"></iframe>
+        <div class="p-5 text-[12.5px] leading-[1.9] min-h-[218px]">
+          <div v-for="(l,i) in doneLines" :key="'d'+i" class="opacity-90">{{ l }}</div>
+          <div v-if="curLine">{{ curLine }}</div>
+          <div v-else><span class="opacity-60">▮</span><span class="cursor"></span></div>
+          <div class="opacity-40 mt-1 text-[11px]">// rasso is a plugin launcher — this panel replays its build & runtime log</div>
+        </div>
+      </div>
+      <!-- 示波器 -->
+      <div class="hard lift p-5 flex flex-col">
+        <div class="flex items-center justify-between text-[11px] font-extrabold tracking-widest">
+          <span class="fade-i">{{ t('scope_title') }}</span>
+          <span class="flex items-center gap-1.5">
+            <span class="w-2 h-2 bg-black animate-pulse"></span>REC
+          </span>
+        </div>
+        <svg viewBox="0 0 260 120" class="w-full mt-3 flex-1" preserveAspectRatio="none">
+          <line x1="0" y1="60" x2="260" y2="60" stroke="#000" stroke-width="1" stroke-dasharray="3 4" opacity=".3"/>
+          <line v-for="gx in [52,104,156,208]" :key="gx" :x1="gx" y1="10" :x2="gx" y2="110" stroke="#000" stroke-width=".6" opacity=".14"/>
+          <path ref="wave" class="wave" d=""/>
+          <circle ref="dot" r="3.2" fill="#000"/>
+        </svg>
+        <div class="flex items-end justify-between mt-2">
+          <div>
+            <div class="text-[10px] font-bold text-neutral-600 fade-i">{{ t('scope_rtt') }}</div>
+            <div class="display text-[30px] leading-none mt-1">{{ rtt }}<span class="text-[13px] ml-1">ms</span></div>
+          </div>
+          <div class="text-[10px] font-bold text-right leading-relaxed opacity-70">
+            BAR 56px<br>EXP 600px<br>10 PLUGINS
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Shortcut Reference -->
-    <section class="table-section">
-      <div class="section-label">Shortcut Reference</div>
-      <table class="shortcut-table">
+    <!-- ================= 快捷键清单 ================= -->
+    <section id="keys" class="mt-20">
+      <div class="flex items-center gap-3 mb-7">
+        <span class="fig-label fade-i">{{ t('sc_label') }}</span>
+        <span class="fig-rule"></span>
+      </div>
+      <table class="sheet hard w-full border-collapse overflow-hidden">
         <thead>
           <tr>
-            <th>Key Combo</th>
-            <th>Function</th>
-            <th>Context</th>
+            <th class="text-left px-5 py-3 fade-i">{{ t('th_k') }}</th>
+            <th class="text-left px-5 py-3 fade-i">{{ t('th_f') }}</th>
+            <th class="text-left px-5 py-3 fade-i">{{ t('th_c') }}</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Alt + Space</td>
-            <td>Toggle launcher</td>
-            <td>Global</td>
-          </tr>
-          <tr>
-            <td>Ctrl + Shift + A</td>
-            <td>Full screenshot</td>
-            <td>Global</td>
-          </tr>
-          <tr>
-            <td>Ctrl + Shift + P</td>
-            <td>Pin to desktop</td>
-            <td>Global</td>
-          </tr>
-          <tr>
-            <td>Ctrl + Shift + M</td>
-            <td>Plugin market</td>
-            <td>When active</td>
-          </tr>
-          <tr>
-            <td>Ctrl + T</td>
-            <td>Theme cycle</td>
-            <td>When active</td>
-          </tr>
-          <tr>
-            <td>Esc</td>
-            <td>Layered exit</td>
-            <td>When active</td>
+          <tr v-for="s in SHEET" :key="s.k">
+            <td class="mono-cell px-5 py-3 font-extrabold text-[12px]" :class="s.bg">{{ s.k }}</td>
+            <td class="px-5 py-3 font-bold fade-i">{{ t(s.f) }}</td>
+            <td class="px-5 py-3 text-neutral-600 fade-i">{{ t(s.c) }}</td>
           </tr>
         </tbody>
       </table>
     </section>
 
-    <!-- Sandbox Architecture -->
-    <section class="sandbox-section">
-      <div class="section-label">Plugin Sandbox Architecture</div>
-      <div class="sandbox-visual">
-        <div class="sandbox-diagram">
-          <div class="sandbox-cell highlight">
-            <div class="sandbox-icon">⚡</div>
-            <div class="sandbox-title">Main Process</div>
-            <div class="sandbox-code">plugin-manager.ts<br>plugin-view-manager.ts<br>command-registry.ts<br>settings-store.ts</div>
-          </div>
-          <div class="sandbox-cell">
-            <div class="sandbox-icon">↔</div>
-            <div class="sandbox-title">IPC Bridge</div>
-            <div class="sandbox-code">contextBridge<br>channel: 'plugin-api'<br>methods: ['exec','get']<br>whitelist: true</div>
-          </div>
-          <div class="sandbox-cell">
-            <div class="sandbox-icon">🔒</div>
-            <div class="sandbox-title">Plugin Renderer</div>
-            <div class="sandbox-code">WebContentsView<br>sandbox: true<br>preload: plugin-preload.mjs<br>nodeIntegration: false</div>
-          </div>
+    <!-- ================= 沙箱架构 ================= -->
+    <section id="sandbox" class="mt-20">
+      <div class="flex items-center gap-3 mb-9">
+        <span class="fig-label fade-i">{{ t('sb_label') }}</span>
+        <span class="fig-rule"></span>
+      </div>
+      <div class="flex flex-col md:flex-row items-stretch gap-2">
+        <div class="hard lift tilt-l p-6 flex-1">
+          <div class="text-[10px] font-extrabold tracking-[.15em] border-b-2 border-black pb-2 mb-3 fade-i">{{ t('sb1t') }}</div>
+          <div class="text-[11.5px] leading-[1.9] text-neutral-800">plugin-manager.ts<br>plugin-view-manager.ts<br>command-registry.ts<br>settings-store.ts</div>
+        </div>
+        <div class="dash-arrow hidden md:block"></div>
+        <div class="hard lift p-6 flex-1">
+          <div class="text-[10px] font-extrabold tracking-[.15em] border-b-2 border-black pb-2 mb-3 fade-i">{{ t('sb2t') }}</div>
+          <div class="text-[11.5px] leading-[1.9] text-neutral-800">contextBridge<br>channel: 'plugin-api'<br>methods: [exec, get]<br>whitelist: <b>true</b></div>
+        </div>
+        <div class="dash-arrow hidden md:block"></div>
+        <div class="hard lift tilt-r p-6 flex-1 bg-black text-white shadow-[4px_4px_0_rgba(0,0,0,.35)]">
+          <div class="text-[10px] font-extrabold tracking-[.15em] border-b-2 border-white pb-2 mb-3 fade-i">{{ t('sb3t') }}</div>
+          <div class="text-[11.5px] leading-[1.9]">WebContentsView<br>sandbox: <b>true</b><br>nodeIntegration: <b>false</b><br>preload: plugin-preload.mjs</div>
         </div>
       </div>
     </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-      <span>Rasso v0.1.0 · MIT License</span>
-      <span>Electron 30 · React 18 · TypeScript 5</span>
-    </footer>
   </main>
 
-  <script>
-    const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
-        }
-      });
-    }, observerOptions);
+  <!-- ================= FOOTER ================= -->
+  <footer class="bg-black text-white">
+    <div class="max-w-6xl mx-auto px-5 py-7 flex flex-wrap gap-4 items-center justify-between text-[12px] font-bold">
+      <span class="display text-[15px]">RASSO<span class="inline-block w-2.5 h-2.5 bg-white ml-1.5"></span>
+        <span class="font-mono font-bold text-[12px] ml-3 opacity-80 fade-i">{{ t('foot_l') }}</span></span>
+      <span class="opacity-80 fade-i">{{ t('foot_r') }} · © 2026</span>
+    </div>
+  </footer>
+</div>
 
-    document.querySelectorAll('.flow-step, .demo-container, .shortcut-table tr, .sandbox-cell').forEach(el => {
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(20px)';
-      el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-      observer.observe(el);
+<script>
+const { createApp, ref, computed, watch, onMounted } = Vue;
+
+/* ---------- i18n 词典 ---------- */
+const T = {
+  nav_map:{zh:'系统图',en:'SYSTEM'}, nav_flow:{zh:'工作流',en:'FLOW'},
+  nav_keys:{zh:'快捷键',en:'KEYS'}, nav_sandbox:{zh:'沙箱',en:'SANDBOX'},
+  nav_demo:{zh:'演示',en:'DEMO'}, nav_dl:{zh:'下载 v0.1.0',en:'GET v0.1.0'},
+  kicker:{zh:'插件启动器 · 键盘优先 · v0.1.0',en:'PLUGIN LAUNCHER · KEYBOARD-FIRST · v0.1.0'},
+  hero_cn:{zh:'拉索 — 极客蓝图',en:'RASSO — BLUEPRINT'},
+  hero_sub:{zh:'键盘驱动的桌面插件启动器。',en:'The keyboard-driven desktop plugin launcher.'},
+  hero_desc:{zh:'Alt+Space 全局唤起，10 款自研插件开箱即用；意图直达执行，全程不碰鼠标。',en:'Summon with Alt+Space. 10 hand-built plugins out of the box — intent in, result out, mouse untouched.'},
+  cta_dl:{zh:'下载 Windows 版',en:'Download for Windows'}, cta_src:{zh:'查看源码',en:'View Source'},
+  chip_tests:{zh:'178 项测试全绿',en:'178 tests green'}, chip_mit:{zh:'MIT 开源',en:'MIT licensed'},
+  chip_stack:{zh:'Electron 30 内核',en:'Electron 30 core'},
+  fig1:{zh:'FIG.01 — 系统结构图',en:'FIG.01 — SYSTEM MAP'},
+  fig_hint:{zh:'点击芯片引爆 · 便签可拖拽',en:'Click chip to detonate · notes are draggable'},
+  core:{zh:'微内核',en:'MICRO-KERNEL'},
+  p_coder:{zh:'编码转换',en:'Coder'}, p_varname:{zh:'变量命名',en:'VarName'},
+  p_snip:{zh:'截图',en:'Snip'}, p_ocr:{zh:'OCR 识别',en:'OCR'},
+  p_qr:{zh:'二维码',en:'QR Code'}, p_fmt:{zh:'格式化',en:'Format'},
+  p_regex:{zh:'正则',en:'RegExp'}, p_memo:{zh:'备忘',en:'Memo'},
+  n_tests:{zh:'178/178 单测通过',en:'178/178 tests passing'},
+  n_hotkey:{zh:'Alt+Space 唤起',en:'Alt+Space summon'},
+  n_morph:{zh:'56px ⇄ 600px 三态变形',en:'56px ⇄ 600px morphing'},
+  n_drag:{zh:'拖我 → 随便扔',en:'drag me → anywhere'},
+  n_demo:{zh:'实机动画演示 ↗',en:'Live demo ↗'},
+  wf_label:{zh:'FIG.02 — 命令工作流',en:'FIG.02 — COMMAND FLOW'},
+  wf1a:{zh:'唤起',en:'Summon'}, wf1d:{zh:'42ms 冷启动',en:'42ms cold start'},
+  wf2a:{zh:'输入',en:'Query'}, wf2d:{zh:'拼音 + 模糊匹配',en:'pinyin + fuzzy match'},
+  wf3a:{zh:'选择',en:'Select'}, wf3d:{zh:'键盘导航',en:'keyboard navigation'},
+  wf4a:{zh:'执行',en:'Execute'}, wf4d:{zh:'打开插件 UI',en:'open plugin UI'},
+  wf5a:{zh:'收起',en:'Dismiss'}, wf5d:{zh:'失焦即隐',en:'blur to hide'},
+  term_title:{zh:'构建日志',en:'build.log'},
+  scope_title:{zh:'性能监视器',en:'PERF MONITOR'},
+  scope_rtt:{zh:'IPC 往返延迟',en:'IPC round-trip'},
+  sc_label:{zh:'FIG.03 — 快捷键清单',en:'FIG.03 — SHORTCUT SHEET'},
+  th_k:{zh:'键位',en:'KEY'}, th_f:{zh:'功能',en:'FUNCTION'}, th_c:{zh:'作用域',en:'SCOPE'},
+  s1f:{zh:'唤起 / 隐藏启动器',en:'Toggle launcher'}, s2f:{zh:'全屏截图',en:'Full screenshot'},
+  s3f:{zh:'贴图到桌面',en:'Pin image to desktop'}, s4f:{zh:'插件市场',en:'Plugin market'},
+  s5f:{zh:'主题轮转',en:'Cycle theme'}, s6f:{zh:'分层逐级退出',en:'Layered exit'},
+  c_global:{zh:'全局',en:'Global'}, c_active:{zh:'窗口唤起时',en:'When active'},
+  sb_label:{zh:'FIG.04 — 插件沙箱',en:'FIG.04 — PLUGIN SANDBOX'},
+  sb1t:{zh:'主进程',en:'MAIN PROCESS'}, sb2t:{zh:'IPC 桥',en:'IPC BRIDGE'}, sb3t:{zh:'插件沙箱',en:'PLUGIN SANDBOX'},
+  foot_l:{zh:'拉索 — 给键盘党的桌面',en:'a desktop for keyboard people'},
+  foot_r:{zh:'MIT · Electron 30 · React 18',en:'MIT · Electron 30 · React 18'},
+};
+
+/* 终端日志（双语） */
+const LINES = [
+  {zh:'[启动] rasso v0.1.0 · electron 30',en:'[boot] rasso v0.1.0 · electron 30'},
+  {zh:'[加载] 插件 10/10 就绪 (12ms)',en:'[load] plugins 10/10 OK (12ms)'},
+  {zh:'[测试] 178 通过 · 0 失败',en:'[tests] 178 passed · 0 failed'},
+  {zh:'[几何] 待机 56px / 展开 600px',en:'[geom] BAR=56px EXPANDED=600px'},
+  {zh:'[热键] Alt+Space 已注册',en:'[keys] Alt+Space registered'},
+  {zh:'[IPC ] 往返 1.2ms ✓',en:'[ipc]  round-trip 1.2ms OK'},
+  {zh:'[待机] 内存 28MB · 等待输入…',en:'[idle] rss 28MB · standing by…'},
+];
+
+createApp({
+  setup(){
+    const lang = ref('zh');
+    const switching = ref(false);
+    const t = k => (T[k] ? T[k][lang.value] : k);
+
+    function setLang(l){
+      if(l === lang.value) return;
+      switching.value = true;
+      setTimeout(()=>{ lang.value = l; switching.value = false; }, 175);
+    }
+
+    /* ---------- 画布：芯片引爆 ---------- */
+    const CX = 260, CY = 238;
+    const NODES = [
+      {key:'p_varname', code:'VAR', ang:205, d0:150, d1:222, rot:-2},
+      {key:'p_coder',   code:'CDR', ang:255, d0:142, d1:214, rot:2},
+      {key:'p_snip',    code:'SNP', ang:300, d0:150, d1:222, rot:-3},
+      {key:'p_ocr',     code:'OCR', ang:345, d0:136, d1:208, rot:2},
+      {key:'p_qr',      code:'QR' , ang:30,  d0:150, d1:220, rot:-2},
+      {key:'p_fmt',     code:'FMT', ang:80,  d0:142, d1:214, rot:3},
+      {key:'p_regex',   code:'RGX', ang:130, d0:150, d1:220, rot:-2},
+      {key:'p_memo',    code:'MEM', ang:168, d0:136, d1:206, rot:2},
+    ];
+    const boom = ref(false);
+    let lastBoom = 0;
+    function explode(){
+      const now = Date.now();
+      if(now - lastBoom < 1200) return;
+      lastBoom = now; boom.value = true;
+      setTimeout(()=> boom.value = false, 1150);
+    }
+    function hoverBoom(){ if(!boom.value) explode(); }
+    const nodePos = computed(()=> NODES.map(n=>{
+      const r = n.ang * Math.PI/180, d = boom.value ? n.d1 : n.d0;
+      return { x: CX + Math.cos(r)*d, y: CY + Math.sin(r)*d*0.8 };
+    }));
+
+    /* ---------- 便签拖拽 ---------- */
+    const notes = ref([
+      {id:1, key:'n_tests',  x:14,  y:14,  rot:-2, fd:'0s',   yellow:true},
+      {id:2, key:'n_hotkey', x:352, y:16,  rot:2,  fd:'.8s'},
+      {id:3, key:'n_morph',  x:14,  y:396, rot:2,  fd:'1.6s'},
+      {id:4, key:'n_drag',   x:366, y:400, rot:-2, fd:'2.4s'},
+      {id:5, key:'n_demo',   x:16,  y:206, rot:-1, fd:'1.2s', href:'animations/demo.html'},
+    ]);
+    const dragId = ref(null);
+    let off = null, zTop = 50;
+    function noteDown(n, e){
+      if(e.target.closest('a')) return;
+      e.preventDefault();
+      dragId.value = n.id; zTop++;
+      n.z = zTop;
+      off = { ox: e.clientX - n.x, oy: e.clientY - n.y };
+      const mv = ev=>{
+        n.x = Math.max(4, Math.min(516-162, ev.clientX - off.ox));
+        n.y = Math.max(4, Math.min(476-86,  ev.clientY - off.oy));
+      };
+      const up = ()=>{
+        dragId.value = null;
+        window.removeEventListener('pointermove', mv);
+        window.removeEventListener('pointerup', up);
+      };
+      window.addEventListener('pointermove', mv);
+      window.addEventListener('pointerup', up);
+    }
+
+    /* ---------- 打字机终端 ---------- */
+    const doneLines = ref([]), curLine = ref('');
+    let li = 0, ci = 0, termTimer = null;
+    function tick(){
+      if(li >= LINES.length){
+        termTimer = setTimeout(()=>{ li=0; ci=0; doneLines.value=[]; curLine.value=''; tick(); }, 1600);
+        return;
+      }
+      const full = LINES[li][lang.value];
+      if(ci <= full.length){
+        curLine.value = full.slice(0, ci); ci++;
+        termTimer = setTimeout(tick, 26);
+      }else{
+        doneLines.value.push(full); curLine.value='';
+        li++; ci=0; termTimer = setTimeout(tick, 380);
+      }
+    }
+    function resetTerm(){ clearTimeout(termTimer); li=0; ci=0; doneLines.value=[]; curLine.value=''; tick(); }
+    watch(lang, resetTerm);
+
+    /* ---------- 示波器（手绘 SVG 波形） ---------- */
+    const wave = ref(null), dot = ref(null), rtt = ref('1.2');
+    let raf, frame = 0;
+    function draw(ts){
+      frame++;
+      const t = ts/1000;
+      let d = '';
+      let lastX=0, lastY=60;
+      for(let x=0; x<=260; x+=6){
+        const y = 60
+          + Math.sin(x*0.045 + t*2.1)*16
+          + Math.sin(x*0.011 - t*1.3)*9
+          + Math.sin(x*0.19 + t*4.7)*2.2;
+        d += (x===0?'M':'L') + x + ' ' + y.toFixed(1) + ' ';
+        lastX=x; lastY=y;
+      }
+      if(wave.value) wave.value.setAttribute('d', d);
+      if(dot.value){ dot.value.setAttribute('cx', lastX); dot.value.setAttribute('cy', lastY); }
+      if(frame % 9 === 0){
+        rtt.value = (1.05 + 0.32*Math.abs(Math.sin(t*0.85))).toFixed(1);
+      }
+      raf = requestAnimationFrame(draw);
+    }
+
+    /* ---------- 静态数据 ---------- */
+    const WF = [
+      {key:'Alt+Space', act:'wf1a', det:'wf1d'}, {key:'Type', act:'wf2a', det:'wf2d'},
+      {key:'↑ / ↓', act:'wf3a', det:'wf3d'},   {key:'Enter', act:'wf4a', det:'wf4d'},
+      {key:'Esc', act:'wf5a', det:'wf5d'},
+    ];
+    const SHEET = [
+      {k:'Alt + Space',    f:'s1f', c:'c_global', bg:''},
+      {k:'Ctrl + Shift + A', f:'s2f', c:'c_global', bg:''},
+      {k:'Ctrl + Shift + P', f:'s3f', c:'c_global', bg:'bg-neutral-100'},
+      {k:'Ctrl + Shift + M', f:'s4f', c:'c_active', bg:''},
+      {k:'Ctrl + T',       f:'s5f', c:'c_active', bg:'bg-neutral-100'},
+      {k:'Esc',            f:'s6f', c:'c_active', bg:''},
+    ];
+
+    onMounted(()=>{
+      setTimeout(explode, 900);          // 进场自动引爆一次
+      resetTerm();
+      const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if(!reduce) raf = requestAnimationFrame(draw);
+      else { /* 静态画一条 */ if(wave.value) wave.value.setAttribute('d','M0 60 L260 60'); }
     });
-  </script>
+
+    return { lang, switching, t, setLang, NODES, nodePos, boom, explode, hoverBoom,
+             notes, dragId, noteDown, doneLines, curLine, wave, dot, rtt, WF, SHEET };
+  }
+}).mount('#app');
+</script>
 </body>
 </html>
