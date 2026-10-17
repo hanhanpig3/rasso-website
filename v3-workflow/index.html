@@ -4,269 +4,655 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rasso · 工作流 | 全键盘生产力</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #fafafa;
       --surface: #ffffff;
-      --border: #e5e5e5;
-      --text: #171717;
-      --text-dim: #737373;
-      --code-bg: #f5f5f5;
+      --surface-2: #f5f5f7;
+      --border: #e8e8ed;
+      --border-strong: #d2d2d7;
+      --text: #1d1d1f;
+      --text-secondary: #6e6e73;
+      --text-tertiary: #aeaeb2;
+      --accent: #0071e3;
+      --accent-light: #00c7be;
+      --code-bg: #f5f5f7;
+      --tag-bg: rgba(0, 113, 227, 0.08);
+      --tag-text: #0071e3;
+      --success: #34c759;
+      --warning: #ff9f0a;
     }
+    
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    
     body {
-      font-family: 'Inter', system-ui, sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--bg);
       color: var(--text);
       font-size: 14px;
-      line-height: 1.6;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
     }
+    
     a { color: inherit; text-decoration: none; }
     
-    /* 导航 */
+    /* Navigation */
     .nav {
       position: fixed;
       top: 0; left: 0; right: 0;
-      height: 44px;
-      background: rgba(250,250,250,0.9);
-      backdrop-filter: blur(10px);
+      height: 52px;
+      background: rgba(250, 250, 250, 0.72);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
       border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
-      padding: 0 32px;
+      padding: 0 48px;
       z-index: 100;
     }
-    .nav-logo { font-weight: 600; font-size: 13px; }
-    .nav-links { display: flex; gap: 24px; margin-left: 48px; }
-    .nav-links a { color: var(--text-dim); font-size: 12px; transition: color 0.15s; }
-    .nav-links a:hover { color: var(--text); }
+    
+    .nav-inner {
+      max-width: 980px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+    
+    .nav-brand {
+      font-weight: 600;
+      font-size: 15px;
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .nav-brand svg {
+      width: 20px;
+      height: 20px;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 28px;
+    }
+    
+    .nav-links a {
+      color: var(--text-secondary);
+      font-size: 12px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    
+    .nav-links a:hover {
+      color: var(--text);
+    }
+    
     .nav-cta {
       margin-left: auto;
+      padding: 6px 14px;
+      background: var(--accent);
+      color: white;
+      border-radius: 980px;
       font-size: 12px;
-      color: var(--text-dim);
+      font-weight: 500;
+      transition: all 0.2s;
     }
-    .nav-cta:hover { color: var(--text); }
     
-    main { padding-top: 44px; max-width: 880px; margin: 0 auto; padding-left: 32px; padding-right: 32px; padding-bottom: 80px; }
+    .nav-cta:hover {
+      background: #0077ed;
+      transform: scale(1.02);
+    }
     
-    /* Hero */
-    .hero { padding: 72px 0 56px; }
-    .hero-label {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--text-dim);
-      margin-bottom: 16px;
+    /* Main Content */
+    main {
+      padding-top: 52px;
+      max-width: 980px;
+      margin: 0 auto;
+      padding-left: 48px;
+      padding-right: 48px;
+      padding-bottom: 120px;
     }
-    .hero h1 {
-      font-size: 40px;
-      font-weight: 600;
-      letter-spacing: -0.03em;
-      line-height: 1.1;
-      margin-bottom: 16px;
-    }
-    .hero p {
-      font-size: 15px;
-      color: var(--text-dim);
-      max-width: 480px;
-      line-height: 1.6;
-    }
+    
+    /* Back Link */
     .back-link {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      color: var(--text-dim);
+      color: var(--text-secondary);
       font-size: 12px;
-      margin-bottom: 24px;
-      transition: color 0.15s;
+      font-weight: 500;
+      margin: 32px 0 48px;
+      transition: all 0.2s;
+      padding: 6px 0;
+      border-bottom: 1px solid transparent;
     }
-    .back-link:hover { color: var(--text); }
     
-    /* 工作流链条 */
-    .flow-section { margin: 40px 0; }
-    .section-label {
+    .back-link:hover {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+    
+    /* Hero Section */
+    .hero {
+      padding: 48px 0 72px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 72px;
+    }
+    
+    .hero-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 10px;
+      background: var(--tag-bg);
+      color: var(--tag-text);
+      border-radius: 980px;
       font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--text-dim);
       margin-bottom: 20px;
     }
+    
+    .hero h1 {
+      font-size: 56px;
+      font-weight: 700;
+      letter-spacing: -0.035em;
+      line-height: 1.05;
+      margin-bottom: 20px;
+      color: var(--text);
+    }
+    
+    .hero h1 span {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .hero p {
+      font-size: 19px;
+      line-height: 1.47;
+      color: var(--text-secondary);
+      max-width: 580px;
+      font-weight: 400;
+    }
+    
+    /* Section Labels */
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-tertiary);
+      margin-bottom: 20px;
+    }
+    
+    /* Flow Chain */
+    .flow-section {
+      margin-bottom: 80px;
+    }
+    
     .flow-chain {
       display: flex;
-      align-items: center;
-      gap: 2px;
+      align-items: stretch;
+      gap: 0;
       overflow-x: auto;
-      padding: 20px 0;
+      padding: 8px 0;
+      scrollbar-width: thin;
     }
+    
     .flow-step {
-      flex-shrink: 0;
+      flex: 1;
+      min-width: 140px;
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 14px 18px;
-      min-width: 120px;
+      border-radius: 16px;
+      padding: 24px 20px;
+      text-align: center;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
     }
-    .flow-step-key {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      color: var(--text-dim);
-      margin-bottom: 4px;
-    }
-    .flow-step-action { font-size: 12px; font-weight: 500; }
-    .flow-step-detail { font-size: 9px; color: var(--text-dim); margin-top: 3px; }
-    .flow-arrow { color: var(--text-dim); font-size: 14px; flex-shrink: 0; }
     
-    /* 终端 */
-    .terminal {
-      background: #171717;
-      border-radius: 8px;
-      overflow: hidden;
-      margin: 28px 0;
+    .flow-step:hover {
+      border-color: var(--border-strong);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
     }
-    .terminal-header {
-      height: 28px;
-      background: #262626;
-      display: flex;
+    
+    .flow-step-key {
+      display: inline-flex;
       align-items: center;
-      padding: 0 10px;
-      gap: 5px;
-    }
-    .terminal-dot { width: 8px; height: 8px; border-radius: 50%; background: #404040; }
-    .terminal-body {
-      padding: 14px;
+      gap: 4px;
+      padding: 6px 12px;
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
       font-family: 'JetBrains Mono', monospace;
       font-size: 11px;
-      line-height: 1.8;
-      color: #e5e5e5;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 12px;
     }
-    .terminal-line { display: flex; gap: 6px; }
-    .terminal-prompt { color: #00ff41; }
-    .terminal-cmd { color: #e5e5e5; }
-    .terminal-result { color: #737373; margin-left: 12px; }
+    
+    .flow-step-action {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    
+    .flow-step-detail {
+      font-size: 11px;
+      color: var(--text-secondary);
+    }
+    
+    .flow-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      flex-shrink: 0;
+      color: var(--text-tertiary);
+      font-size: 18px;
+    }
+    
+    /* Terminal Section */
+    .terminal-section {
+      margin-bottom: 80px;
+    }
+    
+    .terminal {
+      background: #1d1d1f;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    }
+    
+    .terminal-header {
+      height: 36px;
+      background: #2d2d2d;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      gap: 8px;
+    }
+    
+    .terminal-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #ff5f56;
+    }
+    
+    .terminal-dot:nth-child(2) { background: #ffbd2e; }
+    .terminal-dot:nth-child(3) { background: #28c840; }
+    
+    .terminal-title {
+      flex: 1;
+      text-align: center;
+      font-size: 11px;
+      color: var(--text-tertiary);
+      font-weight: 500;
+    }
+    
+    .terminal-body {
+      padding: 24px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      line-height: 1.8;
+      color: #f5f5f7;
+      min-height: 240px;
+    }
+    
+    .terminal-line {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 8px;
+      opacity: 0;
+      animation: fadeIn 0.3s forwards;
+    }
+    
+    .terminal-line:nth-child(1) { animation-delay: 0.1s; }
+    .terminal-line:nth-child(2) { animation-delay: 0.3s; }
+    .terminal-line:nth-child(3) { animation-delay: 0.5s; }
+    .terminal-line:nth-child(4) { animation-delay: 0.7s; }
+    .terminal-line:nth-child(5) { animation-delay: 0.9s; }
+    .terminal-line:nth-child(6) { animation-delay: 1.1s; }
+    .terminal-line:nth-child(7) { animation-delay: 1.3s; }
+    
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+    
+    .terminal-prompt {
+      color: var(--success);
+      flex-shrink: 0;
+    }
+    
+    .terminal-cmd {
+      color: #f5f5f7;
+    }
+    
+    .terminal-result {
+      color: var(--text-tertiary);
+      margin-left: 24px;
+    }
+    
     .terminal-cursor {
       display: inline-block;
-      width: 5px; height: 12px;
-      background: #00ff41;
+      width: 8px;
+      height: 16px;
+      background: var(--accent);
       animation: blink 1s infinite;
       vertical-align: middle;
+      margin-left: 4px;
     }
-    @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
     
-    /* 快捷键表格 */
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+    
+    /* Shortcut Table */
+    .table-section {
+      margin-bottom: 80px;
+    }
+    
     .shortcut-table {
       width: 100%;
       border-collapse: collapse;
-      margin: 24px 0;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
     }
-    .shortcut-table th, .shortcut-table td {
-      padding: 10px 14px;
+    
+    .shortcut-table th,
+    .shortcut-table td {
+      padding: 16px 20px;
       text-align: left;
       border-bottom: 1px solid var(--border);
     }
-    .shortcut-table th {
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--text-dim);
-      font-weight: 500;
-    }
-    .shortcut-table td:first-child {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      background: var(--code-bg);
-      border-radius: 3px;
-      padding: 5px 8px;
-      width: 140px;
-    }
-    .shortcut-table td:last-child { color: var(--text-dim); font-size: 11px; }
     
-    /* 沙箱架构 */
-    .sandbox-arch {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 20px;
-      margin: 28px 0;
-    }
-    .sandbox-title { font-size: 12px; font-weight: 600; margin-bottom: 14px; }
-    .sandbox-diagram { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-    .sandbox-cell {
-      padding: 14px;
-      border: 1px solid var(--border);
-      border-radius: 5px;
-      text-align: center;
-    }
-    .sandbox-cell.highlight { background: rgba(0,120,212,0.05); border-color: rgba(0,120,212,0.2); }
-    .sandbox-cell-title {
-      font-size: 10px;
+    .shortcut-table th {
+      font-size: 11px;
       font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 8px;
+      letter-spacing: 0.06em;
+      color: var(--text-tertiary);
+      background: var(--surface-2);
     }
-    .sandbox-cell-code {
+    
+    .shortcut-table td:first-child {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
-      color: var(--text-dim);
+      font-size: 12px;
+      font-weight: 600;
+      background: var(--code-bg);
+      color: var(--accent);
+    }
+    
+    .shortcut-table td:last-child {
+      color: var(--text-secondary);
+      font-size: 13px;
+    }
+    
+    .shortcut-table tr:last-child td {
+      border-bottom: none;
+    }
+    
+    .shortcut-table tr:hover td {
+      background: var(--surface-2);
+    }
+    
+    .shortcut-table tr:hover td:first-child {
+      background: var(--tag-bg);
+      color: var(--accent);
+    }
+    
+    /* Sandbox Architecture */
+    .sandbox-section {
+      margin-bottom: 80px;
+    }
+    
+    .sandbox-visual {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    
+    .sandbox-diagram {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .sandbox-cell {
+      padding: 32px 24px;
+      border-right: 1px solid var(--border);
+      text-align: center;
+      transition: all 0.3s;
+    }
+    
+    .sandbox-cell:last-child {
+      border-right: none;
+    }
+    
+    .sandbox-cell:hover {
+      background: var(--surface-2);
+    }
+    
+    .sandbox-cell.highlight {
+      background: linear-gradient(180deg, rgba(0, 113, 227, 0.04) 0%, rgba(0, 113, 227, 0.08) 100%);
+      border-left: 3px solid var(--accent);
+    }
+    
+    .sandbox-icon {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 16px;
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    
+    .sandbox-cell.highlight .sandbox-icon {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: white;
+    }
+    
+    .sandbox-title {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+    }
+    
+    .sandbox-code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--text-tertiary);
       line-height: 1.7;
     }
     
-    /* 底部 */
-    .footer { margin-top: 60px; padding-top: 28px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; font-size: 11px; color: var(--text-dim); }
+    /* Image Gallery */
+    .gallery-section {
+      margin-bottom: 80px;
+    }
     
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    
+    .gallery-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+    
+    .gallery-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    }
+    
+    .gallery-item img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+    }
+    
+    .gallery-caption {
+      padding: 16px;
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+    
+    /* Footer */
+    .footer {
+      margin-top: 80px;
+      padding: 32px 0;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--text-tertiary);
+    }
+    
+    .footer a {
+      color: var(--text-secondary);
+      transition: color 0.2s;
+    }
+    
+    .footer a:hover {
+      color: var(--accent);
+    }
+    
+    /* Responsive */
     @media (max-width: 768px) {
-      .sandbox-diagram { grid-template-columns: 1fr; }
-      .nav-links { display: none; }
+      main {
+        padding-left: 24px;
+        padding-right: 24px;
+      }
+      
+      .nav {
+        padding: 0 24px;
+      }
+      
+      .nav-links {
+        display: none;
+      }
+      
+      .hero h1 {
+        font-size: 40px;
+      }
+      
+      .flow-chain {
+        flex-direction: column;
+        gap: 12px;
+      }
+      
+      .flow-arrow {
+        transform: rotate(90deg);
+        justify-self: center;
+      }
+      
+      .sandbox-diagram {
+        grid-template-columns: 1fr;
+      }
+      
+      .sandbox-cell {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+      
+      .sandbox-cell:last-child {
+        border-bottom: none;
+      }
+      
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 <body>
   <nav class="nav">
-    <span class="nav-logo">Rasso</span>
-    <div class="nav-links">
-      <a href="../index.html">Overview</a>
-      <a href="https://github.com/hanhanpig3/rasso">GitHub</a>
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="1.5" fill="none"/>
+        </svg>
+        Rasso
+      </a>
+      <div class="nav-links">
+        <a href="../index.html">Overview</a>
+        <a href="https://github.com/hanhanpig3/rasso" target="_blank">GitHub</a>
+      </div>
+      <a href="https://github.com/hanhanpig3/rasso/releases" class="nav-cta" target="_blank">下载</a>
     </div>
-    <a href="https://github.com/hanhanpig3/rasso/releases" class="nav-cta" target="_blank">下载 →</a>
   </nav>
 
   <main>
-    <a href="../index.html" class="back-link">← 返回概览</a>
-    
+    <a href="../index.html" class="back-link">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M19 12H5M12 19l-7-7 7-7"/>
+      </svg>
+      返回概览
+    </a>
+
+    <!-- Hero -->
     <section class="hero">
       <div class="hero-label">Keyboard-First Workflow</div>
-      <h1>Zero mouse.<br>Pure intent.</h1>
+      <h1>Zero mouse.<br><span>Pure intent.</span></h1>
       <p>Every action in Rasso is designed to be executed without leaving the home row. The entire product lifecycle — from invocation to result — happens within a single keystroke chain.</p>
     </section>
 
+    <!-- Flow Chain -->
     <section class="flow-section">
-      <div class="section-label">Typical Command Flow</div>
+      <div class="section-label">Command Flow</div>
       <div class="flow-chain">
         <div class="flow-step">
           <div class="flow-step-key">Alt+Space</div>
           <div class="flow-step-action">Launch</div>
           <div class="flow-step-detail">42ms cold start</div>
         </div>
-        <span class="flow-arrow">→</span>
+        <div class="flow-arrow">→</div>
         <div class="flow-step">
           <div class="flow-step-key">Type</div>
           <div class="flow-step-action">Query</div>
           <div class="flow-step-detail">Pinyin + fuzzy</div>
         </div>
-        <span class="flow-arrow">→</span>
+        <div class="flow-arrow">→</div>
         <div class="flow-step">
           <div class="flow-step-key">↑↓</div>
           <div class="flow-step-action">Select</div>
           <div class="flow-step-detail">Keyboard nav</div>
         </div>
-        <span class="flow-arrow">→</span>
+        <div class="flow-arrow">→</div>
         <div class="flow-step">
           <div class="flow-step-key">Enter</div>
           <div class="flow-step-action">Execute</div>
           <div class="flow-step-detail">Result + copy</div>
         </div>
-        <span class="flow-arrow">→</span>
+        <div class="flow-arrow">→</div>
         <div class="flow-step">
           <div class="flow-step-key">Esc</div>
           <div class="flow-step-action">Dismiss</div>
@@ -275,31 +661,39 @@
       </div>
     </section>
 
-    <section class="flow-section">
+    <!-- Terminal Demo -->
+    <section class="terminal-section">
       <div class="section-label">Live Command Terminal</div>
       <div class="terminal">
         <div class="terminal-header">
           <div class="terminal-dot"></div>
           <div class="terminal-dot"></div>
           <div class="terminal-dot"></div>
+          <span class="terminal-title">rasso-terminal</span>
         </div>
         <div class="terminal-body">
           <div class="terminal-line">
             <span class="terminal-prompt">$</span>
             <span class="terminal-cmd">1024 * 768</span>
           </div>
-          <div class="terminal-line"><span class="terminal-result">→ 786432 [copied]</span></div>
-          <div class="terminal-line" style="margin-top:6px;">
+          <div class="terminal-line">
+            <span class="terminal-result">→ 786432 [copied]</span>
+          </div>
+          <div class="terminal-line">
             <span class="terminal-prompt">$</span>
             <span class="terminal-cmd">当前时间</span>
           </div>
-          <div class="terminal-line"><span class="terminal-result">→ 1700000000000 [copied]</span></div>
-          <div class="terminal-line" style="margin-top:6px;">
+          <div class="terminal-line">
+            <span class="terminal-result">→ 1700000000000 [copied]</span>
+          </div>
+          <div class="terminal-line">
             <span class="terminal-prompt">$</span>
             <span class="terminal-cmd">小驼峰 用户名</span>
           </div>
-          <div class="terminal-line"><span class="terminal-result">→ userName / UserName / user_name / user-name</span></div>
-          <div class="terminal-line" style="margin-top:6px;">
+          <div class="terminal-line">
+            <span class="terminal-result">→ userName / UserName / user_name / user-name</span>
+          </div>
+          <div class="terminal-line">
             <span class="terminal-prompt">$</span>
             <span class="terminal-cursor"></span>
           </div>
@@ -307,45 +701,116 @@
       </div>
     </section>
 
-    <section class="flow-section">
+    <!-- Shortcut Reference -->
+    <section class="table-section">
       <div class="section-label">Shortcut Reference</div>
       <table class="shortcut-table">
-        <thead><tr><th>Key Combo</th><th>Function</th><th>Context</th></tr></thead>
+        <thead>
+          <tr>
+            <th>Key Combo</th>
+            <th>Function</th>
+            <th>Context</th>
+          </tr>
+        </thead>
         <tbody>
-          <tr><td>Alt + Space</td><td>Toggle launcher</td><td>Global</td></tr>
-          <tr><td>Ctrl + Shift + A</td><td>Full screenshot</td><td>Global</td></tr>
-          <tr><td>Ctrl + Shift + P</td><td>Pin to desktop</td><td>Global</td></tr>
-          <tr><td>Ctrl + Shift + M</td><td>Plugin market</td><td>When active</td></tr>
-          <tr><td>Ctrl + T</td><td>Theme cycle</td><td>When active</td></tr>
-          <tr><td>Esc</td><td>Layered exit</td><td>When active</td></tr>
+          <tr>
+            <td>Alt + Space</td>
+            <td>Toggle launcher</td>
+            <td>Global</td>
+          </tr>
+          <tr>
+            <td>Ctrl + Shift + A</td>
+            <td>Full screenshot</td>
+            <td>Global</td>
+          </tr>
+          <tr>
+            <td>Ctrl + Shift + P</td>
+            <td>Pin to desktop</td>
+            <td>Global</td>
+          </tr>
+          <tr>
+            <td>Ctrl + Shift + M</td>
+            <td>Plugin market</td>
+            <td>When active</td>
+          </tr>
+          <tr>
+            <td>Ctrl + T</td>
+            <td>Theme cycle</td>
+            <td>When active</td>
+          </tr>
+          <tr>
+            <td>Esc</td>
+            <td>Layered exit</td>
+            <td>When active</td>
+          </tr>
         </tbody>
       </table>
     </section>
 
-    <section class="flow-section">
+    <!-- Sandbox Architecture -->
+    <section class="sandbox-section">
       <div class="section-label">Plugin Sandbox Architecture</div>
-      <div class="sandbox-arch">
+      <div class="sandbox-visual">
         <div class="sandbox-diagram">
           <div class="sandbox-cell highlight">
-            <div class="sandbox-cell-title">Main Process</div>
-            <div class="sandbox-cell-code">plugin-manager.ts<br>plugin-view-manager.ts<br>command-registry.ts</div>
+            <div class="sandbox-icon">⚡</div>
+            <div class="sandbox-title">Main Process</div>
+            <div class="sandbox-code">plugin-manager.ts<br>plugin-view-manager.ts<br>command-registry.ts<br>settings-store.ts</div>
           </div>
           <div class="sandbox-cell">
-            <div class="sandbox-cell-title">IPC Bridge</div>
-            <div class="sandbox-cell-code">contextBridge<br>channel: 'plugin-api'<br>methods: ['exec','get']</div>
+            <div class="sandbox-icon">↔</div>
+            <div class="sandbox-title">IPC Bridge</div>
+            <div class="sandbox-code">contextBridge<br>channel: 'plugin-api'<br>methods: ['exec','get']<br>whitelist: true</div>
           </div>
           <div class="sandbox-cell">
-            <div class="sandbox-cell-title">Renderer / Plugin</div>
-            <div class="sandbox-cell-code">WebContentsView<br>window.rubick API<br>sandbox: true</div>
+            <div class="sandbox-icon">🔒</div>
+            <div class="sandbox-title">Plugin Renderer</div>
+            <div class="sandbox-code">WebContentsView<br>sandbox: true<br>preload: plugin-preload.mjs<br>nodeIntegration: false</div>
           </div>
         </div>
       </div>
     </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <span>Rasso v0.1.0 · MIT License</span>
+      <span>Electron 30 · React 18 · TypeScript 5</span>
+    </footer>
   </main>
 
-  <footer class="footer">
-    <span>Rasso v0.1.0</span>
-    <span>Electron 30 · React 18 · TypeScript 5</span>
-  </footer>
+  <script>
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // Intersection Observer for fade-in animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.flow-step, .terminal, .shortcut-table tr, .sandbox-cell').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+      observer.observe(el);
+    });
+  </script>
 </body>
 </html>
