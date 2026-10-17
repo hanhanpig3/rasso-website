@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>拉索 Rasso — 功能全景 | 新一代桌面启动器</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    :root {
+      --accent: #10b981;
+      --accent-light: #34d399;
+      --accent-glow: rgba(16, 185, 129, 0.3);
+      --gradient-1: linear-gradient(135deg, #10b981, #06b6d4);
+      --gradient-2: linear-gradient(135deg, #3b82f6, #10b981);
+    }
+    .feature-hero {
+      background: radial-gradient(ellipse at 50% 30%, rgba(16, 185, 129, 0.12) 0%, transparent 60%);
+    }
+    .feature-detail-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    .feature-detail-card:nth-child(even) {
+      direction: rtl;
+    }
+    .feature-detail-card:nth-child(even) > * {
+      direction: ltr;
+    }
+    .feature-text h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .feature-text p {
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+    .feature-visual {
+      background: rgba(16, 185, 129, 0.05);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      border-radius: 12px;
+      padding: 2rem;
+      text-align: center;
+      min-height: 200px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .feature-visual .emoji {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+    }
+    .feature-visual .desc {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+    }
+    .shortcut-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2rem 0;
+    }
+    .shortcut-table th,
+    .shortcut-table td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    .shortcut-table th {
+      color: var(--text-secondary);
+      font-weight: 500;
+      font-size: 0.85rem;
+    }
+    .shortcut-table td:first-child {
+      font-family: 'SF Mono', Monaco, monospace;
+      color: var(--accent-light);
+    }
+    .scenario-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+    .scenario-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+    .scenario-card .role {
+      font-size: 0.75rem;
+      color: var(--accent-light);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+    .scenario-card h4 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+    .scenario-card p {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+    }
+    @media (max-width: 768px) {
+      .feature-detail-card { grid-template-columns: 1fr; }
+      .feature-detail-card:nth-child(even) { direction: ltr; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <a href="index.html" class="nav-logo">
+      <svg viewBox="0 0 32 32" fill="none" width="32" height="32">
+        <rect width="32" height="32" rx="8" fill="url(#logo-grad-green)"/>
+        <path d="M8 16L14 10L20 16L14 22L8 16Z" fill="white"/>
+        <defs>
+          <linearGradient id="logo-grad-green" x1="0" y1="0" x2="32" y2="32">
+            <stop stop-color="#10b981"/>
+            <stop offset="1" stop-color="#06b6d4"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      Rasso 拉索
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">首页</a></li>
+      <li><a href="#features">功能详情</a></li>
+      <li><a href="#shortcuts">快捷键</a></li>
+      <li><a href="https://github.com/hanhanpig3/rasso" target="_blank">GitHub</a></li>
+    </ul>
+    <a href="https://github.com/hanhanpig3/rasso/releases" class="nav-cta" target="_blank">下载</a>
+  </nav>
+
+  <section class="hero feature-hero" style="min-height:60vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:6rem 2rem 4rem;">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span style="background:#10b981;"></span>
+        功能全景展示
+      </div>
+      <h1>每一个功能<br>都为效率而生</h1>
+      <p style="max-width:560px;margin:1rem auto 2rem;">
+        从毫秒级响应到三态交互，从内置插件到命令路由引擎——<br>
+        拉索的每一个像素都经过精心打磨。
+      </p>
+      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+        <a href="#features" class="btn btn-primary">探索功能</a>
+        <a href="index.html" class="btn btn-secondary">← 返回首页</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="features">
+    <div class="section-header">
+      <h2>核心功能详解</h2>
+      <p>六大核心能力，构建完整的桌面工作效率流</p>
+    </div>
+
+    <div class="feature-detail-card">
+      <div class="feature-text">
+        <h3>⚡ 毫秒级极速响应</h3>
+        <p>基于拼音首字母匹配与模糊评分算法，输入即搜索结果即时呈现。待机内存占用极低，启动到可用仅需数毫秒。数学表达式、时间戳、Base64 一键转换，无需切换应用。</p>
+      </div>
+      <div class="feature-visual">
+        <div class="emoji">⚡</div>
+        <div class="desc">输入 → 计算 → 复制<br>三步完成，全程无需鼠标</div>
+      </div>
+    </div>
+
+    <div class="feature-detail-card">
+      <div class="feature-text">
+        <h3>🎨 三态流线交互</h3>
+        <p>待机横条（56px）几乎隐形，搜索时智能扩展到结果列表高度，需要完整功能时展开至 600px 窗口。Win11 Acrylic 毛玻璃材质配合物理弹簧动效，每一次形态转换都优雅流畅。</p>
+      </div>
+      <div class="feature-visual">
+        <div class="emoji">🪟</div>
+        <div class="desc">56px → 自适应 → 600px<br>形态随需而变</div>
+      </div>
+    </div>
+
+    <div class="feature-detail-card">
+      <div class="feature-text">
+        <h3>🎯 命令路由引擎</h3>
+        <p>关键词模糊评分、正则表达式匹配、URL/IP 自动识别，拖入图片自动走 OCR，拖入 JSON 自动走格式化。你的意图就是命令，无需记忆复杂语法。</p>
+      </div>
+      <div class="feature-visual">
+        <div class="emoji">🔀</div>
+        <div class="desc">拖拽 → 识别 → 自动执行<br>意图驱动的命令路由</div>
+      </div>
+    </div>
+
+    <div class="feature-detail-card">
+      <div class="feature-text">
+        <h3>📌 截图与桌面贴图</h3>
+        <p>内置全屏选框截图工具，按 Ctrl+Shift+P 将剪贴板图片原生物理置顶在桌面上。支持无级滚轮缩放、透明度调节与拖拽，是标注、对比、参考的理想工具。</p>
+      </div>
+      <div class="feature-visual">
+        <div class="emoji">📌</div>
+        <div class="desc">截图 → 贴图 → 悬浮桌面<br>永不错过的参考信息</div>
+      </div>
+    </div>
+
+    <div class="feature-detail-card">
+      <div class="feature-text">
+        <h3>🐫 小驼峰变量命名</h3>
+        <p>内置高频编程分词库与同义词笛卡尔积装配引擎，支持 camelCase / PascalCase / snake_case / kebab-case 四种规范实时秒出。独立 API 配置面板，支持自建 HTTP / OpenAI / 百度等接口。</p>
+      </div>
+      <div class="feature-visual">
+        <div class="emoji">🐫</div>
+        <div class="desc">中文输入 → 四种命名规范<br>实时秒出，开箱即用</div>
+      </div>
+    </div>
+
+    <div class="feature-detail-card">
+      <div class="feature-text">
+        <h3>☁️ WebDAV 多端同步</h3>
+        <p>支持标准 WebDAV 协议自建私有云同步，配置与数据完全归个人所有。无需依赖第三方云服务，隐私数据安全可控。</p>
+      </div>
+      <div class="feature-visual">
+        <div class="emoji">🔒</div>
+        <div class="desc">私有云 · 数据主权<br>你的数据，你的规则</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="shortcuts">
+    <div class="section-header">
+      <h2>快捷键体系</h2>
+      <p>全方位快捷键覆盖，所有操作触手可及</p>
+    </div>
+    <table class="shortcut-table">
+      <thead>
+        <tr><th>快捷键</th><th>功能</th><th>适用场景</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Alt + Space</td><td>唤出 / 隐藏主窗口</td><td>全局随时唤醒</td></tr>
+        <tr><td>Ctrl + Shift + A</td><td>区域全屏截图</td><td>全局截图并自动复制</td></tr>
+        <tr><td>Ctrl + Shift + P</td><td>截图贴图（钉在桌面）</td><td>全局置顶浮动查看</td></tr>
+        <tr><td>Ctrl + Shift + M</td><td>打开 / 关闭插件市场</td><td>窗口呼出时生效</td></tr>
+        <tr><td>Ctrl + T</td><td>轮转切换主题</td><td>石墨 / 磨砂 / 纯白</td></tr>
+        <tr><td>Esc</td><td>分层逐级退出</td><td>清空输入 → 退出插件 → 隐藏</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="section" id="scenarios">
+    <div class="section-header">
+      <h2>使用场景</h2>
+      <p>不同角色，不同效率提升方式</p>
+    </div>
+    <div class="scenario-cards">
+      <div class="scenario-card">
+        <div class="role">开发者</div>
+        <h4>代码工作流加速</h4>
+        <p>小驼峰命名、代码截图、正则测试、JSON 格式化——开发工具链一键直达，无需切换 IDE。</p>
+      </div>
+      <div class="scenario-card">
+        <div class="role">设计师</div>
+        <h4>设计资源速取</h4>
+        <p>颜色拾取、渐变生成、二维码制作、图片 OCR——设计工具随手可得，灵感不错过。</p>
+      </div>
+      <div class="scenario-card">
+        <div class="role">办公族</div>
+        <h4>日常效率提升</h4>
+        <p>应用快速启动、备忘快贴、编码转换、时间戳计算——告别鼠标翻找，效率翻倍。</p>
+      </div>
+      <div class="scenario-card">
+        <div class="role">极客</div>
+        <h4>自定义极致体验</h4>
+        <p>快捷键全自定义、WebDAV 私有云、插件市场扩展——打造属于你的效率工具。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="cta-content">
+      <h2>体验完整功能</h2>
+      <p>免费下载，立即提升你的桌面效率</p>
+      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+        <a href="https://github.com/hanhanpig3/rasso/releases" class="btn btn-primary" target="_blank">立即下载</a>
+        <a href="https://github.com/hanhanpig3/rasso" class="btn btn-secondary" target="_blank">查看源码</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <ul class="footer-links">
+      <li><a href="index.html">首页</a></li>
+      <li><a href="https://github.com/hanhanpig3/rasso" target="_blank">GitHub</a></li>
+      <li><a href="https://github.com/hanhanpig3/rasso/blob/master/LICENSE" target="_blank">MIT</a></li>
+    </ul>
+    <p>© 2024-2026 Rasso · 功能全景版</p>
+  </footer>
+</body>
+</html>

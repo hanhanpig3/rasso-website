@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>拉索 Rasso — 开源故事 | 新一代桌面启动器</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    :root {
+      --accent: #f59e0b;
+      --accent-light: #fbbf24;
+      --accent-glow: rgba(245, 158, 11, 0.3);
+      --gradient-1: linear-gradient(135deg, #f59e0b, #ef4444);
+      --gradient-2: linear-gradient(135deg, #ef4444, #f59e0b);
+    }
+    .story-hero {
+      background: radial-gradient(ellipse at 30% 70%, rgba(245, 158, 11, 0.12) 0%, transparent 60%),
+                  radial-gradient(ellipse at 80% 20%, rgba(239, 68, 68, 0.08) 0%, transparent 50%);
+    }
+    .stat-big {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin: 3rem 0;
+    }
+    .stat-big-item {
+      text-align: center;
+      padding: 2rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+    }
+    .stat-big-item .num {
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: var(--gradient-1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .stat-big-item .label {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      margin-top: 0.5rem;
+    }
+    .value-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin: 3rem 0;
+    }
+    .value-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+    }
+    .value-card .icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    .value-card h4 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+    .value-card p {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+    }
+    .timeline-modern {
+      position: relative;
+      padding-left: 3rem;
+    }
+    .timeline-modern::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+    }
+    .timeline-modern .tl-item {
+      position: relative;
+      margin-bottom: 2.5rem;
+      padding-left: 1.5rem;
+    }
+    .timeline-modern .tl-item::before {
+      content: '';
+      position: absolute;
+      left: -3rem;
+      top: 0.5rem;
+      width: 12px;
+      height: 12px;
+      background: var(--accent);
+      border-radius: 50%;
+      border: 3px solid var(--bg-primary);
+    }
+    .timeline-modern .tl-date {
+      font-size: 0.75rem;
+      color: var(--accent-light);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.25rem;
+    }
+    .timeline-modern .tl-title {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+    .timeline-modern .tl-desc {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+    @media (max-width: 768px) {
+      .stat-big { grid-template-columns: repeat(2, 1fr); }
+      .value-cards { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <a href="index.html" class="nav-logo">
+      <svg viewBox="0 0 32 32" fill="none" width="32" height="32">
+        <rect width="32" height="32" rx="8" fill="url(#logo-grad-orange)"/>
+        <path d="M8 16L14 10L20 16L14 22L8 16Z" fill="white"/>
+        <defs>
+          <linearGradient id="logo-grad-orange" x1="0" y1="0" x2="32" y2="32">
+            <stop stop-color="#f59e0b"/>
+            <stop offset="1" stop-color="#ef4444"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      Rasso 拉索
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">首页</a></li>
+      <li><a href="#timeline">开发历程</a></li>
+      <li><a href="#values">开源理念</a></li>
+      <li><a href="https://github.com/hanhanpig3/rasso" target="_blank">GitHub</a></li>
+    </ul>
+    <a href="https://github.com/hanhanpig3/rasso/releases" class="nav-cta" target="_blank">下载</a>
+  </nav>
+
+  <section class="hero story-hero" style="min-height:60vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:6rem 2rem 4rem;">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span style="background:#f59e0b;"></span>
+        完全自主 · 开源共建
+      </div>
+      <h1>从一个想法<br>到一个生态</h1>
+      <p style="max-width:560px;margin:1rem auto 2rem;">
+        拉索源于对效率工具的深度思考：为什么一个启动器不能既是闪电般快速，<br>
+        又是无限可扩展的开放平台？答案就是 Rasso。
+      </p>
+      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+        <a href="#timeline" class="btn btn-primary">了解历程</a>
+        <a href="index.html" class="btn btn-secondary">← 返回首页</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="stat-big" style="padding:2rem;">
+    <div class="stat-big-item">
+      <div class="num">178</div>
+      <div class="label">单元测试用例</div>
+    </div>
+    <div class="stat-big-item">
+      <div class="num">10</div>
+      <div class="label">内置自研插件</div>
+    </div>
+    <div class="stat-big-item">
+      <div class="num">0</div>
+      <div class="label">商业闭源依赖</div>
+    </div>
+    <div class="stat-big-item">
+      <div class="num">MIT</div>
+      <div class="label">开源协议</div>
+    </div>
+  </div>
+
+  <section class="section" id="timeline">
+    <div class="section-header">
+      <h2>开发历程</h2>
+      <p>从架构决策到生产交付，每一步都有迹可循</p>
+    </div>
+    <div class="timeline-modern">
+      <div class="tl-item">
+        <div class="tl-date">架构奠基</div>
+        <div class="tl-title">微内核 + 插件沙箱架构确立</div>
+        <div class="tl-desc">采用 Electron 30 + React 18 + TypeScript 5 技术栈，确立「主壳做微内核，业务全归插件」的核心架构原则。通过 WebContentsView 实现插件安全隔离沙箱。</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">契约先行</div>
+        <div class="tl-title">@rasso/plugin-types 契约包发布</div>
+        <div class="tl-desc">定义 plugin.json 清单规范、UserSettings、LauncherSearchResultItem 等核心类型，作为整个生态的唯一契约源，确保插件间的无缝互操作。</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-title">垫片层打通 Rubick/uTools 兼容</div>
+        <div class="tl-desc">@rasso/plugin-shim 提供 window.rubick / window.utools 接口垫片，社区标准插件无需修改即可在拉索中运行。</div>
+        <div class="tl-date">生态兼容</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">原生抽象</div>
+        <div class="tl-title">@rasso/native-core 原生能力层</div>
+        <div class="tl-desc">封装应用扫描、拼音匹配、变量翻译等原生能力，提供 INativeService 接口，支持未来扩展更多平台。</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">三态交互</div>
+        <div class="tl-title">窗口几何与流线动效实现</div>
+        <div class="tl-desc">实现 56px 待机横条 → 自适应下拉 → 600px 展开窗口的三态切换，配合 Win11 Acrylic 毛玻璃与物理弹簧动效。</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">质量门禁</div>
+        <div class="tl-title">pnpm gate 全量测试体系</div>
+        <div class="tl-desc">建立 L1-L4 四层测试体系（178 项用例），preload 无 ESM 尾巴检测、尺寸常量唯一性检测、ADR-0001 沙箱隔离护栏等架构守卫。</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">生产封盘</div>
+        <div class="tl-title">v0.1.0 正式发布</div>
+        <div class="tl-desc">主程序微内核架构正式封盘，10 款内置插件全部上线，可通过 NSIS 安装包或便携版分发至 Windows 用户。</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="values">
+    <div class="section-header">
+      <h2>开源理念</h2>
+      <p>我们相信开放与自由是效率工具的终极形态</p>
+    </div>
+    <div class="value-cards">
+      <div class="value-card">
+        <div class="icon">🔓</div>
+        <h4>完全开源</h4>
+        <p>MIT 协议，全部代码公开可查，无任何闭源组件，尊重每一位使用者的自由。</p>
+      </div>
+      <div class="value-card">
+        <div class="icon">🛡️</div>
+        <h4>数据主权</h4>
+        <p>WebDAV 私有云同步，配置与数据完全归个人所有，不依赖任何第三方云服务。</p>
+      </div>
+      <div class="value-card">
+        <div class="icon">🧩</div>
+        <h4>开放生态</h4>
+        <p>兼容 Rubick/uTools 插件规范，社区插件一键安装，持续扩展能力边界。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="tech">
+    <div class="section-header">
+      <h2>技术栈</h2>
+      <p>现代前端工程化实践，构建可靠的生产级产品</p>
+    </div>
+    <div class="cards" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+      <div class="card">
+        <div class="card-icon">⚛️</div>
+        <h3>React 18</h3>
+        <p>现代 UI 框架，并发特性保障流畅交互</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📘</div>
+        <h3>TypeScript 5</h3>
+        <p>类型安全，契约驱动开发</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🖥️</div>
+        <h3>Electron 30</h3>
+        <p>跨平台桌面运行时，原生能力访问</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🧪</div>
+        <h3>Vitest</h3>
+        <p>快速测试框架，178 项用例全绿</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="cta-content">
+      <h2>加入开源社区</h2>
+      <p>星标仓库、提交 Issue、参与贡献——一起定义效率工具的明天</p>
+      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+        <a href="https://github.com/hanhanpig3/rasso" class="btn btn-primary" target="_blank">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          GitHub 仓库
+        </a>
+        <a href="https://github.com/hanhanpig3/rasso/releases" class="btn btn-secondary" target="_blank">下载发布版</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <ul class="footer-links">
+      <li><a href="index.html">首页</a></li>
+      <li><a href="https://github.com/hanhanpig3/rasso" target="_blank">GitHub</a></li>
+      <li><a href="https://github.com/hanhanpig3/rasso/blob/master/LICENSE" target="_blank">MIT</a></li>
+    </ul>
+    <p>© 2024-2026 Rasso · 开源故事版</p>
+  </footer>
+</body>
+</html>

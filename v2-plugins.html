@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>拉索 Rasso — 插件生态 | 新一代桌面启动器</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    :root {
+      --accent: #8b5cf6;
+      --accent-light: #a78bfa;
+      --accent-glow: rgba(139, 92, 246, 0.3);
+      --gradient-1: linear-gradient(135deg, #8b5cf6, #ec4899);
+      --gradient-2: linear-gradient(135deg, #06b6d4, #8b5cf6);
+    }
+    .plugin-hero {
+      background: radial-gradient(ellipse at 70% 30%, rgba(139, 92, 246, 0.15) 0%, transparent 60%);
+    }
+    .api-block {
+      background: #0d0d14;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      font-family: 'SF Mono', Monaco, Consolas, monospace;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+    }
+    .api-block .keyword { color: #c084fc; }
+    .api-block .string { color: #34d399; }
+    .api-block .comment { color: #6b7280; }
+    .api-block .key { color: #60a5fa; }
+    .market-banner {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 3rem;
+      text-align: center;
+      margin: 3rem 0;
+    }
+    .market-banner h3 {
+      font-size: 1.75rem;
+      margin-bottom: 1rem;
+    }
+    .market-stats {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      margin: 2rem 0;
+      flex-wrap: wrap;
+    }
+    .market-stat {
+      text-align: center;
+    }
+    .market-stat .num {
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: var(--gradient-1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .market-stat .label {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+    }
+    .install-demo {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-top: 2rem;
+    }
+    .install-demo code {
+      color: #34d399;
+      font-family: 'SF Mono', Monaco, monospace;
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <a href="index.html" class="nav-logo">
+      <svg viewBox="0 0 32 32" fill="none" width="32" height="32">
+        <rect width="32" height="32" rx="8" fill="url(#logo-grad-purple)"/>
+        <path d="M8 16L14 10L20 16L14 22L8 16Z" fill="white"/>
+        <defs>
+          <linearGradient id="logo-grad-purple" x1="0" y1="0" x2="32" y2="32">
+            <stop stop-color="#8b5cf6"/>
+            <stop offset="1" stop-color="#ec4899"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      Rasso 拉索
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">首页</a></li>
+      <li><a href="#plugins">内置插件</a></li>
+      <li><a href="#api">开发 API</a></li>
+      <li><a href="https://github.com/hanhanpig3/rasso" target="_blank">GitHub</a></li>
+    </ul>
+    <a href="https://github.com/hanhanpig3/rasso/releases" class="nav-cta" target="_blank">下载</a>
+  </nav>
+
+  <section class="hero plugin-hero" style="min-height:60vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:6rem 2rem 4rem;">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span style="background:#8b5cf6;"></span>
+        开放插件生态
+      </div>
+      <h1>一个启动器<br>无限可能性</h1>
+      <p style="max-width:560px;margin:1rem auto 2rem;">
+        10 款内置插件覆盖开发全场景，开放插件市场支持一键安装社区作品。<br>
+        兼容 Rubick / uTools plugin.json 规范，你的插件开箱即用。
+      </p>
+      <div class="version-selector" style="margin-top:2rem;">
+        <a href="index.html" class="version-btn">← 返回首页</a>
+        <a href="https://github.com/hanhanpig3/rasso" class="version-btn">GitHub 仓库</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="plugins">
+    <div class="section-header">
+      <h2>10 款内置插件</h2>
+      <p>全部自主研发，覆盖开发、设计、办公全场景</p>
+    </div>
+    <div class="plugin-grid">
+      <div class="plugin-card">
+        <div class="plugin-icon" style="background:linear-gradient(135deg,#8b5cf6,#ec4899);">🐫</div>
+        <h4>小驼峰变量命名</h4>
+        <p>中文→camelCase/PascalCase/snake_case/kebab-case</p>
+      </div>
+      <div class="plugin-card">
+        <div class="plugin-icon" style="background:linear-gradient(135deg,#06b6d4,#3b82f6);">🔄</div>
+        <h4>编码转换</h4>
+        <p>Base64/URL/Hex/Unicode/时间戳/MD5/SHA</p>
+      </div>
+      <div class="plugin-card">
+        <div class="plugin-icon" style="background:linear-gradient(135deg,#10b981,#06b6d4);">📷</div>
+        <h4>代码截图</h4>
+        <p>语法高亮卡片，多主题切换，导出 PNG</p>
+      </div>
+      <div class="plugin-card">
+        <div class="plugin-icon" style="background:linear-gradient(135deg,#f59e0b,#ef4444);">🎨</div>
+        <h4>颜色工具箱</h4>
+        <p>取色器，HEX/RGB/HSL/HSV 互转，CSS 渐变</p>
+      </div>
+      <div class="plugin-card">
+        <div class="plugin-icon" style="background:linear-gradient(135deg,#6366f1,#8b5cf6);">✨</div>
+        <h4>格式化工具</h4>
+        <p>JSON/SQL/XML/CSS 格式化压缩，文本 Diff</p>
+      </div>
+      <div class="plugin-card">
+        <div class="plugin-icon" style="background:linear-gradient(135deg,#ec4899,#f59e0b);">🔍</div>
+        <h4>正则表达式</h4>
+        <p>实时匹配高亮，捕获组展示，常用模板库</p>
+      </div>
+      <div class="plugin-card">
+        <div class="plugin-icon" style="background:linear-gradient(135deg,#10b981,#6366f1);">📌</div>
+        <h4>备忘快贴</h4>
+        <p>快速备忘记录，分类管理，一键粘贴</p>
+      </div>
+      <div class="plugin-card">
+        <div class="plugin-icon" style="background:linear-gradient(135deg,#06b6d4,#10b981);">👁️</div>
+        <h4>腾讯 OCR</h4>
+        <p>中英文文字识别，表格识别，发票识别</p>
+      </div>
+      <div class="plugin-card">
+        <div class="plugin-icon" style="background:linear-gradient(135deg,#f59e0b,#10b981);">🏁</div>
+        <h4>二维码</h4>
+        <p>高清晰生成，样式微调，本地图片扫码</p>
+      </div>
+      <div class="plugin-card">
+        <div class="plugin-icon" style="background:linear-gradient(135deg,#6366f1,#06b6d4);">🛠️</div>
+        <h4>极速百宝箱</h4>
+        <p>JSON 格式化，Base64 编解码，隔离数据库便签</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="market">
+    <div class="market-banner">
+      <h3>插件市场 · 一键安装</h3>
+      <p style="color:var(--text-secondary);">输入 NPM 包名即可拉取安装，支持离线/内置源码秒级就绪</p>
+      <div class="market-stats">
+        <div class="market-stat">
+          <div class="num">10+</div>
+          <div class="label">内置插件</div>
+        </div>
+        <div class="market-stat">
+          <div class="num">Rubick</div>
+          <div class="label">规范兼容</div>
+        </div>
+        <div class="market-stat">
+          <div class="num">uTools</div>
+          <div class="label">接口兼容</div>
+        </div>
+        <div class="market-stat">
+          <div class="num">NPM</div>
+          <div class="label">一键安装</div>
+        </div>
+      </div>
+      <div class="install-demo">
+        <div style="color:var(--text-secondary);font-size:0.85rem;margin-bottom:0.5rem;">在搜索框输入 NPM 包名即可安装：</div>
+        <code>npm install rubick-dev-coder</code>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="api">
+    <div class="section-header">
+      <h2>开发 API</h2>
+      <p>标准化的 plugin.json 规范，接入即开发</p>
+    </div>
+    <div class="api-block">
+<span class="comment">// plugin.json — 插件清单</span>
+{
+  <span class="key">"name"</span>: <span class="string">"my-plugin"</span>,
+  <span class="key">"pluginName"</span>: <span class="string">"我的插件"</span>,
+  <span class="key">"version"</span>: <span class="string">"1.0.0"</span>,
+  <span class="key">"author"</span>: <span class="string">"yourname"</span>,
+  <span class="key">"main"</span>: <span class="string">"index.html"</span>,
+  <span class="key">"features"</span>: [
+    {
+      <span class="key">"code"</span>: <span class="string">"myCmd"</span>,
+      <span class="key">"explain"</span>: <span class="string">"功能说明"</span>,
+      <span class="key">"cmds"</span>: [<span class="string">"关键词1"</span>, <span class="string">"关键词2"</span>]
+    }
+  ]
+}
+    </div>
+    <div class="api-block">
+<span class="comment">// preload.js — 注入 window.rubick / window.utools 接口</span>
+<span class="keyword">const</span> { rubickAPI } = <span class="keyword">await</span> <span class="keyword">import</span>(<span class="string">'./api'</span>);
+<span class="keyword">window</span>.rubick = rubickAPI;
+<span class="keyword">window</span>.utools = rubickAPI; <span class="comment">// 兼容 uTools 插件</span>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="cta-content">
+      <h2>成为插件开发者</h2>
+      <p>遵循标准规范，一键发布到插件市场，服务百万用户</p>
+      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+        <a href="https://github.com/hanhanpig3/rasso" class="btn btn-primary" target="_blank">开发文档</a>
+        <a href="https://github.com/hanhanpig3/rasso/releases" class="btn btn-secondary" target="_blank">下载 Rasso</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <ul class="footer-links">
+      <li><a href="index.html">首页</a></li>
+      <li><a href="https://github.com/hanhanpig3/rasso" target="_blank">GitHub</a></li>
+      <li><a href="https://github.com/hanhanpig3/rasso/blob/master/LICENSE" target="_blank">MIT</a></li>
+    </ul>
+    <p>© 2024-2026 Rasso · 插件生态版</p>
+  </footer>
+</body>
+</html>

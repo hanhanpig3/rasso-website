@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>拉索 Rasso — 极速哲学 | 新一代桌面启动器</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    :root {
+      --accent: #06b6d4;
+      --accent-light: #22d3ee;
+      --accent-glow: rgba(6, 182, 212, 0.3);
+      --gradient-1: linear-gradient(135deg, #06b6d4, #3b82f6);
+      --gradient-2: linear-gradient(135deg, #8b5cf6, #06b6d4);
+    }
+    .speed-line {
+      position: absolute;
+      width: 2px;
+      background: linear-gradient(to bottom, transparent, var(--accent), transparent);
+      animation: speedLine 2s linear infinite;
+      opacity: 0.3;
+    }
+    @keyframes speedLine {
+      0% { transform: translateY(-100px); opacity: 0; }
+      50% { opacity: 0.5; }
+      100% { transform: translateY(100vh); opacity: 0; }
+    }
+    .hero.speed-hero {
+      background: radial-gradient(ellipse at 30% 50%, rgba(6, 182, 212, 0.15) 0%, transparent 60%),
+                  radial-gradient(ellipse at 70% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+    }
+    .phase-demo {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin: 4rem 0;
+      flex-wrap: wrap;
+    }
+    .phase-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+      min-width: 180px;
+      transition: all 0.3s;
+    }
+    .phase-card:hover {
+      border-color: var(--accent);
+      transform: scale(1.05);
+    }
+    .phase-card .size {
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: var(--gradient-1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .phase-card .label {
+      color: var(--text-secondary);
+      margin-top: 0.5rem;
+    }
+    .key-hint {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: rgba(6, 182, 212, 0.1);
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      border-radius: 8px;
+      font-family: 'SF Mono', Monaco, monospace;
+      font-size: 0.85rem;
+      color: var(--accent-light);
+    }
+    .kbd {
+      padding: 0.2rem 0.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 0.75rem;
+    }
+    .flow-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: var(--accent);
+    }
+    .philosophy-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    @media (max-width: 768px) {
+      .philosophy-grid { grid-template-columns: 1fr; }
+    }
+    .philosophy-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .philosophy-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--gradient-1);
+    }
+    .philosophy-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.75rem;
+    }
+    .philosophy-card p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+    .philosophy-card .icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <a href="index.html" class="nav-logo">
+      <svg viewBox="0 0 32 32" fill="none" width="32" height="32">
+        <rect width="32" height="32" rx="8" fill="url(#logo-grad-cyan)"/>
+        <path d="M8 16L14 10L20 16L14 22L8 16Z" fill="white"/>
+        <defs>
+          <linearGradient id="logo-grad-cyan" x1="0" y1="0" x2="32" y2="32">
+            <stop stop-color="#06b6d4"/>
+            <stop offset="1" stop-color="#3b82f6"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      Rasso 拉索
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">首页</a></li>
+      <li><a href="#philosophy">设计理念</a></li>
+      <li><a href="#phases">三态交互</a></li>
+      <li><a href="https://github.com/hanhanpig3/rasso" target="_blank">GitHub</a></li>
+    </ul>
+    <a href="https://github.com/hanhanpig3/rasso/releases" class="nav-cta" target="_blank">下载</a>
+  </nav>
+
+  <section class="hero speed-hero" style="min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:6rem 2rem 4rem;position:relative;overflow:hidden;">
+    <!-- Speed lines background -->
+    <div class="speed-line" style="left:10%;animation-delay:0s;height:100px;"></div>
+    <div class="speed-line" style="left:25%;animation-delay:0.5s;height:150px;"></div>
+    <div class="speed-line" style="left:50%;animation-delay:1s;height:80px;"></div>
+    <div class="speed-line" style="left:75%;animation-delay:1.5s;height:120px;"></div>
+    <div class="speed-line" style="left:90%;animation-delay:0.3s;height:100px;"></div>
+
+    <div class="hero-content" style="position:relative;z-index:1;">
+      <div class="hero-badge">
+        <span style="background:#06b6d4;"></span>
+        极速 · 极简 · 极客
+      </div>
+      <h1>快，是唯一的<br>设计语言</h1>
+      <p style="max-width:560px;margin:1rem auto 2rem;">
+        拉索不是为了增加一个工具而存在，而是为了让每一个操作都回归本质——<br>
+        无需鼠标，无需寻找，想到即得到。
+      </p>
+      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:3rem;">
+        <span class="key-hint"><span class="kbd">Alt</span>+<span class="kbd">Space</span> 唤起启动器</span>
+        <span class="key-hint"><span class="kbd">Ctrl</span>+<span class="kbd">Shift</span>+<span class="kbd">A</span> 全屏截图</span>
+        <span class="key-hint"><span class="kbd">Ctrl</span>+<span class="kbd">Shift</span>+<span class="kbd">P</span> 贴图到桌面</span>
+      </div>
+      <div class="launcher-mockup" style="max-width:560px;margin:0 auto;">
+        <div class="launcher-titlebar">
+          <div class="dot dot-red"></div>
+          <div class="dot dot-yellow"></div>
+          <div class="dot dot-green"></div>
+        </div>
+        <div class="launcher-search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <input type="text" placeholder="搜索应用..." readonly value="(256 + 128) * 1.5 = 384">
+        </div>
+        <div class="launcher-results" style="padding:0.5rem;">
+          <div class="launcher-item active">
+            <div class="launcher-item-icon" style="background:linear-gradient(135deg,#06b6d4,#3b82f6);">🧮</div>
+            <div class="launcher-item-text">
+              <div class="launcher-item-title">即时计算结果</div>
+              <div class="launcher-item-sub">按 Enter 复制 384</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="phases">
+    <div class="section-header">
+      <h2>三态流线交互</h2>
+      <p>从待机到展开，每一次形态转换都经过精密计算</p>
+    </div>
+    <div class="phase-demo">
+      <div class="phase-card">
+        <div class="size">56px</div>
+        <div class="label">待机横条</div>
+        <div style="color:var(--text-secondary);font-size:0.8rem;margin-top:0.5rem;">近乎隐形<br>随时待命</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="phase-card">
+        <div class="size">自适应</div>
+        <div class="label">搜索下拉</div>
+        <div style="color:var(--text-secondary);font-size:0.8rem;margin-top:0.5rem;">动态高度<br>智能匹配</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="phase-card">
+        <div class="size">600px</div>
+        <div class="label">展开窗口</div>
+        <div style="color:var(--text-secondary);font-size:0.8rem;margin-top:0.5rem;">完整功能<br>插件沙箱</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="philosophy">
+    <div class="section-header">
+      <h2>设计哲学</h2>
+      <p>三个不可妥协的原则，定义拉索的每一个决策</p>
+    </div>
+    <div class="philosophy-grid">
+      <div class="philosophy-card">
+        <div class="icon">⚡</div>
+        <h3>速度至上</h3>
+        <p>从启动到可用，毫秒之间。全量 178 项单元测试确保每一次键盘输入都得到即时响应，零感知延迟。</p>
+      </div>
+      <div class="philosophy-card">
+        <div class="icon">🎯</div>
+        <h3>意图优先</h3>
+        <p>输入即执行。数学表达式实时计算、URL 自动识别、文件拖拽直接唤起——你的意图就是命令。</p>
+      </div>
+      <div class="philosophy-card">
+        <div class="icon">🪟</div>
+        <h3>形态自由</h3>
+        <p>横条待机、下拉搜索、窗口展开，三种形态无缝切换。Win11 Acrylic 毛玻璃配合物理弹簧动效。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="cta-content">
+      <h2>体验极速，从未如此简单</h2>
+      <p>免费下载，永久开源，一切从 Alt+Space 开始</p>
+      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+        <a href="https://github.com/hanhanpig3/rasso/releases" class="btn btn-primary" target="_blank">立即下载</a>
+        <a href="https://github.com/hanhanpig3/rasso" class="btn btn-secondary" target="_blank">查看源码</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <ul class="footer-links">
+      <li><a href="index.html">首页</a></li>
+      <li><a href="https://github.com/hanhanpig3/rasso" target="_blank">GitHub</a></li>
+      <li><a href="https://github.com/hanhanpig3/rasso/blob/master/LICENSE" target="_blank">MIT</a></li>
+    </ul>
+    <p>© 2024-2026 Rasso · 极速哲学版</p>
+  </footer>
+</body>
+</html>
