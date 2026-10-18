@@ -1,42 +1,41 @@
 # Rasso 官方官网
 
-拉索（Rasso）新一代极速桌面启动器的官方宣传网站，提供四种不同维度的设计版本。
+拉索（Rasso）— 键盘驱动的桌面插件启动器的官方网站。**单主页架构**：工程蓝图风格（Neobrutalism + Blueprint Sketch），纯白底方格网 + 黑白墨线硬阴影。
 
-## 🌐 在线预览
+## 🌐 在线访问
 
 **主页**: https://hanhanpig3.github.io/rasso-website/
 
-## 📄 四个设计版本
+> 插件仓库与官网分离：[hanhanpig3/rasso](https://github.com/hanhanpig3/rasso) 是产品主仓库，本仓库只承载官网。
 
-| 版本 | 页面 | 设计理念 | 配色主题 |
-|------|------|----------|----------|
-| **v1** | [极速哲学](https://hanhanpig3.github.io/rasso-website/v1-speed.html) | 聚焦速度、极简主义与键盘驱动的核心哲学 | 青色系 (`#06b6d4`) |
-| **v2** | [插件生态](https://hanhanpig3.github.io/rasso-website/v2-plugins.html) | 开发者视角，展示 10 款内置插件与开放 API | 紫色系 (`#8b5cf6`) |
-| **v3** | [功能全景](https://hanhanpig3.github.io/rasso-website/v3-features.html) | 详细功能展示，交互卡片与使用场景 | 绿色系 (`#10b981`) |
-| **v4** | [开源故事](https://hanhanpig3.github.io/rasso-website/v4-story.html) | 开发历程时间线、开源理念与技术栈 | 橙红色系 (`#f59e0b`) |
+## 📄 页面板块
 
-所有版本均通过 [index.html](https://hanhanpig3.github.io/rasso-website/index.html) 主页的导航入口互链。
+| 板块 | 内容 |
+|------|------|
+| **FIG.01 系统结构图** | 微内核 + 8 插件星系画布，芯片点击引爆、便签可拖拽 |
+| **FIG.02 命令工作流** | Alt+Space → 输入 → 选择 → 执行 → 收起，五步全键盘链路 |
+| **极客控制台** | 打字机构建日志（真实运行数据回放）+ SVG 示波器（IPC 延迟量级） |
+| **FIG.03 插件实机预览** | 可交互模拟启动器：输入过滤、回车打开；编码转换 / 变量命名面板**真实可用** |
+| **FIG.04 快捷键清单** | 全局热键与窗口级快捷键一览 |
+| **FIG.05 插件沙箱** | 主进程 / IPC 桥 / 插件沙箱三层隔离架构 |
+
+全站支持 **中 / EN 一键切换**（Vue 响应式 i18n，切换带淡入淡出）。
 
 ## 🏗️ 技术栈
 
-- **纯静态站点** — HTML + CSS + vanilla JavaScript，无需构建工具
-- **Tailwind 风格 CSS** — 自定义 CSS 变量系统，暗色主题
-- **响应式设计** — 支持桌面端与移动端
-- **GitHub Pages** — 自动部署，支持 HTTPS
+- **Vue 3 (CDN) + Tailwind CSS (CDN)** — 单文件实现，无构建步骤
+- **原生交互动效** — 芯片引爆（弹性贝塞尔回弹）、Pointer 拖拽便签、rAF 手绘波形、打字机终端
+- **GitHub Pages** — main 分支自动部署，HTTPS
 
 ## 📁 目录结构
 
 ```
 rasso-website/
-├── index.html       # 主入口页（四版导航）
-├── v1-speed.html    # 极速哲学版
-├── v2-plugins.html  # 插件生态版
-├── v3-features.html # 功能全景版
-├── v4-story.html    # 开源故事版
-├── css/
-│   └── style.css    # 共享样式
-└── js/
-    └── main.js      # 共享交互逻辑
+├── index.html            # 唯一主页（蓝图工程版）
+├── animations/
+│   └── demo.html         # 插件工作流动画演示（HyperFrames 思路的简化版）
+├── server.js             # 本地预览服务器（node server.js，端口 3000）
+└── README.md
 ```
 
 ## 🔗 相关链接
