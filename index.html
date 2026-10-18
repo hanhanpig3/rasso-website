@@ -144,7 +144,8 @@
     *{animation:none!important;transition:none!important}
   }
   /* ============ 插件实际界面（复刻 apps/desktop 真实 UI） ============ */
-  .rasso-app{position:relative;width:100%;max-width:620px;background:#16181d;border:1px solid rgba(255,255,255,.1);border-radius:14px;box-shadow:5px 5px 0 var(--ink);color:#ededed;overflow:hidden;font-family:"PingFang SC","Microsoft YaHei",system-ui,sans-serif;font-size:14px}
+  .live-stage{display:flex;flex-direction:column;align-items:center;width:100%;margin:20px 0}
+  .rasso-app{position:relative;width:100%;max-width:620px;margin:0 auto;background:#16181d;border:1px solid rgba(255,255,255,.12);border-radius:14px;box-shadow:5px 5px 0 var(--ink);color:#ededed;overflow:hidden;font-family:"PingFang SC","Microsoft YaHei",system-ui,sans-serif;font-size:14px}
   
   .rbar{display:flex;align-items:center;gap:10px;height:56px;padding:0 14px;background:#16181d;border-bottom:1px solid rgba(255,255,255,.08)}
   .ric-search{width:16px;height:16px;color:#666;flex-shrink:0}
@@ -154,7 +155,16 @@
   .rclear:hover{background:rgba(255,255,255,.08);color:#ededed}
   .rbar-right{display:flex;align-items:center;gap:6px;flex-shrink:0}
   .kbd-badge{display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:22px;padding:0 6px;font-size:11px;font-family:ui-monospace,Menlo,Consolas,monospace;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:6px;color:#999}
-  .rfoot .kbd-badge{font-size:10px;min-width:20px;height:20px}
+  /* ActionFooter 真实 36px 底部状态栏 */
+  .rfoot{height:36px;padding:0 14px;background:#121317;border-top:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:space-between;font-size:11px;color:#888;user-select:none;box-sizing:border-box}
+  .rfoot-l{display:flex;align-items:center;gap:8px;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+  .rfoot-item{display:flex;align-items:center;gap:6px;font-size:11px;color:#888}
+  .rfoot-sep{opacity:.35;margin:0 2px;color:#666}
+  .rfoot-r{display:flex;align-items:center;gap:5px;font-size:11px;color:#666;flex-shrink:0}
+  .rfoot .kbd-badge{font-size:10px;min-width:20px;height:20px;padding:0 4px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:4px;color:#888}
+  .dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+  .dot-cyan{background:#38bdf8;box-shadow:0 0 6px rgba(56,189,248,.4)}
+  .dot-ok{background:#10b981;box-shadow:0 0 6px rgba(16,185,129,.4)}
   .pbadge{display:flex;align-items:center;gap:5px;max-width:42%;padding:3px 5px 3px 9px;background:rgba(56,189,248,.12);border:1px solid #38bdf8;border-radius:8px;cursor:pointer;color:#f1f5f9;font-size:12px;font-weight:600;font-family:inherit;flex-shrink:0}
   .pbadge-x{color:#94a3b8;font-weight:400;font-size:13px}
   .rbody{display:flex;flex-direction:column;height:360px}
@@ -460,16 +470,18 @@
       </div>
       <p class="text-[12px] text-neutral-600 max-w-2xl mb-7 fade-i"><span data-t="live_desc">直接采用 Rasso 桌面端同款 UI 规范：SearchBar 单行搜索条、ResultList 键盘导航列表、ActionFooter 状态栏以及多插件沙箱视图。编码转换与变量命名在此完整可交互；其余系统级插件提供能力索引与桌面客户端接入入口。</span></p>
 
-            <!-- 移动触控设备降级与提示 -->
-      <div v-if="isMobile" class="mb-4 p-3 bg-neutral-100 border-2 border-black flex items-center justify-between text-[11.5px] font-bold shadow-[3px_3px_0_#000]">
-        <div class="flex items-center gap-2">
-          <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-          <span class="fade-i" data-t="touch_mode_hint">触控体验模式 · 点击条目即可直接试用插件</span>
+      <!-- 居中视口展示舞台 -->
+      <div class="live-stage">
+        <!-- 移动触控设备降级与提示 (居中限定最大宽度 620px) -->
+        <div v-if="isMobile" class="w-full max-w-[620px] mb-4 p-3 bg-neutral-100 border-2 border-black flex items-center justify-between text-[11.5px] font-bold shadow-[3px_3px_0_#000]">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span class="fade-i" data-t="touch_mode_hint">触控体验模式 · 点击条目即可直接试用插件</span>
+          </div>
+          <span class="font-mono text-[10px] bg-black text-white px-1.5 py-0.5">TOUCH READY</span>
         </div>
-        <span class="font-mono text-[10px] bg-black text-white px-1.5 py-0.5">TOUCH READY</span>
-      </div>
 
-      <div class="rasso-app">
+        <div class="rasso-app">
 
 
         <!-- SearchBar · 56px -->
@@ -636,7 +648,7 @@
           </div>
         </div>
 
-        <!-- ActionFooter · 36px -->
+        <!-- ActionFooter · 36px 真实石墨材质底栏 -->
         <div class="rfoot">
           <div class="rfoot-l">
             <span class="rfoot-item">
@@ -655,7 +667,8 @@
         </div>
       </div>
 
-      <p class="text-[10.5px] font-bold opacity-50 mt-3 tracking-wide fade-i"><span data-t="live_note">界面规格严格对齐 Rasso 桌面客户端源码 (石墨暗色主题) · 真实逻辑可交互执行</span></p>
+      <p class="w-full max-w-[620px] text-[10.5px] font-bold opacity-50 mt-3 text-center tracking-wide fade-i"><span data-t="live_note">界面规格严格对齐 Rasso 桌面客户端源码 (石墨暗色主题) · 真实逻辑可交互执行</span></p>
+      </div><!-- /.live-stage -->
     </section>
 
     <!-- ================= 快捷键清单 ================= -->
