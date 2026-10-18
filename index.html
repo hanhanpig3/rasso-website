@@ -239,6 +239,16 @@
   .pn-ric svg{width:18px;height:18px}
   .pn{overflow-y:auto}
 
+
+  .no-scrollbar::-webkit-scrollbar{display:none}
+  .no-scrollbar{-ms-overflow-style:none;scrollbar-width:none}
+  .touch-manipulation{touch-action:manipulation}
+  @media(max-width:768px){
+    .ritem{min-height:48px}
+    .pbadge{max-width:60%}
+    .btn{padding:8px 14px}
+  }
+
 </style>
 </head>
 <body>
@@ -246,32 +256,33 @@
 
   <!-- ================= NAV ================= -->
   <nav class="sticky top-0 z-50 bg-white border-b-[2.5px] border-black">
-    <div class="max-w-6xl mx-auto px-5 h-14 flex items-center gap-6">
-      <a href="index.html" class="display text-lg tracking-tight flex items-center gap-2">
-        RASSO<span class="inline-block w-3.5 h-3.5 bg-black"></span>
+    <div class="max-w-6xl mx-auto px-4 md:px-5 h-14 flex items-center justify-between gap-3 md:gap-6">
+      <a href="index.html" class="display text-lg tracking-tight flex items-center gap-2 flex-shrink-0 touch-manipulation">
+        RASSO<span class="inline-block w-3 h-3 md:w-3.5 md:h-3.5 bg-black"></span>
       </a>
-      <div class="hidden md:flex items-center gap-5 text-[12px] font-bold">
-        <a href="#canvas" class="fade-i hover:bg-black hover:text-white px-1.5 py-0.5">{{ t('nav_map') }}</a>
-        <a href="#flow" class="fade-i hover:bg-black hover:text-white px-1.5 py-0.5">{{ t('nav_flow') }}</a>
-        <a href="#live" class="fade-i hover:bg-black hover:text-white px-1.5 py-0.5">{{ t('nav_live') }}</a>
-        <a href="#keys" class="fade-i hover:bg-black hover:text-white px-1.5 py-0.5">{{ t('nav_keys') }}</a>
-        <a href="#sandbox" class="fade-i hover:bg-black hover:text-white px-1.5 py-0.5">{{ t('nav_sandbox') }}</a>
-        <a href="animations/demo.html" class="fade-i hover:bg-black hover:text-white px-1.5 py-0.5">{{ t('nav_demo') }} ↗</a>
+      <!-- 桌面端与移动端滑动式快速锚点栏 -->
+      <div class="flex items-center gap-3 md:gap-5 text-[11.5px] md:text-[12px] font-bold overflow-x-auto no-scrollbar py-1">
+        <a href="#canvas" class="fade-i hover:bg-black hover:text-white px-1.5 py-0.5 whitespace-nowrap touch-manipulation"><span data-t="nav_map">系统图</span></a>
+        <a href="#flow" class="fade-i hover:bg-black hover:text-white px-1.5 py-0.5 whitespace-nowrap touch-manipulation"><span data-t="nav_flow">工作流</span></a>
+        <a href="#live" class="fade-i hover:bg-black hover:text-white px-1.5 py-0.5 whitespace-nowrap touch-manipulation"><span data-t="nav_live">实机预览</span></a>
+        <a href="#compare" class="fade-i hover:bg-black hover:text-white px-1.5 py-0.5 whitespace-nowrap touch-manipulation"><span data-t="nav_compare">架构对比</span></a>
+        <a href="#quickstart" class="fade-i hover:bg-black hover:text-white px-1.5 py-0.5 whitespace-nowrap touch-manipulation"><span data-t="nav_dev">插件开发</span></a>
+        <a href="animations/demo.html" class="fade-i hover:bg-black hover:text-white px-1.5 py-0.5 whitespace-nowrap touch-manipulation text-emerald-700"><span data-t="nav_demo">演示</span> ↗</a>
       </div>
-      <div class="ml-auto flex items-center gap-3">
-        <!-- ZH / EN 开关 -->
-        <div class="flex border-2 border-black shadow-[3px_3px_0_#000] overflow-hidden">
+      <!-- 右侧中英文切换与下载按钮（防误触大触控区优化） -->
+      <div class="flex items-center gap-2 md:gap-3 flex-shrink-0">
+        <div class="flex border-2 border-black shadow-[2px_2px_0_#000] md:shadow-[3px_3px_0_#000] overflow-hidden">
           <button @click="setLang('zh')"
-            class="px-2.5 py-1 text-[11px] font-extrabold transition-colors"
+            class="px-2 md:px-2.5 py-1.5 text-[11px] font-extrabold transition-colors min-h-[34px] min-w-[28px] touch-manipulation active:scale-95"
             :class="lang==='zh' ? 'bg-black text-white' : 'bg-white hover:bg-neutral-100'">中</button>
           <div class="w-0.5 bg-black"></div>
           <button @click="setLang('en')"
-            class="px-2.5 py-1 text-[11px] font-extrabold transition-colors"
+            class="px-2 md:px-2.5 py-1.5 text-[11px] font-extrabold transition-colors min-h-[34px] min-w-[28px] touch-manipulation active:scale-95"
             :class="lang==='en' ? 'bg-black text-white' : 'bg-white hover:bg-neutral-100'">EN</button>
         </div>
         <a href="https://github.com/hanhanpig3/rasso/releases" target="_blank"
-           class="hard hard-thin lift press px-3 py-1.5 text-[12px] font-extrabold">
-          <span class="fade-i">{{ t('nav_dl') }}</span> ↓
+           class="hard hard-thin lift press px-2.5 md:px-3 py-1.5 text-[11px] md:text-[12px] font-extrabold min-h-[36px] flex items-center gap-1 touch-manipulation">
+          <span class="fade-i"><span data-t="nav_dl">下载 v0.1.0</span></span> ↓
         </a>
       </div>
     </div>
@@ -288,36 +299,36 @@
         <span class="cross" style="left:40%;bottom:-26px">+</span>
 
         <div class="inline-block hard-thin px-3 py-1 text-[11px] font-extrabold tracking-widest mb-6 fade-i">
-          {{ t('kicker') }}
+          <span data-t="kicker">插件启动器 · 键盘优先 · v0.1.0</span>
         </div>
         <h1 class="display leading-[0.95]">
           <span class="glitch text-[64px] md:text-[88px]" data-text="RASSO">RASSO</span><br>
-          <span class="inline-block bg-black text-white text-2xl md:text-3xl px-3 py-1 -rotate-2 mt-3 fade-i">{{ t('hero_cn') }}</span>
+          <span class="inline-block bg-black text-white text-2xl md:text-3xl px-3 py-1 -rotate-2 mt-3 fade-i"><span data-t="hero_cn">拉索 — 极客蓝图</span></span>
         </h1>
-        <p class="mt-6 text-[15px] font-bold fade-i">{{ t('hero_sub') }}</p>
-        <p class="mt-3 text-[13px] leading-relaxed text-neutral-700 max-w-md fade-i">{{ t('hero_desc') }}</p>
+        <p class="mt-6 text-[15px] font-bold fade-i"><span data-t="hero_sub">键盘驱动的桌面插件启动器。</span></p>
+        <p class="mt-3 text-[13px] leading-relaxed text-neutral-700 max-w-md fade-i"><span data-t="hero_desc">Alt+Space 全局唤起，10 款自研插件开箱即用；意图直达执行，全程不碰鼠标。</span></p>
 
         <div class="flex flex-wrap gap-4 mt-8">
           <a href="https://github.com/hanhanpig3/rasso/releases" target="_blank"
              class="hard lift press px-5 py-3 text-[13px] font-extrabold bg-black text-white shadow-[4px_4px_0_rgba(0,0,0,.35)]">
-            <span class="fade-i">{{ t('cta_dl') }}</span> ↓
+            <span class="fade-i"><span data-t="cta_dl">下载 Windows 版</span></span> ↓
           </a>
           <a href="https://github.com/hanhanpig3/rasso" target="_blank"
              class="hard lift press px-5 py-3 text-[13px] font-extrabold">
-            <span class="fade-i">{{ t('cta_src') }}</span> ↗
+            <span class="fade-i"><span data-t="cta_src">查看源码</span></span> ↗
           </a>
         </div>
         <div class="flex flex-wrap gap-2.5 mt-7 text-[11px] font-bold">
-          <span class="border-2 border-black px-2.5 py-1 fade-i">{{ t('chip_tests') }}</span>
-          <span class="border-2 border-black px-2.5 py-1 fade-i">{{ t('chip_mit') }}</span>
-          <span class="border-2 border-black px-2.5 py-1 fade-i">{{ t('chip_stack') }}</span>
+          <span class="border-2 border-black px-2.5 py-1 fade-i"><span data-t="chip_tests">178 项测试全绿</span></span>
+          <span class="border-2 border-black px-2.5 py-1 fade-i"><span data-t="chip_mit">MIT 开源</span></span>
+          <span class="border-2 border-black px-2.5 py-1 fade-i"><span data-t="chip_stack">Electron 30 内核</span></span>
         </div>
       </div>
 
       <!-- 右：交互画布 -->
       <div id="canvas" class="flex flex-col items-center lg:items-end">
         <div class="w-full max-w-[520px] flex items-center gap-3 mb-3">
-          <span class="fig-label fade-i">{{ t('fig1') }}</span>
+          <span class="fig-label fade-i"><span data-t="fig1">FIG.01 — 系统结构图</span></span>
           <span class="fig-rule"></span>
         </div>
         <div class="canvas-scale">
@@ -339,7 +350,7 @@
             <div class="chip" @click="explode" @mouseenter="hoverBoom">
               <div class="pins"></div>
               <div class="display text-[17px] mt-2">RASSO</div>
-              <div class="text-[10px] font-bold tracking-widest mt-1 fade-i">{{ t('core') }}</div>
+              <div class="text-[10px] font-bold tracking-widest mt-1 fade-i"><span data-t="core">微内核</span></div>
               <div class="text-[9px] mt-1.5 opacity-60">v0.1.0</div>
               <div class="pins b"></div>
             </div>
@@ -349,7 +360,7 @@
                  :style="{ left: nodePos[i].x+'px', top: nodePos[i].y+'px', '--r': n.rot+'deg', '--fd': (i*0.35)+'s' }">
               <div class="node-in">
                 <span class="node-code">{{ n.code }}</span>
-                <div class="node-name fade-i">{{ t(n.key) }}</div>
+                <div class="node-name fade-i" v-text="t(n.key)"></div>
               </div>
             </div>
 
@@ -361,17 +372,17 @@
               <div class="note-in relative">
                 <span class="pin"></span>
                 <template v-if="n.href">
-                  <a :href="n.href" class="fade-i">{{ t(n.key) }}</a>
+                  <a :href="n.href" class="fade-i" v-text="t(n.key)"></a>
                 </template>
                 <template v-else>
-                  <span class="fade-i">{{ t(n.key) }}</span>
+                  <span class="fade-i" v-text="t(n.key)"></span>
                 </template>
               </div>
             </div>
           </div>
         </div>
         <div class="w-full max-w-[520px] flex items-center justify-between mt-3 text-[11px] font-bold">
-          <span class="fade-i">{{ t('fig_hint') }}</span>
+          <span class="fade-i"><span data-t="fig_hint">点击微内核架构解构 · 便签支持自由拖拽</span></span>
           <span class="border-2 border-black px-2 py-0.5">FIG.01</span>
         </div>
       </div>
@@ -380,16 +391,16 @@
     <!-- ================= 工作流 ================= -->
     <section id="flow" class="pt-6">
       <div class="flex items-center gap-3 mb-3">
-        <span class="fig-label fade-i">{{ t('wf_label') }}</span>
+        <span class="fig-label fade-i"><span data-t="wf_label">FIG.02 — 命令工作流</span></span>
         <span class="fig-rule"></span>
       </div>
-      <p class="text-[12px] text-neutral-600 max-w-2xl mb-7 fade-i">{{ t('wf_desc') }}</p>
+      <p class="text-[12px] text-neutral-600 max-w-2xl mb-7 fade-i"><span data-t="wf_desc">五步全键盘链路——这是每次使用 Rasso 的完整路径，42ms 冷启动为实测数据。</span></p>
       <div class="flex flex-wrap items-stretch gap-y-6">
         <template v-for="(s,i) in 5" :key="i">
           <div class="hard wf-box lift px-4 py-4 flex-1">
             <span class="key-chip">{{ WF[i].key }}</span>
-            <div class="text-[14px] font-extrabold mt-2.5 fade-i">{{ t(WF[i].act) }}</div>
-            <div class="text-[11px] text-neutral-600 mt-1 fade-i">{{ t(WF[i].det) }}</div>
+            <div class="text-[14px] font-extrabold mt-2.5 fade-i" v-text="t(WF[i].act)"></div>
+            <div class="text-[11px] text-neutral-600 mt-1 fade-i" v-text="t(WF[i].det)"></div>
           </div>
           <div v-if="i<4" class="flex items-center px-2.5 text-xl font-black">→</div>
         </template>
@@ -398,13 +409,13 @@
 
     <!-- ================= 极客控制台 ================= -->
     <section class="mt-20">
-      <p class="text-[12px] text-neutral-600 max-w-2xl mb-6 fade-i">{{ t('console_desc') }}</p>
+      <p class="text-[12px] text-neutral-600 max-w-2xl mb-6 fade-i"><span data-t="console_desc">左：真实构建与运行日志逐行回放；右：主进程 ↔ 插件 IPC 往返延迟指标（实测 1.2ms）。毫秒级链路延迟为高频全局唤起与即时交互提供底层性能保障。</span></p>
       <div class="grid lg:grid-cols-[1.35fr_1fr] gap-7">
       <!-- 打字机终端 -->
       <div class="term hard">
         <div class="bar">
           <span class="sq"></span><span class="sq o"></span><span class="sq"></span>
-          <span class="ml-2 opacity-80">rasso://<span class="fade-i">{{ t('term_title') }}</span></span>
+          <span class="ml-2 opacity-80">rasso://<span class="fade-i"><span data-t="term_title">构建日志</span></span></span>
           <span class="ml-auto opacity-60">bash — 80×24</span>
         </div>
         <div class="p-5 text-[12.5px] leading-[1.9] min-h-[218px]">
@@ -417,7 +428,7 @@
       <!-- 示波器 -->
       <div class="hard lift p-5 flex flex-col">
         <div class="flex items-center justify-between text-[11px] font-extrabold tracking-widest">
-          <span class="fade-i">{{ t('scope_title') }}</span>
+          <span class="fade-i"><span data-t="scope_title">性能监视器</span></span>
           <span class="flex items-center gap-1.5">
             <span class="w-2 h-2 bg-black animate-pulse"></span>REC
           </span>
@@ -430,7 +441,7 @@
         </svg>
         <div class="flex items-end justify-between mt-2">
           <div>
-            <div class="text-[10px] font-bold text-neutral-600 fade-i">{{ t('scope_rtt') }}</div>
+            <div class="text-[10px] font-bold text-neutral-600 fade-i"><span data-t="scope_rtt">IPC 往返延迟</span></div>
             <div class="display text-[30px] leading-none mt-1">{{ rtt }}<span class="text-[13px] ml-1">ms</span></div>
           </div>
           <div class="text-[10px] font-bold text-right leading-relaxed opacity-70">
@@ -444,10 +455,19 @@
     <!-- ================= 插件实际界面 ================= -->
     <section id="live" class="mt-20">
       <div class="flex items-center gap-3 mb-3">
-        <span class="fig-label fade-i">{{ t('live_label') }}</span>
+        <span class="fig-label fade-i"><span data-t="live_label">FIG.03 — 插件实机运行界面</span></span>
         <span class="fig-rule"></span>
       </div>
-      <p class="text-[12px] text-neutral-600 max-w-2xl mb-7 fade-i">{{ t('live_desc') }}</p>
+      <p class="text-[12px] text-neutral-600 max-w-2xl mb-7 fade-i"><span data-t="live_desc">直接采用 Rasso 桌面端同款 UI 规范：SearchBar 单行搜索条、ResultList 键盘导航列表、ActionFooter 状态栏以及多插件沙箱视图。编码转换与变量命名在此完整可交互；其余系统级插件提供能力索引与桌面客户端接入入口。</span></p>
+
+            <!-- 移动触控设备降级与提示 -->
+      <div v-if="isMobile" class="mb-4 p-3 bg-neutral-100 border-2 border-black flex items-center justify-between text-[11.5px] font-bold shadow-[3px_3px_0_#000]">
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span class="fade-i" data-t="touch_mode_hint">触控体验模式 · 点击条目即可直接试用插件</span>
+        </div>
+        <span class="font-mono text-[10px] bg-black text-white px-1.5 py-0.5">TOUCH READY</span>
+      </div>
 
       <div class="rasso-app">
 
@@ -477,7 +497,7 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path>
               </svg>
-              <span class="fade-i">{{ t('lp_none') }}</span>
+              <span class="fade-i"><span data-t="lp_none">无匹配结果</span></span>
             </div>
             <div v-for="(p,i) in filtered" :key="p.id" class="ritem" :class="{sel:i===selIdx}"
                  @mouseenter="selIdx=i" @click="openPlugin(p)">
@@ -489,7 +509,7 @@
               <div class="rit-right">
                 <span v-if="p.live" class="rit-live">可交互</span>
                 <span v-if="i===selIdx" class="rit-open">
-                  <span class="fade-i">{{ t('lp_open') }}</span>
+                  <span class="fade-i"><span data-t="lp_open">打开</span></span>
                   <span class="kbd-badge">↵</span>
                 </span>
               </div>
@@ -609,8 +629,8 @@
                 <span>版本 {{ opened.ver }}</span><span class="pn-sep">·</span><span>作者 hanhanpig3</span><span class="pn-sep">·</span><span>UI 插件</span>
               </div>
               <div class="pn-foot">
-                <span class="fade-i">{{ t('sys_d') }}</span>
-                <a class="pn-btn" href="https://github.com/hanhanpig3/rasso/releases" target="_blank">{{ t('sys_dl') }} →</a>
+                <span class="fade-i"><span data-t="sys_d">该插件依赖桌面系统能力，仅在 Rasso 桌面应用中可用。</span></span>
+                <a class="pn-btn" href="https://github.com/hanhanpig3/rasso/releases" target="_blank"><span data-t="sys_dl">下载完整版</span> →</a>
               </div>
             </div>
           </div>
@@ -626,7 +646,7 @@
             <span class="rfoot-sep">•</span>
             <span class="rfoot-item">
               <span class="kbd-badge">Esc</span>
-              <span class="fade-i">{{ t('lp_esc') }}</span>
+              <span class="fade-i"><span data-t="lp_esc">返回 / 退出</span></span>
             </span>
           </div>
           <div class="rfoot-r">
@@ -635,29 +655,29 @@
         </div>
       </div>
 
-      <p class="text-[10.5px] font-bold opacity-50 mt-3 tracking-wide fade-i">{{ t('live_note') }}</p>
+      <p class="text-[10.5px] font-bold opacity-50 mt-3 tracking-wide fade-i"><span data-t="live_note">界面规格严格对齐 Rasso 桌面客户端源码 (石墨暗色主题) · 真实逻辑可交互执行</span></p>
     </section>
 
     <!-- ================= 快捷键清单 ================= -->
     <section id="keys" class="mt-20">
       <div class="flex items-center gap-3 mb-3">
-        <span class="fig-label fade-i">{{ t('sc_label') }}</span>
+        <span class="fig-label fade-i"><span data-t="sc_label">FIG.04 — 快捷键清单</span></span>
         <span class="fig-rule"></span>
       </div>
-      <p class="text-[12px] text-neutral-600 max-w-2xl mb-7 fade-i">{{ t('sc_desc') }}</p>
+      <p class="text-[12px] text-neutral-600 max-w-2xl mb-7 fade-i"><span data-t="sc_desc">全局热键注册在系统层；窗口唤起后另有插件级快捷键组，均可在设置中自定义覆盖。</span></p>
       <table class="sheet hard w-full border-collapse overflow-hidden">
         <thead>
           <tr>
-            <th class="text-left px-5 py-3 fade-i">{{ t('th_k') }}</th>
-            <th class="text-left px-5 py-3 fade-i">{{ t('th_f') }}</th>
-            <th class="text-left px-5 py-3 fade-i">{{ t('th_c') }}</th>
+            <th class="text-left px-5 py-3 fade-i"><span data-t="th_k">键位</span></th>
+            <th class="text-left px-5 py-3 fade-i"><span data-t="th_f">功能</span></th>
+            <th class="text-left px-5 py-3 fade-i"><span data-t="th_c">作用域</span></th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="s in SHEET" :key="s.k">
             <td class="mono-cell px-5 py-3 font-extrabold text-[12px]" :class="s.bg">{{ s.k }}</td>
-            <td class="px-5 py-3 font-bold fade-i">{{ t(s.f) }}</td>
-            <td class="px-5 py-3 text-neutral-600 fade-i">{{ t(s.c) }}</td>
+            <td class="px-5 py-3 font-bold fade-i" v-text="t(s.f)"></td>
+            <td class="px-5 py-3 text-neutral-600 fade-i" v-text="t(s.c)"></td>
           </tr>
         </tbody>
       </table>
@@ -666,35 +686,164 @@
     <!-- ================= 沙箱架构 ================= -->
     <section id="sandbox" class="mt-20">
       <div class="flex items-center gap-3 mb-3">
-        <span class="fig-label fade-i">{{ t('sb_label') }}</span>
+        <span class="fig-label fade-i"><span data-t="sb_label">FIG.05 — 插件沙箱</span></span>
         <span class="fig-rule"></span>
       </div>
-      <p class="text-[12px] text-neutral-600 max-w-2xl mb-9 fade-i">{{ t('sb_desc') }}</p>
+      <p class="text-[12px] text-neutral-600 max-w-2xl mb-9 fade-i"><span data-t="sb_desc">每个插件运行在独立 WebContentsView 中：nodeIntegration 关闭、IPC 白名单放行、越权调用直接拒绝。</span></p>
       <div class="flex flex-col md:flex-row items-stretch gap-2">
         <div class="hard lift tilt-l p-6 flex-1">
-          <div class="text-[10px] font-extrabold tracking-[.15em] border-b-2 border-black pb-2 mb-3 fade-i">{{ t('sb1t') }}</div>
+          <div class="text-[10px] font-extrabold tracking-[.15em] border-b-2 border-black pb-2 mb-3 fade-i"><span data-t="sb1t">主进程</span></div>
           <div class="text-[11.5px] leading-[1.9] text-neutral-800">plugin-manager.ts<br>plugin-view-manager.ts<br>command-registry.ts<br>settings-store.ts</div>
         </div>
         <div class="dash-arrow hidden md:block"></div>
         <div class="hard lift p-6 flex-1">
-          <div class="text-[10px] font-extrabold tracking-[.15em] border-b-2 border-black pb-2 mb-3 fade-i">{{ t('sb2t') }}</div>
+          <div class="text-[10px] font-extrabold tracking-[.15em] border-b-2 border-black pb-2 mb-3 fade-i"><span data-t="sb2t">IPC 桥</span></div>
           <div class="text-[11.5px] leading-[1.9] text-neutral-800">contextBridge<br>channel: 'plugin-api'<br>methods: [exec, get]<br>whitelist: <b>true</b></div>
         </div>
         <div class="dash-arrow hidden md:block"></div>
         <div class="hard lift tilt-r p-6 flex-1 bg-black text-white shadow-[4px_4px_0_rgba(0,0,0,.35)]">
-          <div class="text-[10px] font-extrabold tracking-[.15em] border-b-2 border-white pb-2 mb-3 fade-i">{{ t('sb3t') }}</div>
+          <div class="text-[10px] font-extrabold tracking-[.15em] border-b-2 border-white pb-2 mb-3 fade-i"><span data-t="sb3t">插件沙箱</span></div>
           <div class="text-[11.5px] leading-[1.9]">WebContentsView<br>sandbox: <b>true</b><br>nodeIntegration: <b>false</b><br>preload: plugin-preload.mjs</div>
         </div>
       </div>
     </section>
+
+    <!-- ================= 架构优势对比 (Why RASSO) ================= -->
+    <section id="compare" class="mt-20">
+      <div class="flex items-center gap-3 mb-3">
+        <span class="fig-label fade-i"><span data-t="comp_label">FIG.06 — 架构优势对比</span></span>
+        <span class="fig-rule"></span>
+      </div>
+      <p class="text-[12px] text-neutral-600 max-w-2xl mb-7 fade-i">
+        <span data-t="comp_desc">为什么需要现代沙箱？对比传统插件启动器与 RASSO 在进程隔离、通信安全与隐私边界上的本质区别。</span>
+      </p>
+
+      <div class="hard overflow-x-auto shadow-[4px_4px_0_#000]">
+        <table class="w-full text-left border-collapse min-w-[620px]">
+          <thead>
+            <tr class="border-b-[2.5px] border-black bg-neutral-100 text-[11px] font-extrabold tracking-wider">
+              <th class="p-3.5 border-r-2 border-black w-1/4"><span data-t="comp_dim">对比维度</span></th>
+              <th class="p-3.5 border-r-2 border-black w-3/8 text-neutral-600"><span data-t="comp_legacy">传统方案 (Legacy Launchers)</span></th>
+              <th class="p-3.5 bg-black text-white w-3/8"><span data-t="comp_rasso">RASSO 架构 (Next-Gen)</span></th>
+            </tr>
+          </thead>
+          <tbody class="text-[12px] font-bold divide-y-2 divide-black">
+            <tr class="hover:bg-neutral-50 transition-colors">
+              <td class="p-3.5 border-r-2 border-black font-extrabold"><span data-t="comp_r1_t">运行容器</span></td>
+              <td class="p-3.5 border-r-2 border-black text-neutral-600 font-normal"><span data-t="comp_r1_l">主进程混跑 / 开启 NodeIntegration / 普通 Webview 易内存泄露</span></td>
+              <td class="p-3.5 bg-neutral-900 text-neutral-100"><span data-t="comp_r1_r">独立 WebContentsView 强隔离 + 硬件加速独立沙箱进程</span></td>
+            </tr>
+            <tr class="hover:bg-neutral-50 transition-colors">
+              <td class="p-3.5 border-r-2 border-black font-extrabold"><span data-t="comp_r2_t">通信安全</span></td>
+              <td class="p-3.5 border-r-2 border-black text-neutral-600 font-normal"><span data-t="comp_r2_l">开放全双工 IPC / 插件可直接调用任意 Node.js 原生底层模块</span></td>
+              <td class="p-3.5 bg-neutral-900 text-neutral-100"><span data-t="comp_r2_r">严格 contextBridge 管道白名单 + 最小权限按需声明机制</span></td>
+            </tr>
+            <tr class="hover:bg-neutral-50 transition-colors">
+              <td class="p-3.5 border-r-2 border-black font-extrabold"><span data-t="comp_r3_t">隐私与追踪</span></td>
+              <td class="p-3.5 border-r-2 border-black text-neutral-600 font-normal"><span data-t="comp_r3_l">商业闭源 / 强制绑定账号 / 上传用户输入与击键遥测数据</span></td>
+              <td class="p-3.5 bg-neutral-900 text-neutral-100"><span data-t="comp_r3_r">100% 本地开源 · MIT 协议 · 零网络遥测 · 零数据回传</span></td>
+            </tr>
+            <tr class="hover:bg-neutral-50 transition-colors">
+              <td class="p-3.5 border-r-2 border-black font-extrabold"><span data-t="comp_r4_t">常驻开销</span></td>
+              <td class="p-3.5 border-r-2 border-black text-neutral-600 font-normal"><span data-t="comp_r4_l">常驻后台占用 100MB+ 内存，冷启动有明显卡顿与延迟</span></td>
+              <td class="p-3.5 bg-neutral-900 text-neutral-100"><span data-t="comp_r4_r">42ms 瞬时冷启动 · 28MB RSS 后台轻量驻留</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ================= 开发者快速上手 (Quickstart for Plugins) ================= -->
+    <section id="quickstart" class="mt-20">
+      <div class="flex items-center gap-3 mb-3">
+        <span class="fig-label fade-i"><span data-t="dev_label">FIG.07 — 插件开发指南</span></span>
+        <span class="fig-rule"></span>
+      </div>
+      <p class="text-[12px] text-neutral-600 max-w-2xl mb-7 fade-i">
+        <span data-t="dev_desc">无需学习复杂的私有 DSL。基于标准 Web 规范与现代前端生态，只需 3 步即可构建原生级启动器插件。</span>
+      </p>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <!-- 步骤 1: 声明清单 -->
+        <div class="hard lift p-5 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between border-b-2 border-black pb-2 mb-3">
+              <span class="text-[12px] font-extrabold"><span data-t="dev_s1_t">01 / 声明清单</span></span>
+              <span class="key-chip">plugin.json</span>
+            </div>
+            <p class="text-[11.5px] text-neutral-600 mb-3"><span data-t="dev_s1_d">配置插件名称、入口主页面、唤起关键字（cmds）与匹配交互模式。</span></p>
+          </div>
+          <div class="bg-black text-emerald-400 p-3 rounded font-mono text-[10.5px] leading-relaxed overflow-x-auto">
+<pre>{
+  "name": "my-tool",
+  "pluginName": "快捷百宝箱",
+  "main": "index.html",
+  "features": [{
+    "code": "box",
+    "cmds": ["tool", "工具"]
+  }]
+}</pre>
+          </div>
+        </div>
+
+        <!-- 步骤 2: 编写 UI -->
+        <div class="hard lift p-5 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between border-b-2 border-black pb-2 mb-3">
+              <span class="text-[12px] font-extrabold"><span data-t="dev_s2_t">02 / 编写前端 UI</span></span>
+              <span class="key-chip">Vue / React / HTML</span>
+            </div>
+            <p class="text-[11.5px] text-neutral-600 mb-3"><span data-t="dev_s2_d">自由选用熟悉的前端技术栈，无需依赖定制编译器，支持任意样式库。</span></p>
+          </div>
+          <div class="bg-black text-cyan-300 p-3 rounded font-mono text-[10.5px] leading-relaxed overflow-x-auto">
+<pre>&lt;div id="root"&gt;
+  &lt;input class="input"
+    placeholder="输入参数..." /&gt;
+  &lt;button onclick="convert()"&gt;
+    执行转换
+  &lt;/button&gt;
+&lt;/div&gt;</pre>
+          </div>
+        </div>
+
+        <!-- 步骤 3: 权限与 API -->
+        <div class="hard lift p-5 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between border-b-2 border-black pb-2 mb-3">
+              <span class="text-[12px] font-extrabold"><span data-t="dev_s3_t">03 / 调用沙箱 API</span></span>
+              <span class="key-chip">window.rubick</span>
+            </div>
+            <p class="text-[11.5px] text-neutral-600 mb-3"><span data-t="dev_s3_d">通过 contextBridge 安全通道写入剪贴板、发起截图或与主应用协同。</span></p>
+          </div>
+          <div class="bg-black text-amber-300 p-3 rounded font-mono text-[10.5px] leading-relaxed overflow-x-auto">
+<pre>// 安全写入剪贴板并退出
+window.rubick.copyText(result);
+window.rubick.showToast("已复制");
+window.rubick.outPlugin();</pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-4 mt-6">
+        <a href="https://github.com/hanhanpig3/rasso" target="_blank"
+           class="hard lift press px-4 py-2.5 bg-black text-white text-[12px] font-extrabold inline-flex items-center gap-2 touch-manipulation">
+          <span class="fade-i"><span data-t="dev_doc_btn">查阅完整插件开发文档</span></span> ↗
+        </a>
+        <a href="https://github.com/hanhanpig3/rasso/tree/master/apps/desktop/plugins" target="_blank"
+           class="hard lift press px-4 py-2.5 text-[12px] font-extrabold inline-flex items-center gap-2 touch-manipulation">
+          <span class="fade-i"><span data-t="dev_tpl_btn">获取官方 Starter 模板与样例</span></span> ↗
+        </a>
+      </div>
+    </section>
+
   </main>
 
   <!-- ================= FOOTER ================= -->
   <footer class="bg-black text-white">
     <div class="max-w-6xl mx-auto px-5 py-7 flex flex-wrap gap-4 items-center justify-between text-[12px] font-bold">
       <span class="display text-[15px]">RASSO<span class="inline-block w-2.5 h-2.5 bg-white ml-1.5"></span>
-        <span class="font-mono font-bold text-[12px] ml-3 opacity-80 fade-i">{{ t('foot_l') }}</span></span>
-      <span class="opacity-80 fade-i">{{ t('foot_r') }} · © 2026</span>
+        <span class="font-mono font-bold text-[12px] ml-3 opacity-80 fade-i"><span data-t="foot_l">拉索 — 面向高频键盘操作者的桌面启动器</span></span></span>
+      <span class="opacity-80 fade-i"><span data-t="foot_r">MIT · Electron 30 · React 18</span> · © 2026</span>
     </div>
   </footer>
 </div>
@@ -704,24 +853,33 @@ const { createApp, ref, computed, watch, onMounted } = Vue;
 
 /* ---------- i18n 词典 ---------- */
 const T = {
-  nav_map:{zh:'系统图',en:'SYSTEM'}, nav_flow:{zh:'工作流',en:'FLOW'},
+  nav_map:{zh:'系统图',en:'SYSTEM'},
+  nav_flow:{zh:'工作流',en:'FLOW'},
   nav_live:{zh:'实机预览',en:'LIVE'},
-  nav_keys:{zh:'快捷键',en:'KEYS'}, nav_sandbox:{zh:'沙箱',en:'SANDBOX'},
-  nav_demo:{zh:'演示',en:'DEMO'}, nav_dl:{zh:'下载 v0.1.0',en:'GET v0.1.0'},
+  nav_keys:{zh:'快捷键',en:'KEYS'},
+  nav_sandbox:{zh:'沙箱',en:'SANDBOX'},
+  nav_demo:{zh:'演示',en:'DEMO'},
+  nav_dl:{zh:'下载 v0.1.0',en:'GET v0.1.0'},
   kicker:{zh:'插件启动器 · 键盘优先 · v0.1.0',en:'PLUGIN LAUNCHER · KEYBOARD-FIRST · v0.1.0'},
   hero_cn:{zh:'拉索 — 极客蓝图',en:'RASSO — BLUEPRINT'},
   hero_sub:{zh:'键盘驱动的桌面插件启动器。',en:'The keyboard-driven desktop plugin launcher.'},
   hero_desc:{zh:'Alt+Space 全局唤起，10 款自研插件开箱即用；意图直达执行，全程不碰鼠标。',en:'Summon with Alt+Space. 10 hand-built plugins out of the box — intent in, result out, mouse untouched.'},
-  cta_dl:{zh:'下载 Windows 版',en:'Download for Windows'}, cta_src:{zh:'查看源码',en:'View Source'},
-  chip_tests:{zh:'178 项测试全绿',en:'178 tests green'}, chip_mit:{zh:'MIT 开源',en:'MIT licensed'},
+  cta_dl:{zh:'下载 Windows 版',en:'Download for Windows'},
+  cta_src:{zh:'查看源码',en:'View Source'},
+  chip_tests:{zh:'178 项测试全绿',en:'178 tests green'},
+  chip_mit:{zh:'MIT 开源',en:'MIT licensed'},
   chip_stack:{zh:'Electron 30 内核',en:'Electron 30 core'},
   fig1:{zh:'FIG.01 — 系统结构图',en:'FIG.01 — SYSTEM MAP'},
   fig_hint:{zh:'点击微内核架构解构 · 便签支持自由拖拽',en:'Click kernel to expand architecture · Draggable notes'},
   core:{zh:'微内核',en:'MICRO-KERNEL'},
-  p_coder:{zh:'编码转换',en:'Coder'}, p_varname:{zh:'变量命名',en:'VarName'},
-  p_snip:{zh:'截图',en:'Snip'}, p_ocr:{zh:'OCR 识别',en:'OCR'},
-  p_qr:{zh:'二维码',en:'QR Code'}, p_fmt:{zh:'格式化',en:'Format'},
-  p_regex:{zh:'正则',en:'RegExp'}, p_memo:{zh:'备忘',en:'Memo'},
+  p_coder:{zh:'编码转换',en:'Coder'},
+  p_varname:{zh:'变量命名',en:'VarName'},
+  p_snip:{zh:'截图',en:'Snip'},
+  p_ocr:{zh:'OCR 识别',en:'OCR'},
+  p_qr:{zh:'二维码',en:'QR Code'},
+  p_fmt:{zh:'格式化',en:'Format'},
+  p_regex:{zh:'正则',en:'RegExp'},
+  p_memo:{zh:'备忘',en:'Memo'},
   n_tests:{zh:'178/178 单测通过',en:'178/178 tests passing'},
   n_hotkey:{zh:'Alt+Space 唤起',en:'Alt+Space summon'},
   n_morph:{zh:'56px ⇄ 600px 三态变形',en:'56px ⇄ 600px morphing'},
@@ -729,11 +887,16 @@ const T = {
   n_demo:{zh:'实机动画演示 ↗',en:'Live demo ↗'},
   wf_label:{zh:'FIG.02 — 命令工作流',en:'FIG.02 — COMMAND FLOW'},
   wf_desc:{zh:'五步全键盘链路——这是每次使用 Rasso 的完整路径，42ms 冷启动为实测数据。',en:'A five-step, all-keyboard chain — the complete path of every Rasso session. 42ms cold start is measured.'},
-  wf1a:{zh:'唤起',en:'Summon'}, wf1d:{zh:'42ms 冷启动',en:'42ms cold start'},
-  wf2a:{zh:'输入',en:'Query'}, wf2d:{zh:'拼音 + 模糊匹配',en:'pinyin + fuzzy match'},
-  wf3a:{zh:'选择',en:'Select'}, wf3d:{zh:'键盘导航',en:'keyboard navigation'},
-  wf4a:{zh:'执行',en:'Execute'}, wf4d:{zh:'打开插件 UI',en:'open plugin UI'},
-  wf5a:{zh:'收起',en:'Dismiss'}, wf5d:{zh:'失焦即隐',en:'blur to hide'},
+  wf1a:{zh:'唤起',en:'Summon'},
+  wf1d:{zh:'42ms 冷启动',en:'42ms cold start'},
+  wf2a:{zh:'输入',en:'Query'},
+  wf2d:{zh:'拼音 + 模糊匹配',en:'pinyin + fuzzy match'},
+  wf3a:{zh:'选择',en:'Select'},
+  wf3d:{zh:'键盘导航',en:'keyboard navigation'},
+  wf4a:{zh:'执行',en:'Execute'},
+  wf4d:{zh:'打开插件 UI',en:'open plugin UI'},
+  wf5a:{zh:'收起',en:'Dismiss'},
+  wf5d:{zh:'失焦即隐',en:'blur to hide'},
   term_title:{zh:'构建日志',en:'build.log'},
   scope_title:{zh:'性能监视器',en:'PERF MONITOR'},
   scope_rtt:{zh:'IPC 往返延迟',en:'IPC round-trip'},
@@ -749,18 +912,55 @@ const T = {
   sys_dl:{zh:'下载完整版',en:'Download the app'},
   sc_label:{zh:'FIG.04 — 快捷键清单',en:'FIG.04 — SHORTCUT SHEET'},
   sc_desc:{zh:'全局热键注册在系统层；窗口唤起后另有插件级快捷键组，均可在设置中自定义覆盖。',en:'Global hotkeys register at the OS layer; plugin-level shortcuts apply while active — all overridable in settings.'},
-  th_k:{zh:'键位',en:'KEY'}, th_f:{zh:'功能',en:'FUNCTION'}, th_c:{zh:'作用域',en:'SCOPE'},
-  s1f:{zh:'唤起 / 隐藏启动器',en:'Toggle launcher'}, s2f:{zh:'全屏截图',en:'Full screenshot'},
-  s3f:{zh:'贴图到桌面',en:'Pin image to desktop'}, s4f:{zh:'插件市场',en:'Plugin market'},
-  s5f:{zh:'主题轮转',en:'Cycle theme'}, s6f:{zh:'分层逐级退出',en:'Layered exit'},
-  c_global:{zh:'全局',en:'Global'}, c_active:{zh:'窗口唤起时',en:'When active'},
+  th_k:{zh:'键位',en:'KEY'},
+  th_f:{zh:'功能',en:'FUNCTION'},
+  th_c:{zh:'作用域',en:'SCOPE'},
+  s1f:{zh:'唤起 / 隐藏启动器',en:'Toggle launcher'},
+  s2f:{zh:'全屏截图',en:'Full screenshot'},
+  s3f:{zh:'贴图到桌面',en:'Pin image to desktop'},
+  s4f:{zh:'插件市场',en:'Plugin market'},
+  s5f:{zh:'主题轮转',en:'Cycle theme'},
+  s6f:{zh:'分层逐级退出',en:'Layered exit'},
+  c_global:{zh:'全局',en:'Global'},
+  c_active:{zh:'窗口唤起时',en:'When active'},
   sb_label:{zh:'FIG.05 — 插件沙箱',en:'FIG.05 — PLUGIN SANDBOX'},
   sb_desc:{zh:'每个插件运行在独立 WebContentsView 中：nodeIntegration 关闭、IPC 白名单放行、越权调用直接拒绝。',en:'Each plugin runs in an isolated WebContentsView: nodeIntegration off, IPC whitelisted, over-privileged calls rejected.'},
-  sb1t:{zh:'主进程',en:'MAIN PROCESS'}, sb2t:{zh:'IPC 桥',en:'IPC BRIDGE'}, sb3t:{zh:'插件沙箱',en:'PLUGIN SANDBOX'},
+  sb1t:{zh:'主进程',en:'MAIN PROCESS'},
+  sb2t:{zh:'IPC 桥',en:'IPC BRIDGE'},
+  sb3t:{zh:'插件沙箱',en:'PLUGIN SANDBOX'},
   foot_l:{zh:'拉索 — 面向高频键盘操作者的桌面启动器',en:'Rasso — Keyboard-first desktop launcher for developers'},
   foot_r:{zh:'MIT · Electron 30 · React 18',en:'MIT · Electron 30 · React 18'},
+  nav_compare:{zh:'架构对比',en:'COMPARE'},
+  nav_dev:{zh:'插件开发',en:'DEV'},
+  touch_mode_hint:{zh:'触控体验模式 · 点击条目即可直接试用插件',en:'Touch Preview Mode · Tap item to try'},
+  comp_label:{zh:'FIG.06 — 架构优势对比',en:'FIG.06 — ARCHITECTURE COMPARISON'},
+  comp_desc:{zh:'为什么需要现代沙箱？对比传统插件启动器与 RASSO 在进程隔离、通信安全与隐私边界上的本质区别。',en:'Why a modern sandbox? Comparing legacy launcher architectures with RASSO across process isolation, communication security, and privacy boundaries.'},
+  comp_dim:{zh:'对比维度',en:'DIMENSION'},
+  comp_legacy:{zh:'传统方案 (Legacy Launchers)',en:'LEGACY LAUNCHERS'},
+  comp_rasso:{zh:'RASSO 架构 (Next-Gen)',en:'RASSO ARCHITECTURE'},
+  comp_r1_t:{zh:'运行容器',en:'Runtime Container'},
+  comp_r1_l:{zh:'主进程混跑 / 开启 NodeIntegration / 普通 Webview 易内存泄露',en:'Main process co-execution / NodeIntegration enabled / plain Webview prone to leaks'},
+  comp_r1_r:{zh:'独立 WebContentsView 强隔离 + 硬件加速独立沙箱进程',en:'Isolated WebContentsView strong isolation + HW-accelerated sandbox process'},
+  comp_r2_t:{zh:'通信安全',en:'IPC Security'},
+  comp_r2_l:{zh:'开放全双工 IPC / 插件可直接调用任意 Node.js 原生底层模块',en:'Open full-duplex IPC / plugins can invoke arbitrary native Node.js APIs'},
+  comp_r2_r:{zh:'严格 contextBridge 管道白名单 + 最小权限按需声明机制',en:'Strict contextBridge whitelist + declared minimal permission model'},
+  comp_r3_t:{zh:'隐私与追踪',en:'Privacy & Telemetry'},
+  comp_r3_l:{zh:'商业闭源 / 强制绑定账号 / 上传用户输入与击键遥测数据',en:'Proprietary cloud / mandatory login / telemetry on keystrokes and inputs'},
+  comp_r3_r:{zh:'100% 本地开源 · MIT 协议 · 零网络遥测 · 零数据回传',en:'100% local open-source · MIT licensed · zero telemetry · zero data upload'},
+  comp_r4_t:{zh:'常驻开销',en:'Memory & Speed'},
+  comp_r4_l:{zh:'常驻后台占用 100MB+ 内存，冷启动有明显卡顿与延迟',en:'100MB+ resident RAM, noticeable cold-start latency'},
+  comp_r4_r:{zh:'42ms 瞬时冷启动 · 28MB RSS 后台轻量驻留',en:'42ms cold start · 28MB RSS ultra-lean background footprint'},
+  dev_label:{zh:'FIG.07 — 插件开发指南',en:'FIG.07 — PLUGIN QUICKSTART'},
+  dev_desc:{zh:'无需学习复杂的私有 DSL。基于标准 Web 规范与现代前端生态，只需 3 步即可构建原生级启动器插件。',en:'Zero proprietary DSL. Built on standard Web tech and modern frontend stacks — create native-grade plugins in just 3 steps.'},
+  dev_s1_t:{zh:'01 / 声明清单',en:'01 / MANIFEST CONFIG'},
+  dev_s1_d:{zh:'配置插件名称、入口主页面、唤起关键字（cmds）与匹配交互模式。',en:'Declare plugin metadata, entry point, summon commands, and match rules.'},
+  dev_s2_t:{zh:'02 / 编写前端 UI',en:'02 / BUILD FRONTEND UI'},
+  dev_s2_d:{zh:'自由选用熟悉的前端技术栈，无需依赖定制编译器，支持任意样式库。',en:'Use Vue, React, or vanilla HTML — reuse your favorite UI components.'},
+  dev_s3_t:{zh:'03 / 调用沙箱 API',en:'03 / CALL SANDBOX API'},
+  dev_s3_d:{zh:'通过 contextBridge 安全通道写入剪贴板、发起截图或与主应用协同。',en:'Safely access clipboard, trigger screenshot, or listen to sub-input.'},
+  dev_doc_btn:{zh:'查阅完整插件开发文档',en:'Read Developer Handbook'},
+  dev_tpl_btn:{zh:'获取官方 Starter 模板与样例',en:'Get Starter Template'},
 };
-
 /* 终端日志（双语） */
 const LINES = [
   {zh:'[启动] rasso v0.1.0 · electron 30',en:'[boot] rasso v0.1.0 · electron 30'},
@@ -774,14 +974,37 @@ const LINES = [
 
 createApp({
   setup(){
-    const lang = ref('zh');
+    // i18n 状态持久化 (从 localStorage 恢复，优先系统偏好)
+    const savedLang = typeof localStorage !== 'undefined' ? localStorage.getItem('rasso_lang') : null;
+    const defaultLang = savedLang || (typeof navigator !== 'undefined' && navigator.language && navigator.language.startsWith('en') ? 'en' : 'zh');
+    const lang = ref(defaultLang);
     const switching = ref(false);
     const t = k => (T[k] ? T[k][lang.value] : k);
+
+    function updateI18nElements(l) {
+      if (typeof document === 'undefined') return;
+      document.querySelectorAll('[data-t]').forEach(el => {
+        const k = el.getAttribute('data-t');
+        if (T[k] && T[k][l]) {
+          el.textContent = T[k][l];
+        }
+      });
+    }
 
     function setLang(l){
       if(l === lang.value) return;
       switching.value = true;
-      setTimeout(()=>{ lang.value = l; switching.value = false; }, 175);
+      lang.value = l;
+      try { localStorage.setItem('rasso_lang', l); } catch(e){}
+      updateI18nElements(l);
+      setTimeout(()=>{ switching.value = false; }, 160);
+    }
+
+    // 移动端与触控环境检测
+    const isMobile = ref(false);
+    function updateMobileState() {
+      if (typeof window === 'undefined') return;
+      isMobile.value = window.innerWidth < 768 || (('ontouchstart' in window || navigator.maxTouchPoints > 0) && window.innerWidth < 1024);
     }
 
     /* ---------- 画布：芯片引爆 ---------- */
@@ -1223,6 +1446,10 @@ createApp({
     ];
 
     onMounted(()=>{
+      updateMobileState();
+      updateI18nElements(lang.value);
+      window.addEventListener('resize', updateMobileState);
+      window.addEventListener('orientationchange', updateMobileState);
       setTimeout(explode, 900);          // 进场自动引爆一次
       resetTerm();
       window.addEventListener('keydown', e=>{ if(e.key==='Escape' && opened.value){ opened.value = null; query.value=''; } });
@@ -1231,7 +1458,7 @@ createApp({
       else { /* 静态画一条 */ if(wave.value) wave.value.setAttribute('d','M0 60 L260 60'); }
     });
 
-    return { lang, switching, t, setLang, NODES, nodePos, boom, explode, hoverBoom,
+    return { lang, switching, t, setLang, isMobile, NODES, nodePos, boom, explode, hoverBoom,
              notes, dragId, noteDown, doneLines, curLine, wave, dot, rtt, WF, SHEET,
              ICONS, PLUGINS, query, opened, selIdx, filtered, moveSel, openPlugin, openSelected, exitPlugin,
              flash, doCopy, coderTabs, coderTab, coderIn, coderOut, coderSt, tsIn, tsRes, dateIn, dateRes,
