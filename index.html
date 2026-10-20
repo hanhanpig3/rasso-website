@@ -290,7 +290,7 @@
             class="px-2 md:px-2.5 py-1.5 text-[11px] font-extrabold transition-colors min-h-[34px] min-w-[28px] touch-manipulation active:scale-95"
             :class="lang==='en' ? 'bg-black text-white' : 'bg-white hover:bg-neutral-100'">EN</button>
         </div>
-        <a href="https://github.com/hanhanpig3/rasso/releases" target="_blank"
+        <a href="https://github.com/hanhanpig3/rasso-website/releases" target="_blank"
            class="hard hard-thin lift press px-2.5 md:px-3 py-1.5 text-[11px] md:text-[12px] font-extrabold min-h-[36px] flex items-center gap-1 touch-manipulation">
           <span class="fade-i"><span data-t="nav_dl">下载 v0.1.0</span></span> ↓
         </a>
@@ -319,13 +319,9 @@
         <p class="mt-3 text-[13px] leading-relaxed text-neutral-700 max-w-md fade-i"><span data-t="hero_desc">Alt+Space 全局唤起，10 款自研插件开箱即用；意图直达执行，全程不碰鼠标。</span></p>
 
         <div class="flex flex-wrap gap-4 mt-8">
-          <a href="https://github.com/hanhanpig3/rasso/releases" target="_blank"
-             class="hard lift press px-5 py-3 text-[13px] font-extrabold bg-black text-white shadow-[4px_4px_0_rgba(0,0,0,.35)]">
+          <a href="https://github.com/hanhanpig3/rasso-website/releases" target="_blank"
+             class="hard lift press px-5 py-3 text-[13px] font-extrabold bg-black text-white shadow-[4px_4px_0 rgba(0,0,0,.35)]">
             <span class="fade-i"><span data-t="cta_dl">下载 Windows 版</span></span> ↓
-          </a>
-          <a href="https://github.com/hanhanpig3/rasso" target="_blank"
-             class="hard lift press px-5 py-3 text-[13px] font-extrabold">
-            <span class="fade-i"><span data-t="cta_src">查看源码</span></span> ↗
           </a>
         </div>
         <div class="flex flex-wrap gap-2.5 mt-7 text-[11px] font-bold">
@@ -642,7 +638,7 @@
               </div>
               <div class="pn-foot">
                 <span class="fade-i"><span data-t="sys_d">该插件依赖桌面系统能力，仅在 Rasso 桌面应用中可用。</span></span>
-                <a class="pn-btn" href="https://github.com/hanhanpig3/rasso/releases" target="_blank"><span data-t="sys_dl">下载完整版</span> →</a>
+                <a class="pn-btn" href="https://github.com/hanhanpig3/rasso-website/releases" target="_blank"><span data-t="sys_dl">下载完整版</span> →</a>
               </div>
             </div>
           </div>
@@ -838,11 +834,11 @@ window.rubick.outPlugin();</pre>
       </div>
 
       <div class="flex flex-wrap items-center gap-4 mt-6">
-        <a href="https://github.com/hanhanpig3/rasso" target="_blank"
+        <a href="#quickstart" target="_self"
            class="hard lift press px-4 py-2.5 bg-black text-white text-[12px] font-extrabold inline-flex items-center gap-2 touch-manipulation">
           <span class="fade-i"><span data-t="dev_doc_btn">查阅完整插件开发文档</span></span> ↗
         </a>
-        <a href="https://github.com/hanhanpig3/rasso/tree/master/apps/desktop/plugins" target="_blank"
+        <a href="#quickstart" target="_self"
            class="hard lift press px-4 py-2.5 text-[12px] font-extrabold inline-flex items-center gap-2 touch-manipulation">
           <span class="fade-i"><span data-t="dev_tpl_btn">获取官方 Starter 模板与样例</span></span> ↗
         </a>
@@ -878,7 +874,6 @@ const T = {
   hero_sub:{zh:'键盘驱动的桌面插件启动器。',en:'The keyboard-driven desktop plugin launcher.'},
   hero_desc:{zh:'Alt+Space 全局唤起，10 款自研插件开箱即用；意图直达执行，全程不碰鼠标。',en:'Summon with Alt+Space. 10 hand-built plugins out of the box — intent in, result out, mouse untouched.'},
   cta_dl:{zh:'下载 Windows 版',en:'Download for Windows'},
-  cta_src:{zh:'查看源码',en:'View Source'},
   chip_tests:{zh:'178 项测试全绿',en:'178 tests green'},
   chip_mit:{zh:'MIT 开源',en:'MIT licensed'},
   chip_stack:{zh:'Electron 30 内核',en:'Electron 30 core'},
@@ -971,8 +966,8 @@ const T = {
   dev_s2_d:{zh:'自由选用熟悉的前端技术栈，无需依赖定制编译器，支持任意样式库。',en:'Use Vue, React, or vanilla HTML — reuse your favorite UI components.'},
   dev_s3_t:{zh:'03 / 调用沙箱 API',en:'03 / CALL SANDBOX API'},
   dev_s3_d:{zh:'通过 contextBridge 安全通道写入剪贴板、发起截图或与主应用协同。',en:'Safely access clipboard, trigger screenshot, or listen to sub-input.'},
-  dev_doc_btn:{zh:'查阅完整插件开发文档',en:'Read Developer Handbook'},
-  dev_tpl_btn:{zh:'获取官方 Starter 模板与样例',en:'Get Starter Template'},
+  dev_doc_btn:{zh:'查阅插件开发指南',en:'Read Plugin Guide'},
+  dev_tpl_btn:{zh:'浏览插件范式与示例',en:'Browse Plugin Patterns'},
 };
 /* 终端日志（双语） */
 const LINES = [
